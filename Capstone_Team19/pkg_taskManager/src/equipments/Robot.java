@@ -63,4 +63,8 @@ public class Robot implements Runnable {
     public void setBattery(double value) {
         battery = value;
     }
+
+
+
 }
+

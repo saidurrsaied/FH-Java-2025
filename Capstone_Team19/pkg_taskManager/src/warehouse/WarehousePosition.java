@@ -14,15 +14,15 @@ public class WarehousePosition {
 
     @Override
     public String toString() {
-        return "(" + x + "," + y + ")";
+        return "X=" + x + " , Y= " + y ;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof WarehousePosition)) return false;
-        WarehousePosition other = (WarehousePosition) obj;
-        return this.x == other.x && this.y == other.y;
+        WarehousePosition position = (WarehousePosition) obj;
+        return this.x == position.x && this.y == position.y;
     }
 
     @Override

@@ -7,6 +7,7 @@ public class Stock implements Task {
     private final String itemName;
     private final WarehousePosition unloadingArea;
     private final WarehousePosition shelfLocation;
+    //ADD Quantity
     private boolean completed = false;
 
     public Stock(String itemName, WarehousePosition unloadingArea, WarehousePosition shelfLocation) {
