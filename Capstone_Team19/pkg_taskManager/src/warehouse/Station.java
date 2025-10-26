@@ -1,18 +1,18 @@
 package warehouse;
 
-public class Station implements Locatable {
+import java.awt.*;
+
+public class Station extends WarehouseObject implements Locatable {
     private final String stationName;
-    private final WarehousePosition location;
     private boolean isAvailable;
 
-    public Station(String name,  WarehousePosition location) {
+    public Station(String name, String id,  int x, int y, int stationWidth, int stationLength) {
+        super(id, x, y, stationWidth, stationLength);
         this.stationName = name;
-        this.location = location;
         this.isAvailable = true;
     }
 
 
-    public WarehousePosition getLocation() {return location;}
     public boolean isAvailable() { return isAvailable; }
     public void setOccupied() { this.isAvailable = false; }
     public void setFree() { this.isAvailable = true; }
@@ -22,7 +22,7 @@ public class Station implements Locatable {
 
     @Override
     public String toString() {
-        return super.toString() + (isAvailable ? " (Occupied)" : "(Free)");
+        return  "ID:" + super.getId() + (this.isAvailable ? "  is Available" : " is Occupied") +  super.getOccupiedArea().x + " " + super.getOccupiedArea().y;
     }
 
 

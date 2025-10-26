@@ -20,4 +20,6 @@ public abstract class WarehouseObject {
     public void updateLocation(Point newLocation) { this.location = newLocation; }
     public void updateOccupiedArea(Rectangle newArea) { this.occupiedArea = newArea; }
 
+    public abstract String toString();
 }
+

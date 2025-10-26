@@ -1,27 +1,42 @@
-import equipments.ChargingStation;
-import equipments.Robot;
-import taskManager.Order;
-import taskManager.Stock;
-import warehouse.WarehousePosition;
+import warehouse.*;
 
 public class Main {
-
     public static void main(String[] args) {
-        ChargingStation station = new ChargingStation();
-        Robot robot1 = new Robot("Shuttle-1", station);
-        Robot robot2 = new Robot("Shuttle-2", station);
 
-        new Thread(robot1).start();
-        new Thread(robot2).start();
+        WarehouseManager manager = new WarehouseManager(1000, 1000);
 
-        WarehousePosition shelfA = new WarehousePosition(5, 10);
-        WarehousePosition shelfB = new WarehousePosition(8, 15);
-        WarehousePosition packingStation = new WarehousePosition(0, 0);
-        WarehousePosition unloading = new WarehousePosition(2, 3);
+        // Create warehouse floor objects
+        StorageShelf shelfA = new StorageShelf("SHELF-1", 50, 50, 40, 20);
+        StorageShelf shelfB = new StorageShelf("SHELF-2", 120, 50, 40, 20);
+        Station packStation = new Station("Packing Station 1", "PS1", 300, 60, 60, 40);
 
-        Order order1 = new Order("Widget", shelfA, 5, packingStation);
-        robot1.addTask(order1);
-        robot2.addTask(new Stock("Gadget", unloading, shelfB));
+        manager.addObjectToFloor(shelfA);
+        manager.addObjectToFloor(shelfB);
+        manager.addObjectToFloor(packStation);
 
+        //Create inventory
+        Product apple = new Product("Apple", "P-001");
+        Product banana = new Product("Banana", "P-002");
+        manager.addProductToInventory(apple, 10, "SHELF-1");
+        manager.addProductToInventory(banana, 5, "SHELF-2");
+
+
+        System.out.println("Apple available: " + manager.getProductQuantity("P-001"));
+        System.out.println("Banana available: " + manager.getProductQuantity("P-002"));
+        System.out.println("Apple in stock? " + manager.isProductInStock("P-001"));
+
+        // Increase/decrease
+        manager.increaseProductQuantity("P-001", 3);
+        manager.decreaseProductQuantity("P-002", 2);
+        System.out.println("Apple available: " + manager.getProductQuantity("P-001")
+                + ", Banana available: " + manager.getProductQuantity("P-002"));
+
+        // Remove a product
+        //manager.removeProductFromInventory("G-002");
+        //System.out.println("Removed Gadget. Widget still in stock? " + manager.isProductInStock("W-001"));
+
+        // View read-only collections
+        System.out.println("Inventory overview: " + manager.getInventory());
+        System.out.println("Floor overview: " + manager.getFloorOverview());
     }
 }

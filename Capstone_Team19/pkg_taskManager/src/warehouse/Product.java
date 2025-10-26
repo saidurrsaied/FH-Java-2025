@@ -1,30 +1,24 @@
 package warehouse;
 
-public class Product implements Locatable {
+import java.awt.*;
+
+public class Product  {
     private final String productName;
-    private WarehousePosition productLocation;
-    private int availableQuantity;
+    private final String productID;
 
 
-    public Product(String productName, WarehousePosition productLocation, int initialStock) {
+    public Product(String productName, String productID) {
         this.productName = productName;
-        this.productLocation = productLocation;
-        this.availableQuantity = initialStock;
+        this.productID = productID;
     }
 
-
-    public WarehousePosition getLocation() { return productLocation; }
-    public boolean isAvailable() { return availableQuantity > 0; }
     public String getProductName() { return productName; }
-    public void setProductLocation(WarehousePosition newLocation) { productLocation = newLocation; }
-    public int getAvailableQuantity() { return availableQuantity; }
-    public void addStock(int stockQuantity) { availableQuantity += stockQuantity; }
-    public void removeStock(int quantity) { availableQuantity -= quantity; }
+    public String getProductID() { return productID; }
 
 
     @Override
     public String toString() {
-        return productName + " at " + productLocation + " (" + availableQuantity + ")";
+        return productName + " with ID: " + productID;
     }
 
 }
