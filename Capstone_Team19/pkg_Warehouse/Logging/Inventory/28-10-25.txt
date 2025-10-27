@@ -1,0 +1,10 @@
+[INFO][28-10-25][00:00:02][Inventory] Item Item1 added to inventory.
+[INFO][28-10-25][00:00:02][Inventory] Item Item2 ordered for restocking.
+[INFO][28-10-25][00:00:05][Inventory] Item Item1 added to inventory.
+[INFO][28-10-25][00:00:05][Inventory] Item Item2 ordered for restocking.
+[INFO][28-10-25][00:00:08][Inventory] Item Item1 added to inventory.
+[INFO][28-10-25][00:00:08][Inventory] Item Item2 ordered for restocking.
+[INFO][28-10-25][00:00:11][Inventory] Item Item1 added to inventory.
+[INFO][28-10-25][00:00:11][Inventory] Item Item2 ordered for restocking.
+[INFO][28-10-25][00:00:14][Inventory] Item Item1 added to inventory.
+[INFO][28-10-25][00:00:14][Inventory] Item Item2 ordered for restocking.

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Polygon?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="471.0" prefWidth="201.0">
+         <children>
+            <Polygon fill="#1f93ff" layoutX="103.0" layoutY="111.0" points="-66.14286804199219, 40.0, 28.428573608398438, 32.57145690917969, -0.9999847412109375, -66.14285278320312" stroke="BLACK" strokeType="INSIDE">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </Polygon>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="201.0" prefHeight="471.0" prefWidth="201.0" />
+      <AnchorPane layoutX="398.0" prefHeight="471.0" prefWidth="201.0" />
+   </children>
+</AnchorPane>
