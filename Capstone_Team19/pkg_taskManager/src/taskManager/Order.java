@@ -1,16 +1,17 @@
 package taskManager;
 
+import java.awt.Point;
 import equipments.Robot;
-import warehouse.WarehousePosition;
+
 
 public class Order implements Task {
     private final String itemName;
-    private final WarehousePosition itemLocation;
+    private final Point itemLocation;
     private final int quantity;
-    private final WarehousePosition packingStation;
+    private final Point packingStation;
     private boolean completed = false;
 
-    public Order(String itemName, WarehousePosition itemLocation, int quantity, WarehousePosition packingStation) {
+    public Order(String itemName, Point itemLocation, int quantity, Point packingStation) {
         this.itemName = itemName;
         this.itemLocation = itemLocation;
         this.quantity = quantity;

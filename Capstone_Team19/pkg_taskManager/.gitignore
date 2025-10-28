@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+.idea/
 
 ### Eclipse ###
 .apt_generated
@@ -15,6 +16,7 @@ out/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+.settings/
 
 ### NetBeans ###
 /nbproject/private/
@@ -28,3 +30,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# === Other ===
+*.tmp
+*.swp

@@ -1,16 +1,18 @@
 package taskManager;
 
 import equipments.Robot;
-import warehouse.WarehousePosition;
+
+
+import java.awt.*;
 
 public class Stock implements Task {
     private final String itemName;
-    private final WarehousePosition unloadingArea;
-    private final WarehousePosition shelfLocation;
+    private final Point unloadingArea;
+    private final Point shelfLocation;
     //ADD Quantity
     private boolean completed = false;
 
-    public Stock(String itemName, WarehousePosition unloadingArea, WarehousePosition shelfLocation) {
+    public Stock(String itemName, Point unloadingArea, Point shelfLocation) {
         this.itemName = itemName;
         this.unloadingArea = unloadingArea;
         this.shelfLocation = shelfLocation;

@@ -1,9 +1,16 @@
+import logger.Logger;
 import warehouse.*;
+import equipments.ChargingStation;
+import equipments.Robot;
+import taskManager.Order;
+
+import java.awt.Point;
 
 public class Main {
     public static void main(String[] args) {
 
         WarehouseManager manager = new WarehouseManager(1000, 1000);
+        Logger dataLogger = new Logger();
 
         // Create warehouse floor objects
         StorageShelf shelfA = new StorageShelf("SHELF-1", 50, 50, 40, 20);
@@ -27,16 +34,30 @@ public class Main {
 
         // Increase/decrease
         manager.increaseProductQuantity("P-001", 3);
+        dataLogger.log_print("INFO","inventory", "Inventory Added New Product");
+
         manager.decreaseProductQuantity("P-002", 2);
         System.out.println("Apple available: " + manager.getProductQuantity("P-001")
                 + ", Banana available: " + manager.getProductQuantity("P-002"));
 
-        // Remove a product
-        //manager.removeProductFromInventory("G-002");
-        //System.out.println("Removed Gadget. Widget still in stock? " + manager.isProductInStock("W-001"));
+
 
         // View read-only collections
         System.out.println("Inventory overview: " + manager.getInventory());
         System.out.println("Floor overview: " + manager.getFloorOverview());
+
+
+        ChargingStation station = new ChargingStation();
+        Robot robot = new Robot("R-1", station);
+
+        // Use WarehouseManager to fetch floor objects and pass their locations to the Order
+        //Point itemLocation = manager.getStorageShelf("SHELF-2").getLocation();
+        //Point packingLocation = manager.getFloorObjectByID("PS1").get().getLocation();
+        Order pickBanana = new Order("Banana", manager.getStorageShelf("SHELF-2").getLocation(), 2, manager.getFloorObjectByID("PS1").get().getLocation());
+
+        dataLogger.log_print("INFO", "robot", "Assigned task to robot: " + pickBanana.getDescription());
+        pickBanana.execute(robot);
+        dataLogger.log_print("INFO", "robot", "Task completed: " + pickBanana.isCompleted());
+
     }
 }

@@ -1,5 +1,8 @@
 package warehouse;
 
+import warehouse.datapackets.InventoryDataPacket;
+import warehouse.datapackets.WarehouseDataPacket;
+
 import java.util.*;
 
 
@@ -18,7 +21,7 @@ public class WarehouseManager {
         this.inventory = new Inventory();
     }
 
-/** Best use provided mutation methods instead of directly using the inventory and the floorManager */
+/**  use provided mutation methods to access inventory and floor */
     public Map<String, InventoryItem> getInventory() {
     return Collections.unmodifiableMap(inventory.getAllItems());
     }
@@ -67,6 +70,10 @@ public class WarehouseManager {
         inventory.decreaseProductQuantity(productID, amount);
     }
 
+    public List<InventoryDataPacket> exportInventoryData(){
+        return inventory.exportInventoryData();
+    }
+
     /**
      * Floor Management Mutation Methods
      * */
@@ -92,5 +99,10 @@ public class WarehouseManager {
 
     public StorageShelf getStorageShelf(String shelfID){
         return floorManager.getStorageShelf(shelfID);
+    }
+
+
+    public List<WarehouseDataPacket> exportFloorData(){
+        return floorManager.exportWarehouseData();
     }
 }

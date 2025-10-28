@@ -3,6 +3,7 @@ package equipments;
 import taskManager.Task;
 import warehouse.WarehousePosition;
 
+import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -10,7 +11,7 @@ public class Robot implements Runnable {
     private final String name;
     private double battery = 100;
     private final ChargingStation station;
-    private WarehousePosition location = new WarehousePosition(0, 0);
+    private Point location = new Point(0, 0);
     private String status = "Idle";
     private final BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>();
 
@@ -22,9 +23,9 @@ public class Robot implements Runnable {
     public String getName() { return name; }
     public void setStatus(String status) { this.status = status; }
     public String getStatus() { return status; }
-    public WarehousePosition getLocation() { return location; }
+    public Point getLocation() { return location; }
 
-    public void moveTo(WarehousePosition target) {
+    public void moveTo(Point target) {
         System.out.println(name + " moving from " + location + " to " + target);
         try {
             Thread.sleep(1000); // simulate travel

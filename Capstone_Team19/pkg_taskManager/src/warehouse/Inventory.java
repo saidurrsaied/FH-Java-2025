@@ -1,8 +1,15 @@
 package warehouse;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.awt.Rectangle;
+import warehouse.datapackets.InventoryDataPacket;
+
+
+
 
 /***
  * Methods:
@@ -110,6 +117,30 @@ public class Inventory {
             return productInventory.get(productID).getQuantity() > 0;
         }
     }
+
+    /**
+     * Method to export the inventory data as a list of InventoryDataPacket objects
+    * */
+    public List<InventoryDataPacket> exportInventoryData() {
+        List<InventoryDataPacket> dataPacket = new ArrayList<>();
+
+        for (InventoryItem item : productInventory.values()) {
+            Product product = item.getProduct();
+            StorageShelf shelf = item.getShelf();
+            Rectangle area = shelf.getOccupiedArea();
+
+            dataPacket.add(new InventoryDataPacket(
+                    product.getProductID(),
+                    product.getProductName(),
+                    item.getQuantity(),
+                    shelf.getId(),
+                    area.x, area.y
+            ));
+        }
+        return dataPacket;
+    }
+
+
 
 
 

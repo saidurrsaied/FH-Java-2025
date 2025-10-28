@@ -1,5 +1,7 @@
 package warehouse;
 
+import warehouse.datapackets.WarehouseDataPacket;
+
 import java.awt.Rectangle;
 import java.util.*;
 
@@ -72,4 +74,25 @@ public class WarehouseFloorManager {
 
 
     }
+
+    /**
+     * Export the warehouse data as a list of WarehouseDataPackets
+     * */
+
+    public List<WarehouseDataPacket> exportWarehouseData() {
+        List<WarehouseDataPacket> dataPacket = new ArrayList<>();
+        for (WarehouseObject obj : objectMap.values()) {
+            Rectangle area = obj.getOccupiedArea();
+            boolean available = (obj instanceof StorageShelf shelf) && shelf.isAvailable();
+
+            dataPacket.add(new WarehouseDataPacket(
+                    obj.getId(),
+                    obj.getClass().getSimpleName(),
+                    area.x, area.y, area.width, area.height,
+                    available
+            ));
+        }
+        return dataPacket;
+    }
+
 }
