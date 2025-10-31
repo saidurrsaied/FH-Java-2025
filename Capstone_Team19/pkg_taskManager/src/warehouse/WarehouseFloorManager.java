@@ -1,6 +1,6 @@
 package warehouse;
 
-import warehouse.datapackets.WarehouseDataPacket;
+import warehouse.datamanager.WarehouseDataPacket;
 
 import java.awt.Rectangle;
 import java.util.*;
@@ -31,17 +31,17 @@ public class WarehouseFloorManager {
     * Add an asset to the warehouse floor if it is not overlapping with any other asset.
     * */
     public boolean addObject(WarehouseObject asset) {
-        Rectangle area = asset.getOccupiedArea();
-        if (!warehouseFloor.contains(area)) {
-            System.out.println("Out of warehouse boundaries");
-        return false;}
-
-        for (WarehouseObject existingObject : objectList) {
-            if (existingObject.getOccupiedArea().intersects(area)) {
-                System.out.println("Overlap detected: " + asset.getId() + " overlaps with " + existingObject.getId());
-                return false;
-            }
-        }
+//        Rectangle area = asset.getOccupiedArea();
+//        if (!warehouseFloor.contains(area)) {
+//            System.out.println("Out of warehouse boundaries");
+//        return false;}
+//
+//        for (WarehouseObject existingObject : objectList) {
+//            if (existingObject.getOccupiedArea().intersects(area)) {
+//                System.out.println("Overlap detected: " + asset.getId() + " overlaps with " + existingObject.getId());
+//                return false;
+//            }
+//        }
 
         objectList.add(asset);
         objectMap.put(asset.getId(), asset);
@@ -82,15 +82,16 @@ public class WarehouseFloorManager {
     public List<WarehouseDataPacket> exportWarehouseData() {
         List<WarehouseDataPacket> dataPacket = new ArrayList<>();
         for (WarehouseObject obj : objectMap.values()) {
-            Rectangle area = obj.getOccupiedArea();
             boolean available = (obj instanceof StorageShelf shelf) && shelf.isAvailable();
 
-            dataPacket.add(new WarehouseDataPacket(
-                    obj.getId(),
-                    obj.getClass().getSimpleName(),
-                    area.x, area.y, area.width, area.height,
-                    available
-            ));
+            dataPacket.add(
+                    new WarehouseDataPacket(
+                        obj.getId(),
+                        obj.getClass().getSimpleName(),
+                        obj.getLocation().x,
+                        obj.getLocation().y,
+                        available)
+                        );
         }
         return dataPacket;
     }

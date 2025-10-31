@@ -1,4 +1,4 @@
-package warehouse.datapackets;
+package warehouse.datamanager;
 
 
 public class InventoryDataPacket {

@@ -20,7 +20,7 @@ public class Logger {
 
     public Logger() {}
 
-    // Static block to initialize log folder based on current date
+    // Static block to initializeInventory log folder based on current date
     static {
         File log = new File("Logging");
         if (!log.exists()) {

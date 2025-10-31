@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.awt.Rectangle;
-import warehouse.datapackets.InventoryDataPacket;
+import warehouse.datamanager.InventoryDataPacket;
 
 
 
@@ -127,14 +127,13 @@ public class Inventory {
         for (InventoryItem item : productInventory.values()) {
             Product product = item.getProduct();
             StorageShelf shelf = item.getShelf();
-            Rectangle area = shelf.getOccupiedArea();
 
             dataPacket.add(new InventoryDataPacket(
                     product.getProductID(),
                     product.getProductName(),
                     item.getQuantity(),
                     shelf.getId(),
-                    area.x, area.y
+                    shelf.getLocation().x, shelf.getLocation().y
             ));
         }
         return dataPacket;

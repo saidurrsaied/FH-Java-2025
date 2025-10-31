@@ -3,61 +3,61 @@ import warehouse.*;
 import equipments.ChargingStation;
 import equipments.Robot;
 import taskManager.Order;
+import warehouse.datamanager.DataFile;
 
 import java.awt.Point;
+import java.io.File;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
+        Logger log = new Logger();
+
+        // Data files
+        File dataDir = new File("data");
+        if (!dataDir.exists() && !dataDir.mkdirs()) {
+            throw new IllegalStateException("Cannot create data directory at: " + dataDir.getAbsolutePath());
+        }
+        String inventoryCsv = new File(dataDir, "inventory.csv").getPath();
+        String floorCsv = new File(dataDir, "warehouse_floor.csv").getPath();
+
+        // --- Initialize warehouse from CSV files ---
         WarehouseManager manager = new WarehouseManager(1000, 1000);
-        Logger dataLogger = new Logger();
+        DataFile.initializeFloor(manager, floorCsv);
+        DataFile.initializeInventory(manager, inventoryCsv);
+        log.log_print("INFO", "inventory", "Loaded warehouse floor and inventory from CSV.");
 
-        // Create warehouse floor objects
-        StorageShelf shelfA = new StorageShelf("SHELF-1", 50, 50, 40, 20);
-        StorageShelf shelfB = new StorageShelf("SHELF-2", 120, 50, 40, 20);
-        Station packStation = new Station("Packing Station 1", "PS1", 300, 60, 60, 40);
-
-        manager.addObjectToFloor(shelfA);
-        manager.addObjectToFloor(shelfB);
-        manager.addObjectToFloor(packStation);
-
-        //Create inventory
-        Product apple = new Product("Apple", "P-001");
-        Product banana = new Product("Banana", "P-002");
-        manager.addProductToInventory(apple, 10, "SHELF-1");
-        manager.addProductToInventory(banana, 5, "SHELF-2");
+        // Print inventory
+        manager.getInventory().forEach((key, value) -> System.out.println(key + ": "+ value.getProduct().getProductName() + ":  " + value.getQuantity()));
 
 
-        System.out.println("Apple available: " + manager.getProductQuantity("P-001"));
-        System.out.println("Banana available: " + manager.getProductQuantity("P-002"));
-        System.out.println("Apple in stock? " + manager.isProductInStock("P-001"));
-
-        // Increase/decrease
-        manager.increaseProductQuantity("P-001", 3);
-        dataLogger.log_print("INFO","inventory", "Inventory Added New Product");
-
-        manager.decreaseProductQuantity("P-002", 2);
-        System.out.println("Apple available: " + manager.getProductQuantity("P-001")
-                + ", Banana available: " + manager.getProductQuantity("P-002"));
-
-
-
-        // View read-only collections
-        System.out.println("Inventory overview: " + manager.getInventory());
-        System.out.println("Floor overview: " + manager.getFloorOverview());
-
-
+        // --- Robot and task simulation ---
         ChargingStation station = new ChargingStation();
         Robot robot = new Robot("R-1", station);
+        Thread robotThread = new Thread(robot, "Robot-R-1");
+        robotThread.setDaemon(true);
+        robotThread.start();
 
-        // Use WarehouseManager to fetch floor objects and pass their locations to the Order
-        //Point itemLocation = manager.getStorageShelf("SHELF-2").getLocation();
-        //Point packingLocation = manager.getFloorObjectByID("PS1").get().getLocation();
-        Order pickBanana = new Order("Banana", manager.getStorageShelf("SHELF-2").getLocation(), 2, manager.getFloorObjectByID("PS1").get().getLocation());
+        // Create order picking task: pick bananas from SHELF-2 to packing station
+        Point pickFrom = manager.getStorageShelf("SHELF2").getLocation();
+        Point deliverTo = manager.getFloorObjectByID("ST01").get().getLocation();
+        Order pickBanana = new Order("Banana", pickFrom, 2, deliverTo);
 
-        dataLogger.log_print("INFO", "robot", "Assigned task to robot: " + pickBanana.getDescription());
+        log.log_print("INFO", "robot", "Assigning: " + pickBanana.getDescription());
         pickBanana.execute(robot);
-        dataLogger.log_print("INFO", "robot", "Task completed: " + pickBanana.isCompleted());
+        log.log_print("INFO", "robot", "Task completed: " + pickBanana.isCompleted());
 
+        // --- Update inventory after task completion ---
+        manager.decreaseProductQuantity("P-002", 2);
+        log.log_print("INFO", "inventory", "Decreased Banana by 2 after pick.");
+
+        // --- Export snapshot again ---
+        String postRunCsv = new File(dataDir, "inventory_post_run.csv").getPath();
+        List<warehouse.datamanager.InventoryDataPacket> after = manager.exportInventoryData();
+        DataFile.exportInventoryToCSV(after, postRunCsv);
+        log.log_print("INFO", "inventory", "Exported post-run inventory to " + postRunCsv);
+
+        System.out.println("Simulation finished. Check Logging/ and data/ folders.");
     }
 }

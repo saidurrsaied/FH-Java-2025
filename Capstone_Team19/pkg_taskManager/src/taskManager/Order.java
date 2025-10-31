@@ -39,7 +39,7 @@ public class Order implements Task {
 
     @Override
     public String getDescription() {
-        return "PickOrder[" + itemName + " x" + quantity + " from " + itemLocation + " to packing station]";
+        return "PickOrder[" + itemName + " x" + quantity + " from " + itemLocation.toString() + " to packing station]";
     }
 
     @Override

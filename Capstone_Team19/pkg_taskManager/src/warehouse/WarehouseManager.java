@@ -1,7 +1,7 @@
 package warehouse;
 
-import warehouse.datapackets.InventoryDataPacket;
-import warehouse.datapackets.WarehouseDataPacket;
+import warehouse.datamanager.InventoryDataPacket;
+import warehouse.datamanager.WarehouseDataPacket;
 
 import java.util.*;
 

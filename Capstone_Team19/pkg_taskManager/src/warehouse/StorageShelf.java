@@ -8,7 +8,7 @@ public class StorageShelf extends WarehouseObject implements Locatable {
     private Product storedProduct;
 
     public StorageShelf(String shelfID, int x, int y, int shelfWidth, int shelfLength) {
-        super(shelfID, x, y, shelfWidth, shelfLength);
+        super(shelfID, x, y);
         this.isAvailable = true;
         this.storedProduct = null;
     }
@@ -25,7 +25,6 @@ public class StorageShelf extends WarehouseObject implements Locatable {
     public String toString() {
         return  "ID:" + super.getId() + (this.isAvailable ? "  is Available" : " is Occupied by ")
                 + (this.isAvailable ? "" : this.storedProduct.getProductID())
-                + ", located at X: " + super.getOccupiedArea().x + ", Y: " + super.getOccupiedArea().y
-                + ", width" + super.getOccupiedArea().width + ", length " + super.getOccupiedArea().height;
+                + ", located at X: " + super.getLocation().x + ", Y: " + super.getLocation().y;
     }
 }
