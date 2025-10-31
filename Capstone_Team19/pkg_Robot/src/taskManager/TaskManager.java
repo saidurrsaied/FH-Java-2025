@@ -18,18 +18,32 @@ public class TaskManager {
     }
 
     // Method for creating Order task
-    public void createNewOrder(Point orderPosition, String itemId, int quantity) {
-    	int newId = orderIdCounter.incrementAndGet();
-    	String taskId = "Order-" + newId;
-        Task newTask = new Order(taskId, itemId, orderPosition, quantity);
+    public void createNewOrder(Point orderPosition, String itemId, int quantity) throws TaskCreationException {
 
+        int newId = orderIdCounter.incrementAndGet();
+        String taskId = "Order-" + newId;
+
+        // 1) Create a new Order (may throw OrderTaskException if invalid)
+        final Task newTask;
+        
         try {
-            // Push new task into queue
+            newTask = new Order(taskId, itemId, orderPosition, quantity);
+        } catch (OrderTaskException e) {
+            // 🔗 Chain the validation error from Order into a higher-level exception
+            throw new TaskCreationException("Order validation failed for " + taskId, e);
+        }
+
+        // 2) Submit the task to the shared queue (may throw InterruptedException)
+        try {
             taskSubmissionQueue.put(newTask);
-            System.out.println("[TaskManager] Submitted new task " + itemId + " to shared queue.");
+            System.out.printf("[TaskManager] Submitted %s (%s x%d)%n", taskId, itemId, quantity);
         } catch (InterruptedException e) {
-             Thread.currentThread().interrupt();
-             System.err.println("[TaskManager] Failed to submit task " + itemId);
+            // Restore the thread's interrupted status
+            Thread.currentThread().interrupt();
+            System.err.println("[TaskManager] Interrupted while submitting " + taskId);
+
+            // Optionally rethrow as unchecked if you want to escalate this failure
+            // throw new RuntimeException("Interrupted while enqueuing " + taskId, e);
         }
     }
     

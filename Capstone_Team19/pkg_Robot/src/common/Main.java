@@ -11,6 +11,7 @@ import equipments.EquipmentManager;
 import equipments.PackingStation;
 import equipments.Robot;
 import taskManager.Task;
+import taskManager.TaskCreationException;
 import taskManager.TaskManager;
 
 // Import your warehouse data classes (if needed for setup)
@@ -89,12 +90,18 @@ public class Main {
         
         // Use TaskManager to create and submit new orders to the shared queue.
         // The EquipmentManager will pick these up automatically.
-        taskManager.createNewOrder(new Point(10, 10), "Item-A", 5); // Task 1
-        taskManager.createNewOrder(new Point(50, 20), "Item-B", 2); // Task 2
-        
-        // This task will likely go to the pending queue
-        // as both robots will be busy.
-        taskManager.createNewOrder(new Point(30, 30), "Item-C", 1); // Task 3
+        try {
+            taskManager.createNewOrder(new Point(10, 10), "Item-A", 5); // Task 1
+            taskManager.createNewOrder(new Point(50, 20), "Item-B", 2); // Task 2
+            // This task will likely go to the pending queue
+            // as both robots will be busy.
+            taskManager.createNewOrder(new Point(30, 30), "Item-C", 1); // Task 3
+        } catch (TaskCreationException  e) {
+            System.err.println("❌ Order creation failed: " + e.getMessage());
+            if (e.getCause() != null) {
+                System.err.println("→ Root cause: " + e.getCause().getMessage());
+            }
+        }
 
         System.out.println("[Main] --- 3 Orders submitted. Program is running. ---");
         // The main thread will now exit, but the Robot and EM threads

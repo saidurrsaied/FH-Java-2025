@@ -20,13 +20,31 @@ public class Order implements Task {
     
     // No reservedStation field needed here anymore.
 
-    public Order(String orderId, String itemName, Point itemLocation, int quantity) {
+    public Order(String orderId, String itemName, Point itemLocation, int quantity) throws OrderTaskException {
 		super();
 		this.orderId = orderId;
 		this.itemName = itemName;
 		this.itemLocation = itemLocation;
 		this.quantity = quantity;
+		
+        // ========== VALIDATION ==========
+	    if (orderId == null || orderId.isBlank()) {
+	        throw new OrderTaskException("Order ID cannot be null or blank");
+	    }
+
+	    if (itemName == null || itemName.isBlank()) {
+	        throw new OrderTaskException("Item name cannot be null or blank");
+	    }
+
+	    if (itemLocation == null) {
+	        throw new OrderTaskException("Item location cannot be null");
+	    }
+
+	    if (quantity <= 0) {
+	        throw new OrderTaskException("Quantity must be greater than zero");
+	    }
 	}
+
 
 	/**
      * Execution script for the Order task.
