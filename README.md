@@ -5,7 +5,7 @@
 * Hai Dang Duong
 
 
-#Task Distribution 
+##Task Distribution:
 * Md Saidur Rahman: Storage Management
   **File I/O with Character Streams
 * Anh Phuc Dang: Task Management
