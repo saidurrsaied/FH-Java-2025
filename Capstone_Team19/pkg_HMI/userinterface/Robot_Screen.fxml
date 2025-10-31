@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="396.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+    <!-- TableView inside AnchorPane with layout constraints -->
+    <TableView fx:id="inventoryTable" prefHeight="396.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="itemColumn" prefWidth="180.5714111328125" style="-fx-alignment: CENTER;" text="ROBOT 1">
+            <columns>
+                  <TableColumn fx:id="quantityColumn" prefWidth="64.5714111328125" style="-fx-alignment: CENTER;" />
+            </columns></TableColumn>
+         <TableColumn prefWidth="75.0" text="ROBOT 2">
+            <columns>
+               <TableColumn prefWidth="75.0" />
+            </columns>
+         </TableColumn>
+         <TableColumn prefWidth="75.0" text="ROBOT 3">
+            <columns>
+               <TableColumn prefWidth="75.0" />
+            </columns>
+         </TableColumn>
+        </columns>
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
+    </TableView>
+</AnchorPane>
