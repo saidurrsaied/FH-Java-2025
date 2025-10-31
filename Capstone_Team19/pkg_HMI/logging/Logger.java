@@ -81,10 +81,14 @@ public class Logger {
         // Determine file name based on origin ("robot.txt", "charging.txt")
         String fileName = dateString + ".txt";  
         
+        // Ensure parent directories exist
+        if (logFolderPath != null) new File(logFolderPath).mkdirs();
+        if (logSystemPath != null) new File(logSystemPath).mkdirs();
+
         // Define the full file path inside the date-based folder
         File logFile = new File(logFolderPath, fileName);
-        File systemFile = new File(logSystemPath, fileName);
-        
+        File systemFile = new File(logSystemPath, fileName);    
+
         // Write the log message to both files
         try (FileWriter logWriter = new FileWriter(logFile, true); 
              FileWriter systemWriter = new FileWriter(systemFile, true)) {
@@ -98,7 +102,15 @@ public class Logger {
             logWriter.flush(); 		// Ensure the log is written immediately
 
         } catch (IOException e) {
-            e.printStackTrace(); 	// Handle any IOException
+            handleException(e); 	// Handle any IOException
+        }
+    }
+    /** Handles IOException by writing to a fallback error log file. */
+    private void handleException(IOException e) {
+        try (FileWriter fallback = new FileWriter("logger_error.txt", true)) {
+            String timestamp = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            fallback.write("[" + timestamp + "] " + e.toString() + System.lineSeparator());
+        } catch (IOException ignored) {
         }
     }
 }
