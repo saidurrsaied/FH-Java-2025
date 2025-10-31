@@ -1,32 +1,41 @@
 package taskManager;
 
-import common.Position;
-import equipment.Robot;
+import java.awt.Point;
+import equipments.EquipmentManager;
+import equipments.Robot;
 
-public class GotoStartTask implements Task{
+public class GoToStartTask implements Task{
 
-	private final Position startingPosition;
-	
-	public GotoStartTask(Position startingPosition) {
+	private final Point startingPosition;
+    private final TaskType taskType = TaskType.GO_TO_START;
+    private final String ID;
+    
+	public GoToStartTask(Point startingPosition) {
 		super();
 		this.startingPosition = startingPosition;
+		this.ID = "GoToStart(" + startingPosition.x + "," + startingPosition.y + ")";
 	}
 
 	@Override
 	public String getID() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.ID;
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return String.format("Task: Return to Starting Point (%d, %d)",
+                startingPosition.x,
+                startingPosition.y);
 	}
 
 	@Override
-	public void execute(Robot robot) {
+	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
+		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
 		robot.moveTo(startingPosition);
 	}
 
+	@Override
+	public TaskType getType() {
+		return taskType;
+	}
 }

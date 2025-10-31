@@ -1,9 +1,9 @@
-package equipment;
+package equipments;
 
-import common.Position;
+import java.awt.Point;
 
 public interface EquipmentInterface {
     String getID();
-    Position getPosition();
+    Point getLocation();
     String getState();
 }

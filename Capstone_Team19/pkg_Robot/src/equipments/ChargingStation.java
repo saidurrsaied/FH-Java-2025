@@ -1,13 +1,12 @@
-package equipment;
+package equipments;
 
+import java.awt.Point;
 import java.util.concurrent.Semaphore;
-
-import common.Position;
 
 public class ChargingStation implements EquipmentInterface{
 
 	private final String ID;
-	private final Position position;
+	private final Point location;
     private final Semaphore permit = new Semaphore(1, true);
 
     // Robot get access to charge station
@@ -18,10 +17,10 @@ public class ChargingStation implements EquipmentInterface{
     // Robot finish to charge station
     public void release() { permit.release(); }
 
-	public ChargingStation(String id, Position position) {
+	public ChargingStation(String id, Point location) {
 		super();
 		this.ID = id;
-		this.position = position;
+		this.location = location;
 	}
 
 	public boolean isAvailable() {
@@ -39,7 +38,7 @@ public class ChargingStation implements EquipmentInterface{
 	}
 
 	@Override
-	public Position getPosition() {
-		return position;
+	public Point getLocation() {
+		return location;
 	}
 }

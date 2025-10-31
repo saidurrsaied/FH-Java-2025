@@ -1,12 +1,11 @@
-package equipment;
+package equipments;
+import java.awt.Point;
 import java.util.concurrent.Semaphore;
-
-import common.Position;
 
 public class PackingStation implements EquipmentInterface{
 
 	private final String ID;
-	private final Position position;
+	private final Point location;
     private final Semaphore permit = new Semaphore(1, true);
 
     public boolean tryAcquire() {
@@ -14,15 +13,15 @@ public class PackingStation implements EquipmentInterface{
     }
     public void release() { permit.release(); }
 
-	public PackingStation(String id, Position position) {
+	public PackingStation(String id, Point location) {
 		super();
 		this.ID = id;
-		this.position = position;
+		this.location = location;
 	}
 	
 	@Override
-	public Position getPosition() {
-		return position;
+	public Point getLocation() {
+		return location;
 	}
 	
 	public boolean isAvailable() {

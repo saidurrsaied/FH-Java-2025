@@ -1,31 +1,41 @@
 package taskManager;
 
-import common.Position;
-import equipment.Robot;
+import java.awt.Point;
+
+import equipments.EquipmentManager;
+import equipments.Robot;
 
 public class Charge implements Task{
-
-	private String ID;
-	private Position chargingStation;
+	private Point chargingStationLocation;
+	private final String ID;
+	private final TaskType taskType = TaskType.CHARGE_ROBOT;
 	
-	public Charge(String ID, Position chargingPosition) {
-		this.ID = ID;
-		this.chargingStation = chargingPosition;
+	public Charge(Point chargingPosition, String robotId) {
+		this.chargingStationLocation = chargingPosition;
+		this.ID = "Charge-" + robotId;
 	}
 	
-	@Override
-	public void execute(Robot robot) {
-		robot.moveTo(chargingStation);
-		robot.charge();
-	}
-
 	@Override
 	public String getID() {
-		return ID;
+		return this.ID;
 	}
 
 	@Override
 	public String getDescription() {
-		return "Charging ...";
+		return String.format("Task: Move to (%d, %d) and charge.", 
+                chargingStationLocation.x, 
+                chargingStationLocation.y);
+	}
+
+	@Override
+	public TaskType getType() {
+		return taskType;
+	}
+
+	@Override
+	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
+		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
+		robot.moveTo(chargingStationLocation);
+		robot.charge();
 	}
 }
