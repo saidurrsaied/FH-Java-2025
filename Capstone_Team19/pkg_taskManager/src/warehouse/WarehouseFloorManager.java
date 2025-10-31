@@ -1,6 +1,7 @@
 package warehouse;
 
 import warehouse.datamanager.WarehouseDataPacket;
+import warehouse.exceptions.FloorException;
 
 import java.awt.Rectangle;
 import java.util.*;
@@ -66,7 +67,7 @@ public class WarehouseFloorManager {
     public StorageShelf getStorageShelf(String shelfID) {
         WarehouseObject obj = objectMap.get(shelfID);
         if (!(obj instanceof StorageShelf)) {
-            throw new IllegalArgumentException("Object not found!");
+            throw new FloorException("Shelf not found: " + shelfID);
         }
         else {
             return (StorageShelf) obj;

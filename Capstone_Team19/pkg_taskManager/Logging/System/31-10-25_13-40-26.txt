@@ -1,0 +1,3 @@
+[INFO][31-10-25][13:40:26][Robot] Task completed: true
+[INFO][31-10-25][13:40:26][Inventory] Decreased Banana by 2 after pick.
+[INFO][31-10-25][13:40:26][Inventory] Exported post-run inventory to data\inventory_post_run.csv

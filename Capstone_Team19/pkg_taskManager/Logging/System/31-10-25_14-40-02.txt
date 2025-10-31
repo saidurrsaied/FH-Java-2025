@@ -1,0 +1,2 @@
+[INFO][31-10-25][14:40:02][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][31-10-25][14:40:02][Robot] Assigning: PickOrder[Banana x2 from java.awt.Point[x=4,y=1] to packing station]

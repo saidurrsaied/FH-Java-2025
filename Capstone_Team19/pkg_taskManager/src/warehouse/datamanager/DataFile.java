@@ -2,6 +2,7 @@ package warehouse.datamanager;
 
 
 import warehouse.*;
+import warehouse.exceptions.DataFileException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class DataFile {
             }
             System.out.println("Inventory exported to: " + filePath);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DataFileException("Failed to export inventory to " + filePath, e);
         }
     }
 
@@ -63,30 +64,38 @@ public class DataFile {
                 String[] parts = line.split(",");
 
                 if (parts.length != 6) {
-                    System.out.println("Invalid row in inventory CSV file. " + "Row " + currentRow + "in file: " + filePath);
-                    continue;}
-                packets.add(new InventoryDataPacket(
-                        parts[0], parts[1],
-                        Integer.parseInt(parts[2]),
-                        parts[3],
-                        Integer.parseInt(parts[4]),
-                        Integer.parseInt(parts[5])
-                ));
+                    //System.out.println("Invalid row in inventory CSV file. " + "Row " + currentRow + "in file: " + filePath);
+                    throw new DataFileException("Invalid row " + currentRow + " in " + filePath);
+                    }
+                try {
+                    packets.add(new InventoryDataPacket(
+                            parts[0], parts[1],
+                            Integer.parseInt(parts[2]),
+                            parts[3],
+                            Integer.parseInt(parts[4]),
+                            Integer.parseInt(parts[5])
+                    ));
+                } catch (NumberFormatException nfe) {
+                    throw new DataFileException("Invalid number at row " + currentRow + " in " + filePath, nfe);
+                }
+
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException fnf) {
+            throw new DataFileException("Inventory CSV not found: " + filePath, fnf);
+        } catch (IOException ioe) {
+            throw new DataFileException("I/O error reading inventory CSV: " + filePath, ioe);
         }
         return packets;
     }
 
 
 
-    public static void initializeInventory(WarehouseManager manager, String inventoryCSVFile) throws IOException {
+    public static void initializeInventory(WarehouseManager manager, String inventoryCSVFile) throws DataFileException {
         File dataFile = new File(inventoryCSVFile);
 
         if (!dataFile.exists()) {
-            // Instead of generating demo data, throw exception
-            throw new FileNotFoundException("Inventory file not found: " + inventoryCSVFile);
+
+            throw new DataFileException("Inventory file not found: " + inventoryCSVFile);
         }
 
         else {
@@ -131,37 +140,47 @@ public class DataFile {
             }
             System.out.println("Floor data exported to: " + filePath);
         } catch (IOException e) {
-            System.err.println("Failed to export floor data: " + e.getMessage());
+            throw new DataFileException("Failed to export floor data to " + filePath, e);
         }
     }
 
     /** Load floor layout (objects) from CSV file */
-    public static List<WarehouseDataPacket> loadFloorFromCSV(String filePath) throws IOException {
+    public static List<WarehouseDataPacket> loadFloorFromCSV(String filePath) throws DataFileException {
         List<WarehouseDataPacket> floorData = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line = reader.readLine(); // skip header
+            int currentRow = 1;
             while ((line = reader.readLine()) != null) {
+                currentRow++;
                 String[] parts = line.split(",");
                 if (parts.length < 5) continue;
 
-                floorData.add(new WarehouseDataPacket(
-                        parts[0].trim(),
-                        parts[1].trim(),
-                        Integer.parseInt(parts[2].trim()),
-                        Integer.parseInt(parts[3].trim()),
-                        Boolean.parseBoolean(parts[4].trim())
-                ));
+                try {
+                    floorData.add(new WarehouseDataPacket(
+                            parts[0].trim(),
+                            parts[1].trim(),
+                            Integer.parseInt(parts[2].trim()),
+                            Integer.parseInt(parts[3].trim()),
+                            Boolean.parseBoolean(parts[4].trim())
+                    ));
+                } catch (NumberFormatException nfe) {
+                    throw new DataFileException("Invalid number at row " + currentRow + " in " + filePath, nfe);
+                }
             }
+        } catch (FileNotFoundException fnf) {
+            throw new DataFileException("Floor CSV not found: " + filePath, fnf);
+        } catch (IOException ioe) {
+            throw new DataFileException("I/O error reading floor CSV: " + filePath, ioe);
         }
         return floorData;
     }
 
     /** Initialize warehouse floor from existing CSV */
-    public static void initializeFloor(WarehouseManager manager, String floorCSVFile) throws IOException {
+    public static void initializeFloor(WarehouseManager manager, String floorCSVFile) throws DataFileException {
         File dataFile = new File(floorCSVFile);
 
         if (!dataFile.exists()) {
-            throw new FileNotFoundException("Warehouse floor file not found: " + floorCSVFile);
+            throw new DataFileException("Warehouse floor file not found: " + floorCSVFile);
         }
 
         System.out.println("Loading warehouse floor from " + floorCSVFile + " ...");
@@ -186,7 +205,8 @@ public class DataFile {
 
                 manager.addObjectToFloor(object);
 
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
+                // keep going but provide context
                 System.err.println("Skipping invalid floor record: " + packet + " (" + e.getMessage() + ")");
             }
         }

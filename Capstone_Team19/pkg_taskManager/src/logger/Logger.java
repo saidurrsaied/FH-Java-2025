@@ -79,7 +79,7 @@ public class Logger {
 
         // Determine file name based on origin (robot, charging, etc.)
 
-        String fileName = dateString + "_" + timestamp.replace(":","-") + ".txt";  // Example: "robot.txt", "charging.txt"
+        String fileName = dateString + "_"  + ".txt";  // Example: "robot.txt", "charging.txt"
 
         // Define the full file path inside the date-based folder
         File logFile = new File(logFolderPath, fileName);

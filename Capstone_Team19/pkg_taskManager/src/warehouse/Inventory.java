@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.awt.Rectangle;
 import warehouse.datamanager.InventoryDataPacket;
-
-
+import warehouse.exceptions.InventoryException;
 
 
 /***
@@ -38,7 +37,7 @@ public class Inventory {
 
         /* Only one product can be stored on a shelf at a time */
         if (!shelf.isAvailable() && !shelf.getStoredProduct().getProductID().equals(product.getProductID())) {
-            throw new IllegalStateException("Shelf is occupied!");
+            throw new InventoryException("Shelf " + shelf.getId() + " is occupied by a different product");
         }
 
         /*Increase product quantity if the product is already in the inventory */
@@ -61,14 +60,14 @@ public class Inventory {
 
     public InventoryItem geInventoryItem(String productID) {
         if (!productInventory.containsKey(productID)) {
-            throw new IllegalArgumentException("Product not found!");
+            throw new InventoryException("Product not found: " + productID);
         }
         else return productInventory.get(productID);
     }
 
     public void removeProduct(String productID) {
         if (!productInventory.containsKey(productID)) {
-            throw new IllegalArgumentException("Product not found!");
+            throw new InventoryException("Product not found: " + productID);
         }
         else {
             InventoryItem item = productInventory.get(productID);
@@ -81,7 +80,7 @@ public class Inventory {
 
     public int getProductQuantity(String productID) {
         if (!productInventory.containsKey(productID)) {
-            throw new IllegalArgumentException("Product not found!");
+            throw new InventoryException("Product not found: " + productID);
         }
         else {
             return productInventory.get(productID).getQuantity();
@@ -91,7 +90,7 @@ public class Inventory {
 
     public void increaseProductQuantity(String productID, int amount) {
         if (!productInventory.containsKey(productID)) {
-            throw new IllegalArgumentException("Product not found!");
+            throw new InventoryException("Product not found: " + productID);
         }
         else {
             productInventory.get(productID).addQuantity(amount);
@@ -99,10 +98,10 @@ public class Inventory {
     }
     public void decreaseProductQuantity(String productID, int amount) {
         if (!productInventory.containsKey(productID)) {
-            throw new IllegalArgumentException("Product not found!");
+            throw new InventoryException("Product not found: " + productID);
         }
         else if (productInventory.get(productID).getQuantity() < amount) {
-            throw new IllegalArgumentException("Not enough quantity in stock!");
+            throw new InventoryException("Not enough quantity in stock for product " + productID + ": requested " + amount);
         }
         else {
             productInventory.get(productID).removeQuantity(amount);
@@ -111,8 +110,7 @@ public class Inventory {
 
     public boolean isProductInStock(String productID) {
         if (!productInventory.containsKey(productID)) {
-            throw new IllegalArgumentException("Product not found!");
-        }
+            throw new InventoryException("Product not found: " + productID);        }
         else {
             return productInventory.get(productID).getQuantity() > 0;
         }

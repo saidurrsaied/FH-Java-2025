@@ -1,5 +1,7 @@
 package warehouse;
 
+import warehouse.exceptions.InventoryException;
+
 public class InventoryItem {
     private final Product product;
     private final StorageShelf shelf;
@@ -19,7 +21,8 @@ public class InventoryItem {
     public void addQuantity(int amount) { this.availableQuantity += amount; }
     public void removeQuantity(int amount) {
         if (amount > availableQuantity)
-            throw new IllegalArgumentException("Not enough quantity in stock!");
+            throw new InventoryException("Not enough quantity in stock for " + product.getProductID()
+                    + ": requested " + amount + ", available " + availableQuantity);
         this.availableQuantity -= amount;
     }
 
