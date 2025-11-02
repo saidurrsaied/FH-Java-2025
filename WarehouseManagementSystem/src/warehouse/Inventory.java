@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.awt.Rectangle;
+
 import warehouse.datamanager.InventoryDataPacket;
 import warehouse.exceptions.InventoryException;
 
@@ -31,9 +31,9 @@ public class Inventory {
      *  Key: Product ID
      *  Value: InventoryItem
      **/
-    private final Map<String, InventoryItem> productInventory = new HashMap<>();
+    private final Map<String, warehouse.InventoryItem> productInventory = new HashMap<>();
 
-    public void addProduct(Product product, int quantity, StorageShelf shelf) {
+    public void addProduct(warehouse.Product product, int quantity, warehouse.StorageShelf shelf) {
 
         /* Only one product can be stored on a shelf at a time */
         if (!shelf.isAvailable() && !shelf.getStoredProduct().getProductID().equals(product.getProductID())) {
@@ -47,18 +47,18 @@ public class Inventory {
 
         /* Add a new product to inventory if it doesn't exist yet */
         else {
-            productInventory.put(product.getProductID(), new InventoryItem(product, quantity, shelf));
+            productInventory.put(product.getProductID(), new warehouse.InventoryItem(product, quantity, shelf));
             shelf.makeOccupied();
             shelf.setStoredProduct(product);
 
         }
     }
 
-    public Map<String, InventoryItem> getAllItems() {
+    public Map<String, warehouse.InventoryItem> getAllItems() {
         return productInventory;
     }
 
-    public InventoryItem geInventoryItem(String productID) {
+    public warehouse.InventoryItem geInventoryItem(String productID) {
         if (!productInventory.containsKey(productID)) {
             throw new InventoryException("Product not found: " + productID);
         }
@@ -70,7 +70,7 @@ public class Inventory {
             throw new InventoryException("Product not found: " + productID);
         }
         else {
-            InventoryItem item = productInventory.get(productID);
+            warehouse.InventoryItem item = productInventory.get(productID);
             item.getShelf().makeAvailable();
             item.getShelf().setStoredProduct(null);
             productInventory.remove(productID);
