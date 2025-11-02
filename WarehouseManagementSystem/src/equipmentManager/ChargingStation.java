@@ -2,10 +2,12 @@ package equipmentManager;
 
 import java.awt.Point;
 import java.util.concurrent.Semaphore;
+import warehouse.WarehouseObject;
 
-public class ChargingStation implements EquipmentInterface {
+public class ChargingStation extends WarehouseObject implements EquipmentInterface {
 
 	private final String ID;
+    private String STATION_TYPE ;
 	private final Point location;
     private final Semaphore permit = new Semaphore(1, true);
 
@@ -17,10 +19,11 @@ public class ChargingStation implements EquipmentInterface {
     // Robot finish to charge station
     public void release() { permit.release(); }
 
-	public ChargingStation(String id, Point location) {
-		super();
+	public ChargingStation(String id, String objectType, int x, int y) {
+		super(id, x, y);
 		this.ID = id;
-		this.location = location;
+		this.location = new Point(x, y);
+        this.STATION_TYPE = objectType;
 	}
 
 	public boolean isAvailable() {
@@ -41,4 +44,9 @@ public class ChargingStation implements EquipmentInterface {
 	public Point getLocation() {
 		return location;
 	}
+
+    @Override
+    public String toString() {
+        return "ChargingStation [ID=" + ID + ", location=" + location + "]";
+    }
 }

@@ -1,7 +1,7 @@
 package taskManager;
 
 import equipmentManager.Robot;
-import equipmentManager.PackingStation;
+import warehouse.PackingStation;
 
 import java.awt.Point;
 
@@ -63,20 +63,20 @@ public class Order implements Task {
         robot.pickUpItem(itemName); // Using Order ID as Item ID for simplicity
 
         // 3. --- JUST-IN-TIME STATION REQUEST ---
-        System.out.printf("[%s] Item picked up. Requesting available Packing Station...%n", robot.getID());
+        System.out.printf("[%s] Item picked up. Requesting available Packing LoadingStation...%n", robot.getID());
         
         // This call might block the robot's thread if all stations are busy
         PackingStation assignedStation = manager.requestAvailablePackingStation(robot); 
         
         // Check if interrupted while waiting (request might return null if interrupted)
         if (assignedStation == null) {
-             System.out.printf("[%s] Interrupted while waiting for Packing Station for Order %s. Aborting.%n", robot.getID(), this.itemName);
+             System.out.printf("[%s] Interrupted while waiting for Packing LoadingStation for Order %s. Aborting.%n", robot.getID(), this.itemName);
              // Optionally, robot could try to return the item or go to a safe spot.
              // For now, we just let the task end here. The finally block in Robot.run() will report.
              return; 
         }
         
-        System.out.printf("[%s] Assigned Packing Station %s. Moving to drop off...%n", 
+        System.out.printf("[%s] Assigned Packing LoadingStation %s. Moving to drop off...%n",
                           robot.getID(), assignedStation.getID());
 
         // 4. Go to the assigned station

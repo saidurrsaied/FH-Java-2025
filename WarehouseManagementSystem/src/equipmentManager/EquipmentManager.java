@@ -13,6 +13,7 @@ import java.util.concurrent.locks.Lock;      // For more robust waiting
 import java.util.concurrent.locks.ReentrantLock; // For more robust waiting
 
 import taskManager.*; // Import Task and specific task types
+import warehouse.PackingStation;
 
 /**
  * Central Brain using "Just-in-Time Locking".
@@ -43,8 +44,8 @@ public class EquipmentManager implements Runnable {
     private final Lock managerLock = new ReentrantLock(true);
     private final Condition stationAvailableCondition = managerLock.newCondition();
     
-    public EquipmentManager(List<Robot> robots, 
-                            List<ChargingStation> chargingStations, 
+    public EquipmentManager(List<Robot> robots,
+                            List<ChargingStation> chargingStations,
                             List<PackingStation> packingStations,
                             BlockingQueue<Task> taskSubmissionQueue) {
         this.availableRobots = robots;
@@ -112,7 +113,7 @@ public class EquipmentManager implements Runnable {
         try {
             System.out.printf("[EquipmentManager] Robot %s finished task %s.%n", robot.getID(), finishedTask.getID());
 
-            // 1. Release resources (e.g., Packing Station)
+            // 1. Release resources (e.g., Packing LoadingStation)
             releaseResourcesFrom(robot, finishedTask);
 
             // 2. Check battery (highest priority)
@@ -192,7 +193,7 @@ public class EquipmentManager implements Runnable {
             // Success!
             robotsWaitingForStation.remove(robot); // Remove from waiting list
             availableStation.tryAcquire(); // Reserve the station
-            System.out.printf("[%s] Allocating Station %s to Robot %s.%n", ID, availableStation.getID(), robot.getID());
+            System.out.printf("[%s] Allocating LoadingStation %s to Robot %s.%n", ID, availableStation.getID(), robot.getID());
             return availableStation;
 
         } catch (InterruptedException e) {
@@ -282,7 +283,7 @@ public class EquipmentManager implements Runnable {
                     iterator.remove(); // Remove task from pending
                     availableRobots.remove(bestRobot); // Robot is no longer available
                     
-                    // Note: Station is NOT locked here. It will be requested Just-in-Time.
+                    // Note: LoadingStation is NOT locked here. It will be requested Just-in-Time.
                     bestRobot.assignTask(task);
                 }
             }
@@ -305,7 +306,7 @@ public class EquipmentManager implements Runnable {
             if (packingStation != null) {
             	packingStation.release();
                 stationReleased = true;
-                System.out.printf("[%s] Released Packing Station %s.%n", ID, packingStation.getID());
+                System.out.printf("[%s] Released Packing LoadingStation %s.%n", ID, packingStation.getID());
             }
         	break;
         case CHARGE_ROBOT:
@@ -314,7 +315,7 @@ public class EquipmentManager implements Runnable {
             	chargingStation.release();
             	chargeStationReleased = true;
                 // (Signal a different condition if you have robots waiting for charge)
-                System.out.printf("[%s] Released Charging Station %s.%n", ID, chargingStation.getID());
+                System.out.printf("[%s] Released Charging LoadingStation %s.%n", ID, chargingStation.getID());
             }
         	break;
 		default:

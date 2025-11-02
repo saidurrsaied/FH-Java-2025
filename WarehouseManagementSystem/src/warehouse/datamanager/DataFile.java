@@ -196,9 +196,12 @@ public class DataFile {
                         object = new StorageShelf(packet.getId(), packet.getX(), packet.getY(), 1, 1);
                         if (!packet.isAvailable()) ((StorageShelf) object).makeOccupied();
                     }
-                    case "Station" -> {
-                        object = new Station(packet.getId(), packet.getId(), packet.getX(), packet.getY());
-                        if (!packet.isAvailable()) ((Station) object).setOccupied();
+                    case "LoadingStation" -> {
+                        object = new LoadingStation(packet.getId(), packet.getId(), packet.getX(), packet.getY());
+                        if (!packet.isAvailable()) ((LoadingStation) object).setOccupied();
+                    }
+                    case "PackingStation" -> {
+                        object = new PackingStation(packet.getId(), packet.getId(), packet.getX(), packet.getY());
                     }
                     default -> throw new IllegalArgumentException("Unknown object type: " + packet.getType());
                 }

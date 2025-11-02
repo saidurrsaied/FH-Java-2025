@@ -29,7 +29,7 @@ public class TaskManager {
         try {
             newTask = new OrderTask(taskId, itemId, orderPosition, quantity);
         } catch (OrderTaskException e) {
-            // 🔗 Chain the validation error from Order into a higher-level exception
+            // Chain the validation error from Order into a higher-level exception
             throw new TaskCreationException("Order validation failed for " + taskId, e);
         }
 

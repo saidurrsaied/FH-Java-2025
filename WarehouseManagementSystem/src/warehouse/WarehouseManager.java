@@ -3,8 +3,9 @@ package warehouse;
 import warehouse.datamanager.InventoryDataPacket;
 import warehouse.datamanager.WarehouseDataPacket;
 
+import java.awt.*;
 import java.util.*;
-
+import java.util.List;
 
 
 /**
@@ -82,16 +83,16 @@ public class WarehouseManager {
     public boolean addObjectToFloor (WarehouseObject object){
         return floorManager.addObject(object);
     }
-    public boolean removeObjectFromFloor (String objectID){
-        return floorManager.removeObject(objectID);
-    }
+//    public boolean removeObjectFromFloor (String objectID){
+//        return floorManager.removeObject(objectID);
+//    }
     public Optional<WarehouseObject> getObjectFromFloor (String objectID){
         return floorManager.getObjectById(objectID);
     }
 
-    public Optional<WarehouseObject> getFloorObjectByID(String objectID){
-        return floorManager.getObjectById(objectID);
-    }
+//    public Optional<WarehouseObject> getFloorObjectByID(String objectID){
+//        return floorManager.getObjectById(objectID);
+//    }
 
     public Collection<WarehouseObject> getFloorObjects(){
         return floorManager.getAllObjects();
@@ -101,8 +102,37 @@ public class WarehouseManager {
         return floorManager.getStorageShelf(shelfID);
     }
 
+    public Point getProductLocationByProductID(String productID){return inventory.geInventoryItem(productID).getShelf().getLocation();}
+
+    public StorageShelf getStorageShelfByProductID(String productID){return inventory.geInventoryItem(productID).getShelf();}
+
 
     public List<WarehouseDataPacket> exportFloorData(){
         return floorManager.exportWarehouseData();
     }
+
+    // Return all packing stations on the floor
+    public List<PackingStation> getAllPackingStations() {
+        List<PackingStation> stations = new ArrayList<>();
+        for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
+            if (obj instanceof PackingStation s && s.getStationName() != null && s.getStationName().contains("Packing")) {
+                stations.add(s);
+            }
+        }
+        return stations;
+    }
+
+    // Return all storage shelves on the floor
+    public List<StorageShelf> getAllStorageShelves() {
+        List<StorageShelf> shelves = new ArrayList<>();
+        for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
+            if (obj instanceof StorageShelf shelf) {
+                shelves.add(shelf);
+            }
+        }
+        return shelves;
+    }
+
 }
+
+

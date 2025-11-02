@@ -1,15 +1,16 @@
 package warehouse;
 
-import java.awt.*;
-
-public class Station extends WarehouseObject implements Locatable {
+public class LoadingStation extends WarehouseObject implements Locatable {
     private final String stationName;
     private boolean isAvailable;
+    private String STATION_TYPE ;
 
-    public Station(String name, String id,  int x, int y) {
+    public LoadingStation(String name, String id, int x, int y) {
         super(id, x, y);
         this.stationName = name;
         this.isAvailable = true;
+        if (name.contains("Packing")){this.STATION_TYPE = "PackingStation";}
+        else {this.STATION_TYPE = "StorageShelf";}
     }
 
 
