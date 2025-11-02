@@ -1,7 +1,7 @@
 package taskManager;
 
-import equipments.Robot;
-import equipments.EquipmentManager; // <-- Needs reference to the manager
+import equipmentManager.Robot;
+import equipmentManager.EquipmentManager; // <-- Needs reference to the manager
 
 /**
  * Task Interface.

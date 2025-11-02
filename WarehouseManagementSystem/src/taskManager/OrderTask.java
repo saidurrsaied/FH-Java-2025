@@ -11,7 +11,7 @@ import equipmentManager.EquipmentManager;
  * Represents a task to pick an item and deliver it to a packing station.
  * The packing station is requested *during* execution (Just-in-Time).
  */
-public class Order implements Task {
+public class OrderTask implements Task {
 	private final String orderId;
     private final String itemName;
     private final Point itemLocation;
@@ -20,7 +20,7 @@ public class Order implements Task {
     
     // No reservedStation field needed here anymore.
 
-    public Order(String orderId, String itemName, Point itemLocation, int quantity) throws OrderTaskException {
+    public OrderTask(String orderId, String itemName, Point itemLocation, int quantity) throws OrderTaskException {
 		super();
 		this.orderId = orderId;
 		this.itemName = itemName;

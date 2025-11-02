@@ -1,4 +1,4 @@
-package equipments;
+package equipmentManager;
 
 import taskManager.Task;
 

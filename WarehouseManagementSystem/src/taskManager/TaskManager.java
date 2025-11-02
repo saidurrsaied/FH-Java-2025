@@ -27,7 +27,7 @@ public class TaskManager {
         final Task newTask;
         
         try {
-            newTask = new Order(taskId, itemId, orderPosition, quantity);
+            newTask = new OrderTask(taskId, itemId, orderPosition, quantity);
         } catch (OrderTaskException e) {
             // 🔗 Chain the validation error from Order into a higher-level exception
             throw new TaskCreationException("Order validation failed for " + taskId, e);
@@ -51,7 +51,7 @@ public class TaskManager {
     public void createNewStock(String itemName, Point unloadingArea, Point shelfLocation) {
     	int newId = stockIdCounter.incrementAndGet();
     	String taskId = "Stock-" + newId;
-        Task newTask = new Stock(taskId, itemName, unloadingArea, shelfLocation);
+        Task newTask = new StockTask(taskId, itemName, unloadingArea, shelfLocation);
         
         try {
             // Push new task into queue

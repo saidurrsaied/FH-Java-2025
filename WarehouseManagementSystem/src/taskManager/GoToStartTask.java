@@ -1,8 +1,7 @@
 package taskManager;
 
 import java.awt.Point;
-import equipments.EquipmentManager;
-import equipments.Robot;
+import equipmentManager.*;
 
 public class GoToStartTask implements Task{
 

@@ -1,4 +1,4 @@
-package equipments; // Assuming this is where EM resides
+package equipmentManager; // Assuming this is where EM resides
 
 import java.awt.Point;
 import java.util.ArrayDeque;
@@ -68,7 +68,7 @@ public class EquipmentManager implements Runnable {
                     // 2. Handle the new task
                     switch (newTask.getType()) {
                         case PICK_ORDER: {
-                            Point itemLocation = ((Order) newTask).getItemLocation(); // Use interface
+                            Point itemLocation = ((OrderTask) newTask).getItemLocation(); // Use interface
                             
                             // Check available robots, find the nearest one
                             Robot foundRobot = findClosestAvailableRobot(itemLocation);
@@ -77,11 +77,11 @@ public class EquipmentManager implements Runnable {
                                 // No fit robot, save in pending queue
                                 pendingPickTasks.addLast(newTask);
                                 System.out.printf("[EquipmentManager] No available robot for %s → Pending (%d)%n", 
-                                		          (Order) newTask, pendingPickTasks.size());
+                                		          (OrderTask) newTask, pendingPickTasks.size());
                                 break; // Exit switch, loop continues
                             } else {
                                 // Robot found! Dispatch immediately.
-                                System.out.printf("[EquipmentManager] DISPATCH %s -> %s%n", (Order) newTask, foundRobot.getID());
+                                System.out.printf("[EquipmentManager] DISPATCH %s -> %s%n", (OrderTask) newTask, foundRobot.getID());
                                 availableRobots.remove(foundRobot);
                                 foundRobot.assignTask(newTask); // Send task to robot
                             }
@@ -270,9 +270,9 @@ public class EquipmentManager implements Runnable {
             
             Task task = iterator.next();
             
-            if (task instanceof Order) {
+            if (task instanceof OrderTask) {
                 // Find a robot for this task
-                Robot bestRobot = findClosestAvailableRobot(((Order) task).getItemLocation());
+                Robot bestRobot = findClosestAvailableRobot(((OrderTask) task).getItemLocation());
                 
                 if (bestRobot != null) {
                     // Found a robot! Dispatch.
@@ -367,7 +367,7 @@ public class EquipmentManager implements Runnable {
             Task task = iterator.next();
             
             if (task.getType() == TaskType.PICK_ORDER) {
-                Order order = (Order) task;
+                OrderTask order = (OrderTask) task;
                 
                 double requiredBattery = calculateRequiredEnergy(robot, order.getItemLocation());
                 
@@ -445,7 +445,7 @@ public class EquipmentManager implements Runnable {
         ChargingStation freeStation = findAnyAvailableChargeStation();
         if (freeStation != null) {
             freeStation.tryAcquire();
-            robot.assignTask(new Charge(freeStation.getLocation(), robot.getID())); // Assuming ChargeTask exists
+            robot.assignTask(new ChargeTask(freeStation.getLocation(), robot.getID())); // Assuming ChargeTask exists
             return true;
         }
         return false;
