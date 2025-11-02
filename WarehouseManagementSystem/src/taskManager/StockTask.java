@@ -6,7 +6,7 @@ import equipmentManager.EquipmentManager;
 import equipmentManager.Robot;
 //import warehouse.WarehousePosition;
 
-public class Stock implements Task {
+public class StockTask implements Task {
 	private final String stockId;
     private final String itemName;
     private final Point unloadingArea;
@@ -14,7 +14,7 @@ public class Stock implements Task {
     
     private final TaskType taskType = TaskType.STOCK_ITEM;
 
-    public Stock(String stockId, String itemName, Point unloadingArea, Point shelfLocation) {
+    public StockTask(String stockId, String itemName, Point unloadingArea, Point shelfLocation) {
     	super();
     	this.stockId = stockId;
         this.itemName = itemName;

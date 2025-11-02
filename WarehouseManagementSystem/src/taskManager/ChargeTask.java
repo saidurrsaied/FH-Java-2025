@@ -5,12 +5,12 @@ import java.awt.Point;
 import equipmentManager.EquipmentManager;
 import equipmentManager.Robot;
 
-public class Charge implements Task{
+public class ChargeTask implements Task{
 	private Point chargingStationLocation;
 	private final String ID;
 	private final TaskType taskType = TaskType.CHARGE_ROBOT;
 	
-	public Charge(Point chargingPosition, String robotId) {
+	public ChargeTask(Point chargingPosition, String robotId) {
 		this.chargingStationLocation = chargingPosition;
 		this.ID = "Charge-" + robotId;
 	}

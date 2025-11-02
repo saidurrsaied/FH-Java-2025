@@ -1,4 +1,4 @@
-package equipments;
+package equipmentManager;
 
 import java.awt.Point;
 

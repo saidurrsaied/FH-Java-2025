@@ -1,4 +1,4 @@
-package equipments;
+package equipmentManager;
 
 public enum RobotState {
     IDLE,
