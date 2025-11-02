@@ -1,5 +1,7 @@
+package warehouse;
+
 import logger.Logger;
-import equipments.ChargingStation;
+//import equipments.ChargingStation;
 import equipments.Robot;
 import taskManager.Order;
 import warehouse.datamanager.DataFile;
