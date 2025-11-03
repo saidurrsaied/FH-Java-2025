@@ -1,23 +1,19 @@
 package warehouse;
 
 public class LoadingStation extends WarehouseObject implements Locatable {
-    private final String stationName;
-    private boolean isAvailable;
-    private String STATION_TYPE ;
 
-    public LoadingStation(String name, String id, int x, int y) {
-        super(id, x, y);
-        this.stationName = name;
+    private boolean isAvailable;
+
+    public LoadingStation( String id, int x, int y, WahouseObjectType object_TYPE) {
+        super(id, x, y, object_TYPE);
         this.isAvailable = true;
-        if (name.contains("Packing")){this.STATION_TYPE = "PackingStation";}
-        else {this.STATION_TYPE = "StorageShelf";}
     }
 
 
     public boolean isAvailable() { return isAvailable; }
     public void setOccupied() { this.isAvailable = false; }
     public void setFree() { this.isAvailable = true; }
-    public String getStationName() { return stationName; }
+
 
 
 

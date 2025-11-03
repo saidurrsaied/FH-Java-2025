@@ -2,16 +2,19 @@ package equipmentManager;
 
 import java.awt.Point;
 import java.util.concurrent.Semaphore;
+
+import warehouse.WahouseObjectType;
 import warehouse.WarehouseObject;
 
 public class ChargingStation extends WarehouseObject implements EquipmentInterface {
 
+    //TODO: ID is already defined in WarehouseObject. Keep it?
 	private final String ID;
-    private String STATION_TYPE ;
+    //TODO: Location is already defined in WarehouseObject. Keep it?
 	private final Point location;
     private final Semaphore permit = new Semaphore(1, true);
 
-    // Robot get access to charge station
+    // Robot gets access to charge station
     public boolean tryAcquire() {
         return permit.tryAcquire(); 
     }
@@ -19,11 +22,10 @@ public class ChargingStation extends WarehouseObject implements EquipmentInterfa
     // Robot finish to charge station
     public void release() { permit.release(); }
 
-	public ChargingStation(String id, String objectType, int x, int y) {
-		super(id, x, y);
+	public ChargingStation(String id, int x, int y, WahouseObjectType objectType) {
+		super(id, x, y, objectType);
 		this.ID = id;
 		this.location = new Point(x, y);
-        this.STATION_TYPE = objectType;
 	}
 
 	public boolean isAvailable() {
@@ -49,4 +51,5 @@ public class ChargingStation extends WarehouseObject implements EquipmentInterfa
     public String toString() {
         return "ChargingStation [ID=" + ID + ", location=" + location + "]";
     }
+
 }

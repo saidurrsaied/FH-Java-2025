@@ -5,13 +5,11 @@ import java.awt.Point;
 import java.util.concurrent.Semaphore;
 
 public class PackingStation extends WarehouseObject implements EquipmentInterface {
-    private final String stationName;
 	private final Point location;
     private final Semaphore permit = new Semaphore(1, true);
 
-    public PackingStation(String name, String id, int x, int y) {
-        super(id, x, y);
-        this.stationName = name;
+    public PackingStation(String id, int x, int y, WahouseObjectType object_TYPE) {
+        super(id, x, y, object_TYPE);
         this.location = new Point(x, y);
     }
 
@@ -49,7 +47,4 @@ public class PackingStation extends WarehouseObject implements EquipmentInterfac
         return "PackingStation [ID=" + super.getId() + ", location=" + location + "]";
     }
 
-    public String getStationName() {
-        return stationName;
-    }
 }

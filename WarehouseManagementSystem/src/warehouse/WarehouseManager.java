@@ -13,8 +13,8 @@ import java.util.List;
  */
 
 public class WarehouseManager {
-    private final WarehouseFloorManager floorManager;
-    private final Inventory inventory;
+    public final WarehouseFloorManager floorManager;
+    public final Inventory inventory;
 
 
     public WarehouseManager(int width, int length) {
@@ -115,8 +115,8 @@ public class WarehouseManager {
     public List<PackingStation> getAllPackingStations() {
         List<PackingStation> stations = new ArrayList<>();
         for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
-            if (obj instanceof PackingStation s && s.getStationName() != null && s.getStationName().contains("Packing")) {
-                stations.add(s);
+            if (obj.getObjectType().equals(WahouseObjectType.PackingStation)) {
+                stations.add((PackingStation) obj);
             }
         }
         return stations;

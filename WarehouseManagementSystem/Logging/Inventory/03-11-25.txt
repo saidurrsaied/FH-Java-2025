@@ -1,0 +1,16 @@
+[ERROR][03-11-25][16:43:39][Inventory] Initialization error: Shelf not found: SHELF1
+[ERROR][03-11-25][16:55:19][Inventory] Initialization error: Shelf not found: SHELF1
+[ERROR][03-11-25][16:55:36][Inventory] Initialization error: Shelf not found: SHELF1
+[ERROR][03-11-25][16:58:39][Inventory] Initialization error: Shelf not found: SHELF1
+[INFO][03-11-25][17:06:57][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][03-11-25][17:06:58][Inventory] Exported post-run inventory to data\inventory_post_run.csv
+[INFO][03-11-25][17:12:00][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][03-11-25][17:12:01][Inventory] Exported post-run inventory to data\inventory_post_run.csv
+[INFO][03-11-25][17:13:52][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][03-11-25][17:13:53][Inventory] Exported post-run inventory to data\inventory_post_run.csv
+[INFO][03-11-25][17:14:25][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][03-11-25][17:14:26][Inventory] Exported post-run inventory to data\inventory_post_run.csv
+[INFO][03-11-25][17:14:37][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][03-11-25][17:14:38][Inventory] Exported post-run inventory to data\inventory_post_run.csv
+[INFO][03-11-25][17:15:59][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][03-11-25][17:16:00][Inventory] Exported post-run inventory to data\inventory_post_run.csv

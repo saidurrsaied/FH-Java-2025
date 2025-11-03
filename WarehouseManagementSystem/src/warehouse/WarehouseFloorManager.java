@@ -46,6 +46,7 @@ public class WarehouseFloorManager {
 
         objectList.add(asset);
         objectMap.put(asset.getId(), asset);
+        System.out.println("Added object: " + asset.getId());
         return true;
     }
 
@@ -83,15 +84,12 @@ public class WarehouseFloorManager {
     public List<WarehouseDataPacket> exportWarehouseData() {
         List<WarehouseDataPacket> dataPacket = new ArrayList<>();
         for (WarehouseObject obj : objectMap.values()) {
-            boolean available = (obj instanceof StorageShelf shelf) && shelf.isAvailable();
-
             dataPacket.add(
                     new WarehouseDataPacket(
                         obj.getId(),
-                        obj.getClass().getSimpleName(),
+                        obj.getObjectType().toString(),
                         obj.getLocation().x,
-                        obj.getLocation().y,
-                        available)
+                        obj.getLocation().y)
                         );
         }
         return dataPacket;

@@ -1,9 +1,13 @@
 package warehouse.datamanager;
 
 
+import equipmentManager.ChargingStation;
+import equipmentManager.EquipmentManager;
+import equipmentManager.Robot;
 import warehouse.*;
 import warehouse.exceptions.DataFileException;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,16 +130,16 @@ public class DataFile {
     /** Export warehouse floor data (objects) to CSV file */
     public static void exportFloorToCSV(List<WarehouseDataPacket> data, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("ObjectID,ObjectType,X,Y,Available");
+            writer.write("ObjectID,ObjectType,X,Y");
             writer.newLine();
 
             for (WarehouseDataPacket packet : data) {
-                writer.write(String.format("%s,%s,%d,%d,%b",
+                writer.write(String.format("%s,%s,%d,%d",
                         packet.getId(),
                         packet.getType(),
                         packet.getX(),
-                        packet.getY(),
-                        packet.isAvailable()));
+                        packet.getY()
+                ));
                 writer.newLine();
             }
             System.out.println("Floor data exported to: " + filePath);
@@ -144,7 +148,7 @@ public class DataFile {
         }
     }
 
-    /** Load floor layout (objects) from CSV file */
+    /** Load floor layout (objects) from the CSV file */
     public static List<WarehouseDataPacket> loadFloorFromCSV(String filePath) throws DataFileException {
         List<WarehouseDataPacket> floorData = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -153,15 +157,16 @@ public class DataFile {
             while ((line = reader.readLine()) != null) {
                 currentRow++;
                 String[] parts = line.split(",");
-                if (parts.length < 5) continue;
+                if (parts.length < 4) {
+                    System.out.println("Invalid number at row " + currentRow + " in " + filePath);
+                    continue;}
 
                 try {
                     floorData.add(new WarehouseDataPacket(
                             parts[0].trim(),
                             parts[1].trim(),
                             Integer.parseInt(parts[2].trim()),
-                            Integer.parseInt(parts[3].trim()),
-                            Boolean.parseBoolean(parts[4].trim())
+                            Integer.parseInt(parts[3].trim())
                     ));
                 } catch (NumberFormatException nfe) {
                     throw new DataFileException("Invalid number at row " + currentRow + " in " + filePath, nfe);
@@ -175,8 +180,8 @@ public class DataFile {
         return floorData;
     }
 
-    /** Initialize warehouse floor from existing CSV */
-    public static void initializeFloor(WarehouseManager manager, String floorCSVFile) throws DataFileException {
+    /** Initialize the warehouse floor from existing CSV */
+    public static void initializeFloor(WarehouseManager warehouseManager, EquipmentManager equipmentManager, String floorCSVFile) throws DataFileException {
         File dataFile = new File(floorCSVFile);
 
         if (!dataFile.exists()) {
@@ -184,29 +189,34 @@ public class DataFile {
         }
 
         System.out.println("Loading warehouse floor from " + floorCSVFile + " ...");
-        List<WarehouseDataPacket> data = loadFloorFromCSV(floorCSVFile);
+        List<WarehouseDataPacket> floorData = loadFloorFromCSV(floorCSVFile);
 
-        for (WarehouseDataPacket packet : data) {
+        for (WarehouseDataPacket packet : floorData) {
             try {
                 WarehouseObject object;
 
-                // Create object based on its type
+                // Create objects based on its type
                 switch (packet.getType()) {
                     case "StorageShelf" -> {
-                        object = new StorageShelf(packet.getId(), packet.getX(), packet.getY(), 1, 1);
-                        if (!packet.isAvailable()) ((StorageShelf) object).makeOccupied();
+                        object = new StorageShelf(packet.getId(), packet.getX(), packet.getY(), WahouseObjectType.StorageShelf);
                     }
                     case "LoadingStation" -> {
-                        object = new LoadingStation(packet.getId(), packet.getId(), packet.getX(), packet.getY());
-                        if (!packet.isAvailable()) ((LoadingStation) object).setOccupied();
+                        object = new LoadingStation(packet.getId(), packet.getX(), packet.getY(), WahouseObjectType.LoadingStation);
                     }
                     case "PackingStation" -> {
-                        object = new PackingStation(packet.getId(), packet.getId(), packet.getX(), packet.getY());
+                        object = new PackingStation(packet.getId(), packet.getX(), packet.getY(), WahouseObjectType.PackingStation);
                     }
+                    case "ChargingStation" -> {
+                        object = new ChargingStation(packet.getId(), packet.getX(), packet.getY(), WahouseObjectType.ChargingStation);
+                    }
+                    case "Robot" -> {
+                        object = new Robot(packet.getId(), new Point(packet.getX(), packet.getY()), equipmentManager, WahouseObjectType.Robot);
+                    }
+
                     default -> throw new IllegalArgumentException("Unknown object type: " + packet.getType());
                 }
 
-                manager.addObjectToFloor(object);
+                warehouseManager.addObjectToFloor(object);
 
             } catch (RuntimeException e) {
                 // keep going but provide context

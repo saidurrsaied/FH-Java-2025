@@ -1,14 +1,12 @@
 package warehouse;
 
-import java.awt.*;
-
 public class StorageShelf extends WarehouseObject implements Locatable {
 
     private boolean isAvailable;
     private Product storedProduct;
 
-    public StorageShelf(String shelfID, int x, int y, int shelfWidth, int shelfLength) {
-        super(shelfID, x, y);
+    public StorageShelf(String shelfID, int x, int y, WahouseObjectType object_TYPE) {
+        super(shelfID, x, y, object_TYPE);
         this.isAvailable = true;
         this.storedProduct = null;
     }

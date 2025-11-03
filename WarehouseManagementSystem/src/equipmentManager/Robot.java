@@ -1,6 +1,8 @@
 package equipmentManager;
 
 import taskManager.Task;
+import warehouse.WahouseObjectType;
+import warehouse.WarehouseObject;
 
 import java.awt.Point;
 import java.util.concurrent.BlockingQueue;
@@ -13,14 +15,14 @@ import java.util.concurrent.LinkedBlockingQueue;
  * * This version does NOT use HoldingStations. Its only idle spot
  * is its StartingPosition.
  */
-public class Robot implements Runnable, EquipmentInterface {
+public class Robot extends WarehouseObject implements Runnable, EquipmentInterface {
     
     // --- Constants ---
     private static final int PICKING_TIME_MS = 300; 
     private static final int DROPPING_TIME_MS = 300;
     private static final int CHARGING_1_PERCENTAGE_TIME_MS = 1000;
     private static final long MOVE_DELAY_PER_METER_MS = 100; // Speed simulation
-    private static final double BATTERY_COSUMED_PER_METER = 0.5;
+    private static final double BATTERY_COSUMED_PER_METER = 0.005;
 
 	// --- State ---
     private final String ID;
@@ -33,7 +35,7 @@ public class Robot implements Runnable, EquipmentInterface {
     private final BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>();
     
     // Reference to the central manager to report completion and pass to tasks
-    private final EquipmentManager equipmentManager; 
+    private final EquipmentManager equipmentManager;
 
 	/**
      * Creates a new Robot.
@@ -41,7 +43,8 @@ public class Robot implements Runnable, EquipmentInterface {
      * @param startingPosition The "home" position to return to when idle.
      * @param manager A reference to the central EquipmentManager.
      */
-    public Robot(String ID, Point startingPosition, EquipmentManager manager) {
+    public Robot(String ID, Point startingPosition, EquipmentManager manager, WahouseObjectType object_TYPE) {
+        super(ID, startingPosition.x, startingPosition.y, object_TYPE);
         this.ID = ID;
         this.startingPosition = startingPosition;
         this.currentPosition = startingPosition;
@@ -223,7 +226,13 @@ public class Robot implements Runnable, EquipmentInterface {
 
 	public Point getLocation() {return this.currentPosition;}
 
-	public String getID() {
+    @Override
+    public String toString() {
+        return String.format("Robot [ID=%s, state=%s, startingPosition=%s, %s, currentPosition=%s, %s]",
+                ID, state, startingPosition.x, startingPosition.y, currentPosition.x, currentPosition.y);
+    }
+
+    public String getID() {
 		return ID;
 	}
 	
