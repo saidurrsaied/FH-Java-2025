@@ -1,4 +1,4 @@
 ProductID,ProductName,Quantity,ShelfID,X,Y
 P-001,Apple,12,SHELF1,2,3
-P-002,Banana,10,SHELF2,4,1
-P-003,Orange,10,SHELF3,5,2
+P-002,Banana,10,SHELF2,50,60
+P-003,Orange,10,SHELF3,90,70

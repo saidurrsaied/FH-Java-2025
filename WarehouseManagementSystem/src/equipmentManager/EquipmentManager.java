@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition; // For more robust waiting
 import java.util.concurrent.locks.Lock;      // For more robust waiting
 import java.util.concurrent.locks.ReentrantLock; // For more robust waiting
@@ -35,15 +38,12 @@ public class EquipmentManager implements Runnable {
     // --- Queues ---
     private final Deque<Task> pendingPickTasks = new ArrayDeque<>();
     private final BlockingQueue<Task> taskSubmissionQueue;
-    // Queue for robots holding an item, waiting for a packing station
-    private final Queue<Robot> robotsWaitingForStation = new LinkedList<>();
-    // Queue for robots holding an item, waiting for a charging station
-    private final Queue<Robot> robotsWaitingForCharge = new LinkedList<>();
 
-    // --- Concurrency Control ---
-    private final Lock managerLock = new ReentrantLock(true);
-    private final Condition stationAvailableCondition = managerLock.newCondition();
-    
+	private final BlockingQueue<Robot> robotsWaitingForCharge = new LinkedBlockingQueue<>();;
+	
+	private LinkedBlockingQueue<ChargingStation> availableChargeStations;
+	private LinkedBlockingQueue<PackingStation> availablePackStations;
+    // --- Concurrency Control ---   
     public EquipmentManager(List<Robot> robots,
                             List<ChargingStation> chargingStations,
                             List<PackingStation> packingStations,
@@ -52,6 +52,12 @@ public class EquipmentManager implements Runnable {
         this.allChargingStations = chargingStations;
         this.allPackingStations = packingStations;
         this.taskSubmissionQueue = taskSubmissionQueue;
+        
+        // Add all charging stations into availableChargingStationQueue
+        this.availableChargeStations = new LinkedBlockingQueue<>(chargingStations);
+        
+        // Add all packing stations into availablePackingStationQueue
+        this.availablePackStations = new LinkedBlockingQueue<>(packingStations);
     }
     
     @Override
@@ -60,155 +66,143 @@ public class EquipmentManager implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
         	Task newTask;
 			try {
-                // 1. Wait for a new task. This blocks *outside* the lock.
 				newTask = taskSubmissionQueue.take();
-	        	
-                // Lock the manager to safely access shared lists
-                managerLock.lock();
-                try {
-                    // 2. Handle the new task
-                    switch (newTask.getType()) {
-                        case PICK_ORDER: {
-                            Point itemLocation = ((OrderTask) newTask).getItemLocation(); // Use interface
-                            
-                            // Check available robots, find the nearest one
-                            Robot foundRobot = findClosestAvailableRobot(itemLocation);
-                            
-                            if (foundRobot == null) {
-                                // No fit robot, save in pending queue
-                                pendingPickTasks.addLast(newTask);
-                                System.out.printf("[EquipmentManager] No available robot for %s → Pending (%d)%n", 
-                                		          (OrderTask) newTask, pendingPickTasks.size());
-                                break; // Exit switch, loop continues
-                            } else {
-                                // Robot found! Dispatch immediately.
-                                System.out.printf("[EquipmentManager] DISPATCH %s -> %s%n", (OrderTask) newTask, foundRobot.getID());
-                                availableRobots.remove(foundRobot);
-                                foundRobot.assignTask(newTask); // Send task to robot
-                            }
-                            break; // Exit switch
-                        }
-                        // (Add additional cases if needed)
-                        default:
-                            System.out.printf("[EquipmentManager] Unknown task type received: %s%n", newTask.getType());
-                            break;
-                    } // end switch
-                } finally {
-                    managerLock.unlock(); // Always unlock after handling
-                }
-			} catch (InterruptedException e) {
-				System.out.println("EquipmentManager thread interrupted.");
-                Thread.currentThread().interrupt(); // Preserve interrupt status
-			}
+				synchronized (this) {
+                // Handle the new task
+                switch (newTask.getType()) {
+	                    case PICK_ORDER: 
+	                        // Received Pick Order Task from TaskManager
+	                        Point itemLocation = ((OrderTask) newTask).getItemLocation(); // Use interface
+	                            
+	                        // Check available robots, find the nearest one
+	                        Robot foundRobot = findClosestAvailableRobot(itemLocation);
+	                        if (foundRobot == null) {
+	                            // No fit robot, save in pending queue, assign this OrderTask later
+	                            pendingPickTasks.addLast(newTask);
+	                            System.out.printf("[EquipmentManager] No available robot for %s → Pending (%d)%n", 
+	                                		     (OrderTask) newTask, pendingPickTasks.size());
+	                        } else {
+	                            // Robot found, dispatch this OrderTask immediately.
+	                            System.out.printf("[EquipmentManager] DISPATCH %s -> %s%n", (OrderTask) newTask, foundRobot.getID());
+	                            availableRobots.remove(foundRobot);
+	                            foundRobot.assignTask(newTask); // Send task to robot
+	                        }
+	                        break;
+	                    // (Add additional cases if needed)
+	                    default:
+	                        System.out.printf("[EquipmentManager] Unknown task type received: %s%n", newTask.getType());
+	                        break;
+	                    } // end switch
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         }
-        System.out.println("EquipmentManager thread stopped.");
     }
     
     /**
      * (Public) Called by Robot thread when it finishes a task.
      * This is the *other* main entry point and MUST be thread-safe.
+     * @throws InterruptedException 
      */
-    public void reportRobotAvailable(Robot robot, Task finishedTask) {
-        managerLock.lock(); // Lock to safely modify shared lists
-        try {
+    public synchronized void reportFinishedTask(Robot robot, Task finishedTask, boolean taskStatus) throws InterruptedException {
             System.out.printf("[EquipmentManager] Robot %s finished task %s.%n", robot.getID(), finishedTask.getID());
-
-            // 1. Release resources (e.g., Packing LoadingStation)
-            releaseResourcesFrom(robot, finishedTask);
-
-            // 2. Check battery (highest priority)
-            if (robot.getBatteryPercentage() < LOW_BATTERY_PERCENT) {
-                System.out.printf("[EquipmentManager] Robot %s needs to be charged.%n", robot.getID());
-                if (dispatchChargeTask(robot)) {
-                    return; // Robot is now busy charging
-                } else {
-                	// Can not find any available charging station, add robot to waiting queue for charging station
-                    System.out.printf("[%s] WARNING: Robot %s needs charge, but no stations free!%n", this.ID, robot.getID());
-                    
-                    if (!robotsWaitingForCharge.contains(robot)) {
-                        robotsWaitingForCharge.add(robot);
-                    }
-                    
-                    if ((finishedTask.getType() != TaskType.GO_TO_START) && 
-                        !robot.getCurrentPosition().equals(robot.getStartingPosition())) {
-                    	// Robot is not at starting point, send task to ask it go to starting point
-                        System.out.printf("[%s] Sending Robot %s to Starting Point to wait for charge.%n", this.ID, robot.getID());
-                        robot.assignTask(new GoToStartTask(robot.getStartingPosition()));
-                        return;
-                        } else {
-                        // Robot is already at starting point, still waiting for charging station be available
-                        System.out.printf("[%s] Robot %s is at Start Point, waiting for charge. Will not be assigned tasks.%n", this.ID, robot.getID());
-                        return; // return here, then will not be added to available list
-                    }
-                }
-            }
-
-            // 3. Check if robot just finished its "go to start" task
-            if (finishedTask.getType() == TaskType.GO_TO_START) { // Assuming GO_TO_START type
-                System.out.printf("[%s] Robot %s has arrived at Start Position. Now Available.%n", this.ID, robot.getID());
-                availableRobots.add(robot); 
-                // A robot is free, check if it can take a pending task
-                dispatchPendingTasks(); 
-                return;
-            }
-
-            // 4. (Robot just finished Order or Charge)
-            // Try to assign a pending task *immediately*
-            if (tryAssignPendingTaskTo(robot)) {
-                System.out.printf("[%s] Robot %s assigned a new pending task immediately.%n", this.ID, robot.getID());
-                return; // Robot is busy again
-            }
-
-            // 5. No new task. Send robot to its Starting Position to be idle.
-            System.out.printf("[%s] No pending tasks for Robot %s. Sending to Starting Point.%n", this.ID, robot.getID());
-            robot.assignTask(new GoToStartTask(robot.getStartingPosition())); // Assuming GoToStartTask exists
-
-        } finally {
-            managerLock.unlock(); // Always release lock
-        }
+            
+			// No matter what the previous task, try to assign. There is battery check in the function then
+            // no worry about low battery service
+			boolean assignedPending = tryAssignPendingTaskTo(robot);
+			
+			if (assignedPending) {
+			    // Robot received pending task, then return to do the task
+			    return;
+			}
+			
+			// --- No available pending task ---
+			switch(finishedTask.getType()) {
+			    case PICK_ORDER:
+			    case STOCK_ITEM:
+			        // Check battery requirement
+			        if (robot.getBatteryPercentage() < LOW_BATTERY_PERCENT) {
+			        	ChargingStation freeChargingStation = requestAvailableChargingStation(0); // try to find available charging station
+			            if (freeChargingStation != null) {
+		                	// Found available charging station
+		                	System.out.printf("[EquipmentManager] Assign charging station %s to robot %s.%n", freeChargingStation.getID(), robot.getID());
+		                	robot.assignTask(new ChargeTask(freeChargingStation, robot.getID()));
+			            } else {
+			            	// No free charging station, robot needs to wait -> Assign 'GoToChargingStationAndWaitTask'
+	                        ChargingStation closest = findClosestChargingStation(robot.getCurrentPosition());
+	                        
+	                        if (closest != null) {
+	                            System.out.printf("[EquipmentManager] %s battery low. All stations busy. Assigning 'GoToChargingStationAndWaitTask' (Target: %s)%n", 
+	                                              robot.getID(), closest.getID());
+	                            robot.assignTask(new GoToChargingStationAndWaitTask(closest));
+	                        } else {
+	                            System.out.println("[EquipmentManager] ERROR: No charging stations! Robot " + robot.getID() + " stuck!");
+	                            availableRobots.add(robot); 
+	                        }
+			            }
+			        } else {
+			            // Battery is still high, go to starting point
+			            System.out.printf("[EquipmentManager] No pending tasks. Sending %s to Start Point.%n", robot.getID());
+			            robot.assignTask(new GoToStartTask(robot.getStartingPosition()));
+			        }
+			        break;
+			        
+			    case CHARGE_ROBOT:
+			        // Just fully charged, no pending task -> Go to Starting point
+			        System.out.printf("[EquipmentManager] %s finished charging. No pending tasks. Sending to Start Point.%n", robot.getID());
+			        robot.assignTask(new GoToStartTask(robot.getStartingPosition()));
+			        break;
+			
+			    case GO_TO_CHARGING_STATION_AND_WAIT:
+			        System.out.printf("[EquipmentManager] Robot %s finished 'GoToWait'. %n", robot.getID());
+			        if (taskStatus) {
+			        	// Charge successfully
+				        System.out.printf("[EquipmentManager] Robot %s is fully charged %n", robot.getID());
+			        } else {
+			        	// Can not get access to charging station, send to waiting queue for charging
+			        	System.out.printf("[EquipmentManager] Robot %s can not be charged, battery now is %.1f %n", robot.getID(), robot.getBatteryPercentage());
+			        	robotsWaitingForCharge.add(robot);
+			        }
+			        // Go to starting point in both cases
+			        robot.assignTask(new GoToStartTask(robot.getStartingPosition()));
+			        break;
+			        
+			    case GO_TO_START:
+			        System.out.printf("[EquipmentManager] Robot %s is at Start Point. Now IDLE.%n", robot.getID());
+			        availableRobots.add(robot);
+			        break;
+			        
+			    default:
+			         availableRobots.add(robot); // Safety purpose
+			         break;
+			}
     }
       
     /**
      * (Public) Called by Robot *during* its 'execute' method (Just-in-Time).
      */
     public PackingStation requestAvailablePackingStation(Robot robot) throws InterruptedException {
-        managerLock.lock(); // Lock to check stations and wait
-        try {
-            PackingStation availableStation = findAnyAvailableStation();
-
-            // Loop while no station is available
-            while (availableStation == null) {
-                System.out.printf("[%s] All Packing Stations busy. Robot %s must wait...%n", ID, robot.getID());
-                if (!robotsWaitingForStation.contains(robot)) {
-                    robotsWaitingForStation.add(robot); 
-                }
-
-                // Wait for a signal (from releaseResourcesFrom)
-                stationAvailableCondition.await(); 
-
-                // Woken up! Try again to find a station
-                availableStation = findAnyAvailableStation();
-            }
-            
-            // Success!
-            robotsWaitingForStation.remove(robot); // Remove from waiting list
-            availableStation.tryAcquire(); // Reserve the station
-            System.out.printf("[%s] Allocating LoadingStation %s to Robot %s.%n", ID, availableStation.getID(), robot.getID());
-            return availableStation;
-
-        } catch (InterruptedException e) {
-             // If interrupted while waiting
-             robotsWaitingForStation.remove(robot); // Ensure robot is removed from wait queue
-             System.out.printf("[%s] Robot %s was interrupted while waiting for a station.%n", ID, robot.getID());
-             Thread.currentThread().interrupt(); // Re-set interrupt flag
-             return null; // Signal to the Order task that it failed
-        } finally {
-            managerLock.unlock(); // Always release lock
-        }
+    	// Waiting for available packing station indefinitely, robot will be in WAITING state here
+    	// until there will be available packing station.
+        PackingStation availableStation = availablePackStations.take();
+        
+        System.out.printf("[%s] Found available Packing Station %s for Robot %s.%n", ID, availableStation.getID(), robot.getID());
+        return availableStation;
+    }
+    
+    /**
+     * (Public) Called by Robot *during* its 'execute' method (Just-in-Time).
+     */
+    public ChargingStation requestAvailableChargingStation(long timeout) throws InterruptedException {
+    	// Waiting for available packing station indefinitely, robot will be in WAITING state here
+    	// until there will be available packing station.
+        ChargingStation availableStation = availableChargeStations.poll(timeout, TimeUnit.SECONDS);
+        return availableStation;
     }
     
  // --- Internal Logic (Called from locked methods) ---
-
     /**
      
      */
@@ -222,14 +216,22 @@ public class EquipmentManager implements Runnable {
             System.out.printf("[%s] No packing station found%n", ID);
             return Double.MAX_VALUE;
         }
-        
         Point packPos = farthestPackStation.getLocation();
 
+        ChargingStation farthestChargeStation = findFarthestChargingStation(packPos);
+        if (farthestChargeStation == null) {
+             System.out.printf("[%s] No charging station found%n", ID);
+             return Double.MAX_VALUE;
+        }
+        Point chargePos = farthestChargeStation.getLocation();
+        
         // Calculate farthest distance that robot can move 
-        // from starting point --> item position --> packing position
+        // from starting point --> item position --> packing station --> charging station
         double distToPick = robotPos.distance(orderPosition);
         double distToPack = orderPosition.distance(packPos);
-        double totalDistance = distToPick + distToPack;
+        double distToCharge = packPos.distance(chargePos);
+        
+        double totalDistance = distToPick + distToPack + distToCharge;
 
         double energyForTravel = totalDistance * Robot.getBatteryCosumedPerMeter();
 
@@ -254,103 +256,96 @@ public class EquipmentManager implements Runnable {
         return farthestStation;
     }
     
-    /**
-     * (Internal) Scans the pending queue and dispatches tasks if robots are available.
-     * Must be called while holding the lock.
-     */
-    private void dispatchPendingTasks() {
-        if (availableRobots.isEmpty() || pendingPickTasks.isEmpty()) {
-            return; // No resources or no work
-        }
+    private ChargingStation findFarthestChargingStation(Point target) {
+        if (allChargingStations.isEmpty()) return null;
 
-        System.out.printf("[%s] Brain: Checking %d pending tasks for %d available robots...%n", ID, pendingPickTasks.size(), availableRobots.size());
-        Iterator<Task> iterator = pendingPickTasks.iterator();
-
-        while (iterator.hasNext()) {
-            if (availableRobots.isEmpty()) break; // No more robots
-            
-            Task task = iterator.next();
-            
-            if (task instanceof OrderTask) {
-                // Find a robot for this task
-                Robot bestRobot = findClosestAvailableRobot(((OrderTask) task).getItemLocation());
-                
-                if (bestRobot != null) {
-                    // Found a robot! Dispatch.
-                    System.out.printf("[%s] Brain: Dispatching PENDING task %s -> Robot %s%n", 
-                                      this.ID, task.getID(), bestRobot.getID());
-                                       
-                    iterator.remove(); // Remove task from pending
-                    availableRobots.remove(bestRobot); // Robot is no longer available
-                    
-                    // Note: LoadingStation is NOT locked here. It will be requested Just-in-Time.
-                    bestRobot.assignTask(task);
-                }
+        ChargingStation farthestStation = null;
+        double maxDistance = 0.0;
+        
+        for (ChargingStation station : allChargingStations) {
+            double distance = station.getLocation().distance(target);
+            if (distance > maxDistance) {
+                maxDistance = distance;
+                farthestStation = station;
             }
-            // If no robot, loop to next task (maybe a closer one exists for another robot)
         }
+        System.out.println(farthestStation);
+        return farthestStation;
+    }
+    
+    private ChargingStation findClosestChargingStation(Point target) {
+        if (allChargingStations.isEmpty()) {
+            return null;
+        }
+        
+        ChargingStation closestChargingStation = null;
+        double minDistance = Double.MAX_VALUE;
+        
+        for (ChargingStation station : allChargingStations) {
+            double distance = station.getLocation().distance(target);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestChargingStation = station;
+            }
+        }
+        return closestChargingStation;
+    }
+
+    /**
+     * (Public) Called by a Task (e.g., ChargeTask, GoToChargingStationAndWaitTask)
+     * to return a station to the pool of available stations.
+     * * @param station The ChargingStation that is now free.
+     */
+    public void releaseChargeStation(ChargingStation station) {
+        if (station == null) {
+            System.err.printf("ERROR: Attempted to release a null station.%n");
+            return;
+        }
+        Robot waitingRobot = null;
+        waitingRobot = robotsWaitingForCharge.poll();
+        
+        if (waitingRobot != null) {
+        	waitingRobot.assignTask(new ChargeTask(station, waitingRobot.getID()));
+        } else {
+            try {
+                // put() will add the station back to the queue.
+                // If the queue is full (which shouldn't happen with LinkedBlockingQueue
+                // unless you set a capacity), it will wait.
+            	availableChargeStations.put(station);
+                
+                System.out.printf("[EquipmentManager] Charging Station %s released back to queue. (Queue size: %d)%n", 
+                                  station.getID(), availableChargeStations.size());
+                                  
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); // Re-set the interrupt flag
+                System.err.printf("ERROR: Interrupted while trying to release station %s. Station may be lost!%n", station.getID());
+            }
+        }
+
     }
     
     /**
-     * (Internal) Releases resources and signals waiting threads.
-     * Must be called while holding the lock.
+     * (Public) Called by a Task (e.g., OrderTask)
+     * to return a station to the pool of available stations.
+     *
+     * @param station The PackingStation that is now free.
      */
-    private void releaseResourcesFrom(Robot robot, Task finishedTask) {
-        boolean stationReleased = false;
-        boolean chargeStationReleased = false;
+    public void releasePackingStation(PackingStation station) {
+        if (station == null) {
+            System.err.printf("ERROR: Attempted to release a null packing station.%n");
+            return;
+        }
         
-        switch(finishedTask.getType()) {
-        case PICK_ORDER:
-        	// release packing station
-            PackingStation packingStation = findPackingStationAt(robot.getCurrentPosition());
-            if (packingStation != null) {
-            	packingStation.release();
-                stationReleased = true;
-                System.out.printf("[%s] Released Packing LoadingStation %s.%n", ID, packingStation.getID());
-            }
-        	break;
-        case CHARGE_ROBOT:
-            ChargingStation chargingStation = findChargingStationAt(robot.getCurrentPosition());
-            if (chargingStation != null) {
-            	chargingStation.release();
-            	chargeStationReleased = true;
-                // (Signal a different condition if you have robots waiting for charge)
-                System.out.printf("[%s] Released Charging LoadingStation %s.%n", ID, chargingStation.getID());
-            }
-        	break;
-		default:
-			break;
-        }
-
-        // If a packing station was freed AND robots are waiting...
-        if (stationReleased && !robotsWaitingForStation.isEmpty()) {
-            System.out.printf("[%s] Signaling %d robots waiting for a station.%n", ID, robotsWaitingForStation.size());
-            stationAvailableCondition.signalAll(); // Wake up waiting robots
-        }
-        // If a charging station is freed and there is robot waiting for it
-        if (chargeStationReleased && !robotsWaitingForCharge.isEmpty()) {
-            System.out.printf("[%s] A charge station is free. Checking %d robots waiting for charge...%n", ID, robotsWaitingForCharge.size());
-            Robot robotToCharge = null;
-            Iterator<Robot> iterator = robotsWaitingForCharge.iterator();
-            while(iterator.hasNext()) {
-                 Robot waitingRobot = iterator.next();
-                 
-                 // Check if there is need-charge robots at home, priority them
-                 if (waitingRobot.getState().equals(RobotState.IDLE.toString())  &&
-                     waitingRobot.getCurrentPosition().equals(waitingRobot.getStartingPosition())) 
-                 {
-                     robotToCharge = waitingRobot;
-                     iterator.remove();
-                     break;
-                 }
-            }
-
-            if (robotToCharge != null) {
-                System.out.printf("[%s] Found idle robot %s at Start Point. Sending to charge.%n", this.ID, robotToCharge.getID());
-                dispatchChargeTask(robotToCharge); 
-            } else {
-                 System.out.printf("[%s] No robots are ready at Start Point to take the free charge station.%n", this.ID);
-            }
+        try {
+            // put() will add the station back to the queue.
+            availablePackStations.put(station);
+            
+            System.out.printf("[EquipmentManager] Packing Station %s released back to queue. (Queue size: %d)%n", 
+                              station.getID(), availablePackStations.size());
+                              
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Re-set the interrupt flag
+            System.err.printf("ERROR: Interrupted while trying to release station %s. Station may be lost!%n", station.getID());
         }
     }
     
@@ -369,7 +364,6 @@ public class EquipmentManager implements Runnable {
             
             if (task.getType() == TaskType.PICK_ORDER) {
                 OrderTask order = (OrderTask) task;
-                
                 double requiredBattery = calculateRequiredEnergy(robot, order.getItemLocation());
                 
                 if (robot.getBatteryPercentage() >= requiredBattery) {
@@ -412,43 +406,5 @@ public class EquipmentManager implements Runnable {
         	}
         }
         return bestRobot;
-    }
-    
-    private PackingStation findAnyAvailableStation() {
-        for (PackingStation station : allPackingStations) {
-            if (station.isAvailable()) return station;
-        }
-        return null;
-    }
-    
-    private PackingStation findPackingStationAt(Point location) {
-        for (PackingStation station : allPackingStations) {
-            if (station.getLocation().equals(location)) return station;
-        }
-        return null;
-    }
-
-    private ChargingStation findAnyAvailableChargeStation() {
-        for (ChargingStation station : allChargingStations) {
-            if (station.isAvailable()) return station;
-        }
-        return null;
-    }
-    
-    private ChargingStation findChargingStationAt(Point location) {
-         for (ChargingStation station : allChargingStations) {
-            if (station.getLocation().equals(location)) return station;
-        }
-        return null;
-    }
-    
-    private boolean dispatchChargeTask(Robot robot) {
-        ChargingStation freeStation = findAnyAvailableChargeStation();
-        if (freeStation != null) {
-            freeStation.tryAcquire();
-            robot.assignTask(new ChargeTask(freeStation.getLocation(), robot.getID())); // Assuming ChargeTask exists
-            return true;
-        }
-        return false;
     }
 }

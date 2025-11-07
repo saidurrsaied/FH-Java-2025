@@ -19,5 +19,5 @@ public interface Task {
      * @param manager Reference to the EquipmentManager to request resources.
      * @throws InterruptedException If the robot's thread is interrupted.
      */
-    void execute(Robot robot, EquipmentManager manager) throws InterruptedException; 
+    void execute(Robot robot, EquipmentManager manager) throws InterruptedException, FindChargeTimeoutException; 
 }
