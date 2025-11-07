@@ -39,7 +39,6 @@ public class StockTask implements Task {
         robot.dropItem(itemName);
             
         System.out.printf("[%s] Stocked %s at shelf %s%n", robot.getID(), this.itemName, this.shelfLocation);
-
     }
 
     @Override

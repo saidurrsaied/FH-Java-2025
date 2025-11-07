@@ -1,5 +1,6 @@
 package equipmentManager;
 
+import taskManager.FindChargeTimeoutException;
 import taskManager.Task;
 import warehouse.WahouseObjectType;
 import warehouse.WarehouseObject;
@@ -18,16 +19,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Robot extends WarehouseObject implements Runnable, EquipmentInterface {
     
     // --- Constants ---
-    private static final int PICKING_TIME_MS = 300; 
-    private static final int DROPPING_TIME_MS = 300;
-    private static final int CHARGING_1_PERCENTAGE_TIME_MS = 1000;
-    private static final long MOVE_DELAY_PER_METER_MS = 100; // Speed simulation
-    private static final double BATTERY_COSUMED_PER_METER = 0.005;
+    private static final int PICKING_TIME_MS = 50; 
+    private static final int DROPPING_TIME_MS = 50;
+    private static final int CHARGING_1_PERCENTAGE_TIME_MS = 10;
+    private static final long MOVE_DELAY_PER_METER_MS = 50; // Speed simulation
+    private static final double BATTERY_COSUMED_PER_METER = 1;
 
 	// --- State ---
     private final String ID;
 	private double batteryPercentage = 100;
-    private RobotState state = RobotState.IDLE; // Logical state
+    private ObjectState state = ObjectState.FREE; // Logical state
     private Point startingPosition; // The "home" base
     private Point currentPosition; // Current physical location
     
@@ -35,7 +36,7 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
     private final BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>();
     
     // Reference to the central manager to report completion and pass to tasks
-    private final EquipmentManager equipmentManager;
+    private EquipmentManager equipmentManager;
 
 	/**
      * Creates a new Robot.
@@ -57,7 +58,7 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
      */
     public void assignTask(Task task) {
         taskQueue.add(task);
-        System.out.println(ID + " received task: " + task.getDescription());
+        System.out.printf("[%s] Received task: %s %n", this.ID, task.getDescription());
     }
 
     /**
@@ -68,6 +69,7 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
     public void run() {
     	System.out.printf("[%s] Thread started at (%d, %d)%n", ID, currentPosition.x, currentPosition.y);
         Task currentTask = null; // Track the task being executed
+        boolean taskStatus = false;
         
         while (true) { // Infinite loop
             try {
@@ -75,21 +77,31 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
                 currentTask = taskQueue.take();
 
                 // 2. LEAVING IDLE: Robot is no longer at its StartingPosition
-                this.state = RobotState.BUSY;
+                this.state = ObjectState.BUSY;
                 
                 // 3. EXECUTE: Pass the robot itself and the manager to the task
                 // (so the task can request resources like packing stations)
-                currentTask.execute(this, this.equipmentManager); 
+                currentTask.execute(this, this.equipmentManager);
+                taskStatus = true;
             } catch (InterruptedException e) {
                 // Task was interrupted (e.g., during moveTo or while waiting for a station)
                 System.out.printf("[%s] Task %s was interrupted!%n", ID, (currentTask != null ? currentTask.getID() : "UNKNOWN"));
                 Thread.currentThread().interrupt(); // Re-set the interrupt flag
-            } finally {
+            } catch (FindChargeTimeoutException e) {
+            	taskStatus = false;
+				e.printStackTrace();
+			} finally {
                 // 4. REPORT: This block *always* runs, even if an exception occurred.
-                this.state = RobotState.IDLE;
+                this.state = ObjectState.FREE;
+                
                 if (currentTask != null) {
                     // Report completion (or failure) back to the manager
-                    equipmentManager.reportRobotAvailable(this, currentTask); 
+                    try {
+						equipmentManager.reportFinishedTask(this, currentTask, taskStatus);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
                 }
                 currentTask = null; // Clean up for the next loop
             }
@@ -192,6 +204,10 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
     }
     
     
+    public void setEquipmentManager(EquipmentManager manager) {
+        this.equipmentManager = manager;
+    }
+    
     public static double getBatteryCosumedPerMeter() {
 		return BATTERY_COSUMED_PER_METER;
 	}
@@ -208,8 +224,8 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
 		return state.toString();
 	}
 
-	public void setState(RobotState state) {
-		this.state = state;
+	public void setState(ObjectState newState) {
+		this.state = newState;
 	}
 
 	public Point getStartingPosition() {
@@ -235,5 +251,4 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
     public String getID() {
 		return ID;
 	}
-	
 }

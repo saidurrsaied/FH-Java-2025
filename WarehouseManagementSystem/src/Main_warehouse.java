@@ -18,8 +18,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Main_warehouse {
     public static void main(String[] args) {
@@ -39,7 +41,6 @@ public class Main_warehouse {
             BlockingQueue<Task> taskSubmissionQueue = new LinkedBlockingQueue<>();
             List<Robot> availableRobots = Collections.synchronizedList(new ArrayList<>());
             List<ChargingStation> chargingStations = new ArrayList<>();
-
 
             // Will be filled after floor init
             List<PackingStation> packingStations;
@@ -65,8 +66,6 @@ public class Main_warehouse {
                 } catch (InventoryException ie) {
                     log.log_print("ERROR", "inventory", "Failed to print inventory: " + ie.getMessage());
                 }
-
-
                 log.log_print("INFO", "inventory", "Loaded warehouse floor and inventory from CSV.");
             } catch (DataFileException dfe) {
                 log.log_print("ERROR", "inventory", "Data file error: " + dfe.getMessage());
@@ -79,13 +78,6 @@ public class Main_warehouse {
             // Refresh packing stations list after floor load
             packingStations = warehouseManager.getAllPackingStations();
 
-            // Recreate EquipmentManager with real packing stations
-            EquipmentManager finalEquipmentManager = new EquipmentManager(
-                    availableRobots,
-                    chargingStations,
-                    packingStations,
-                    taskSubmissionQueue
-            );
 
             // Collect robots created during floor initialization (type Robot in equipmentManager package)
             for (var obj : warehouseManager.getFloorObjects()) {
@@ -93,12 +85,24 @@ public class Main_warehouse {
                     availableRobots.add(r);
                 }
             }
-
+            
+          chargingStations.add(new ChargingStation("CS-01", 30, 5, WahouseObjectType.ChargingStation));
+          chargingStations.add(new ChargingStation("CS-01", 30, 0, WahouseObjectType.ChargingStation));
+            // Recreate EquipmentManager with real packing stations
+            EquipmentManager finalEquipmentManager = new EquipmentManager(availableRobots,
+                                                                          chargingStations,
+                                                                          packingStations,
+                                                                          taskSubmissionQueue);
             // Start EquipmentManager thread
             Thread emThread = new Thread(finalEquipmentManager, "EM-Brain-Thread");
             emThread.setDaemon(true);
             emThread.start();
 
+            System.out.println("Updating Robot references to Final EquipmentManager...");
+            for (Robot r : availableRobots) {
+                r.setEquipmentManager(finalEquipmentManager); 
+            }
+            
             // Start robot threads
             for (Robot r : availableRobots) {
                 Thread t = new Thread(r, "Robot-" + r.getID());
@@ -106,33 +110,41 @@ public class Main_warehouse {
                 t.start();
             }
 
-
-
             // Submit a demo order via TaskManager
             TaskManager taskManager = new TaskManager(taskSubmissionQueue);
             try {
-                Point pickFrom = warehouseManager.getStorageShelf("SHELF2").getLocation();
-                // Use OrderTask to pick an item by name, delivery handled by EquipmentManager at runtime
-                taskManager.createNewOrder(warehouseManager.getProductLocationByProductID("P-002"), "P-002", 2);
-                log.log_print("INFO", "robot", "Submitted demo order for Banana x2.");
+            	Random rand = new Random(); // <-- 1. KHỞI TẠO Ở ĐÂY
+                
+                String[] products = {"P-001", "P-002", "P-003"};
+                
+                System.out.println("\n--- Submitting 10 test orders randomly... ---");
+
+                for (int i = 0; i < 10; i++) {
+                    String randomProduct = products[rand.nextInt(products.length)];
+                    Point location = warehouseManager.getProductLocationByProductID(randomProduct);                    
+                    System.out.printf("--- Submitting Order %d (%s) ---%n", i+1, randomProduct);
+                    taskManager.createNewOrder(location, randomProduct, 1);
+                    TimeUnit.SECONDS.sleep(rand.nextInt(5) + 1);
+                }
             } catch (TaskCreationException tce) {
                 log.log_print("ERROR", "robot", "Order creation failed: " + tce.getMessage());
             }
 
-            // Allow some time for processing (optional simple wait)
-            try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
-
-            // --- Export snapshot again ---
-            try {
-                String postRunCsv = new File(dataDir, "inventory_post_run.csv").getPath();
-                List<warehouse.datamanager.InventoryDataPacket> after = warehouseManager.exportInventoryData();
-                DataFile.exportInventoryToCSV(after, postRunCsv);
-                log.log_print("INFO", "inventory", "Exported post-run inventory to " + postRunCsv);
-            } catch (DataFileException dfe) {
-                log.log_print("ERROR", "inventory", "Export failed: " + dfe.getMessage());
-            }
-
-            System.out.println("Simulation finished. Check Logging/ and data/ folders.");
+//            // Allow some time for processing (optional simple wait)
+//            try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
+//
+//            // --- Export snapshot again ---
+//            try {
+//                String postRunCsv = new File(dataDir, "inventory_post_run.csv").getPath();
+//                List<warehouse.datamanager.InventoryDataPacket> after = warehouseManager.exportInventoryData();
+//                DataFile.exportInventoryToCSV(after, postRunCsv);
+//                log.log_print("INFO", "inventory", "Exported post-run inventory to " + postRunCsv);
+//            } catch (DataFileException dfe) {
+//                log.log_print("ERROR", "inventory", "Export failed: " + dfe.getMessage());
+//            }
+            System.out.println("Simulation running... Press CTRL + C to stop.");
+            emThread.join();
+//            System.out.println("Simulation finished. Check Logging/ and data/ folders.");
         } catch (IllegalStateException fatal) {
             Logger logLocal = new Logger();
             logLocal.log_print("ERROR", "inventory", "Fatal error: " + fatal.getMessage());

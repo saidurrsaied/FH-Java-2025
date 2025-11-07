@@ -2,16 +2,17 @@ package taskManager;
 
 import java.awt.Point;
 
+import equipmentManager.ChargingStation;
 import equipmentManager.EquipmentManager;
 import equipmentManager.Robot;
 
 public class ChargeTask implements Task{
-	private Point chargingStationLocation;
+	private final ChargingStation chargingStation;
 	private final String ID;
 	private final TaskType taskType = TaskType.CHARGE_ROBOT;
 	
-	public ChargeTask(Point chargingPosition, String robotId) {
-		this.chargingStationLocation = chargingPosition;
+	public ChargeTask(ChargingStation chargeStation, String robotId) {
+		this.chargingStation = chargeStation;
 		this.ID = "Charge-" + robotId;
 	}
 	
@@ -22,9 +23,9 @@ public class ChargeTask implements Task{
 
 	@Override
 	public String getDescription() {
-		return String.format("Task: Move to (%d, %d) and charge.", 
-                chargingStationLocation.x, 
-                chargingStationLocation.y);
+		return String.format("Task: Move to (%.1f, %.1f) and charge.", 
+				chargingStation.getLocation().getX(), 
+				chargingStation.getLocation().getY());
 	}
 
 	@Override
@@ -35,7 +36,9 @@ public class ChargeTask implements Task{
 	@Override
 	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
 		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
-		robot.moveTo(chargingStationLocation);
+		robot.moveTo(chargingStation.getLocation());
 		robot.charge();
+		// Release charging station
+		manager.releaseChargeStation(chargingStation);
 	}
 }
