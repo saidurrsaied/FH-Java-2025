@@ -129,6 +129,7 @@ public class EquipmentManager implements Runnable {
 			        	ChargingStation freeChargingStation = requestAvailableChargingStation(0); // try to find available charging station
 			            if (freeChargingStation != null) {
 		                	// Found available charging station
+			            	freeChargingStation.setState(ObjectState.BUSY);
 		                	System.out.printf("[%s] Assign charging station %s to robot %s.%n", ID, freeChargingStation.getID(), robot.getID());
 		                	robot.assignTask(new ChargeTask(freeChargingStation, robot.getID()));
 			            } else {
@@ -200,8 +201,8 @@ public class EquipmentManager implements Runnable {
         availableRobots.remove(robot); 
         
         // 2. Battery check logic (Same as in reportFinishedTask)
-        // (Check if battery actually needs charging, e.g., < 95%)
-        if (robot.getBatteryPercentage() >= 90.0) {
+        // (Check if battery actually needs charging (< 90%))
+        if (robot.getBatteryPercentage() >= HIGH_BATTERY_PERCENT) {
             System.out.printf("[EquipmentManager] %s requested charge but is already full. Returning to IDLE.%n", robot.getID());
             availableRobots.add(robot); // Add it back
             return; // Do nothing
@@ -211,6 +212,7 @@ public class EquipmentManager implements Runnable {
         ChargingStation freeStation = availableChargeStations.poll();
         if (freeStation != null) {
             // 3a. A free station is available
+        	freeStation.setState(ObjectState.BUSY);
             System.out.printf("[EquipmentManager] Found free station %s. Assigning 'ChargeTask'.%n", freeStation.getID());
             robot.assignTask(new ChargeTask(freeStation, robot.getID())); // (Modify ChargeTask constructor if needed)
         } else {
@@ -379,7 +381,7 @@ public class EquipmentManager implements Runnable {
                 // If the queue is full (which shouldn't happen with LinkedBlockingQueue
                 // unless you set a capacity), it will wait.
             	availableChargeStations.put(station);
-                
+                station.setState(ObjectState.FREE);
                 System.out.printf("[EquipmentManager] Charging Station %s released back to queue. (Queue size: %d)%n", 
                                   station.getID(), availableChargeStations.size());
                                   
@@ -406,7 +408,7 @@ public class EquipmentManager implements Runnable {
         try {
             // put() will add the station back to the queue.
             availablePackStations.put(station);
-            
+            station.setState(ObjectState.FREE);
             System.out.printf("[EquipmentManager] Packing Station %s released back to queue. (Queue size: %d)%n", 
                               station.getID(), availablePackStations.size());
                               
@@ -436,7 +438,6 @@ public class EquipmentManager implements Runnable {
                 if (robot.getBatteryPercentage() >= requiredBattery) {
                     System.out.printf("[%s] Robot %s assigned PENDING task %s immediately.%n", 
                                       this.ID, robot.getID(), task.getID());
-                    
                     iterator.remove();
                     robot.assignTask(task);
                     return true;

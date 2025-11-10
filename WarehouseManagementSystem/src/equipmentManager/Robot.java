@@ -175,7 +175,8 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
     	// Optional: Log the start of the entire multi-step move
         System.out.printf("[%s] Starting multi-step path from (%d, %d) Following %d steps.%n",
         		          ID, currentPosition.x, currentPosition.y, steps.size());
-                          
+        
+        this.state = RobotState.MOVING;
     	// Iterate through each Point (step) in the list
     	for (Point nextStep : steps) {
     		// Call the existing moveTo function for the next step.
@@ -200,6 +201,7 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
      */
     public void pickUpItem(String itemId) throws InterruptedException {
     	System.out.printf("[%s] Picking up item %s at (%d, %d)... %n", ID, itemId, currentPosition.x, currentPosition.y);
+    	this.state = RobotState.PICKING;
         Thread.sleep(PICKING_TIME_MS); 
         if(Thread.currentThread().isInterrupted()) throw new InterruptedException("PickUp interrupted");
         System.out.printf("[%s] Picked up item %s%n", ID, itemId);
@@ -212,6 +214,7 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
      */
     public void dropItem(String itemId) throws InterruptedException {
         System.out.printf("[%s] Dropping item %s at (%d, %d)...%n", ID, itemId, currentPosition.x, currentPosition.y);
+        this.state = RobotState.PACKING;
         Thread.sleep(DROPPING_TIME_MS); 
         if(Thread.currentThread().isInterrupted()) throw new InterruptedException("DropItem interrupted");
         System.out.printf("[%s] Dropped item %s%n", ID, itemId);
@@ -237,19 +240,21 @@ public class Robot extends WarehouseObject implements Runnable, EquipmentInterfa
         // 3. Calculate total charging time
         long chargeTimeMs = (long) (CHARGING_1_PERCENTAGE_TIME_MS * neededPercentage);
         
+        // 4. Set robot state to charging
+        this.state = RobotState.CHARGING;
         System.out.printf("[%s] Charging for %dms...%n", ID, chargeTimeMs);
         
-        // 4. Simulate the charging time
+        // 5. Simulate the charging time
         Thread.sleep(chargeTimeMs);
         
-        // 5. Check if thread was interrupted during sleep
+        // 6. Check if thread was interrupted during sleep
         if(Thread.currentThread().isInterrupted()) {
              System.out.printf("[%s] Charging interrupted! Battery might not be full.%n", ID);
              // Propagate the interrupt to be caught by the run() loop
              throw new InterruptedException("Charge interrupted for Robot " + ID);
         }
 
-        // 6. If successful, set battery to 100%
+        // 7. If successful, set battery to 100%
         this.batteryPercentage = 100.0;
         System.out.printf("[%s] Fully charged.%n", ID);
     }

@@ -39,7 +39,6 @@ public class ChargeTask implements Task{
 		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
 		List<Point> steps = manager.requestPath(robot, chargingStation.getLocation());
 		robot.stepMove(steps);
-//		robot.moveTo(chargingStation.getLocation());
 		robot.charge();
 		// Release charging station
 		manager.releaseChargeStation(chargingStation);

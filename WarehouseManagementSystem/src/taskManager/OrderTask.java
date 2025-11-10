@@ -1,6 +1,7 @@
 package taskManager;
 
 import equipmentManager.Robot;
+import equipmentManager.RobotState;
 import warehouse.PackingStation;
 
 import java.awt.Point;
@@ -69,6 +70,7 @@ public class OrderTask implements Task {
         System.out.printf("[%s] Item picked up. Requesting available Packing Station...%n", robot.getID());
         
         // This call might block the robot's thread if all stations are busy
+        robot.setState(RobotState.WAITING_FOR_AVAILABLE_PACKING_STATION);
         PackingStation assignedStation = manager.requestAvailablePackingStation(robot); 
         
         // Check if interrupted while waiting (request might return null if interrupted)
@@ -82,7 +84,6 @@ public class OrderTask implements Task {
                           robot.getID(), assignedStation.getID());
 
         // 4. Go to the assigned station
-//        robot.moveTo(assignedStation.getLocation());
         steps = manager.requestPath(robot, assignedStation.getLocation());
 		robot.stepMove(steps);
 		
