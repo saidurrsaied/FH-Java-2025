@@ -1,4 +1,7 @@
 import logger.Logger;
+import pathFinding.NodeType;
+import pathFinding.PathFinding;
+import pathFinding.WarehouseMap;
 import equipmentManager.ChargingStation;
 import equipmentManager.EquipmentManager;
 import equipmentManager.Robot;
@@ -7,6 +10,7 @@ import taskManager.TaskCreationException;
 import taskManager.TaskManager;
 import taskManager.OrderTask;
 import warehouse.PackingStation;
+import warehouse.StorageShelf;
 import warehouse.WahouseObjectType;
 import warehouse.WarehouseManager;
 import warehouse.datamanager.DataFile;
@@ -50,9 +54,10 @@ public class Main_warehouse {
                     availableRobots,
                     chargingStations,
                     new ArrayList<>(), // temp, replaced after floor init
-                    taskSubmissionQueue
+                    taskSubmissionQueue,
+                    new PathFinding(null)
             );
-
+ 
             // --- Initialize warehouse from CSV files ---
             try {
                 DataFile.initializeFloor(warehouseManager, equipmentManager, floorCsv);
@@ -78,7 +83,6 @@ public class Main_warehouse {
             // Refresh packing stations list after floor load
             packingStations = warehouseManager.getAllPackingStations();
 
-
             // Collect robots created during floor initialization (type Robot in equipmentManager package)
             for (var obj : warehouseManager.getFloorObjects()) {
                 if (obj.getObjectType() == WahouseObjectType.Robot && obj instanceof Robot r) {
@@ -86,49 +90,82 @@ public class Main_warehouse {
                 }
             }
             
-          chargingStations.add(new ChargingStation("CS-01", 30, 5, WahouseObjectType.ChargingStation));
-          chargingStations.add(new ChargingStation("CS-01", 30, 0, WahouseObjectType.ChargingStation));
-            // Recreate EquipmentManager with real packing stations
-            EquipmentManager finalEquipmentManager = new EquipmentManager(availableRobots,
-                                                                          chargingStations,
-                                                                          packingStations,
-                                                                          taskSubmissionQueue);
-            // Start EquipmentManager thread
-            Thread emThread = new Thread(finalEquipmentManager, "EM-Brain-Thread");
-            emThread.setDaemon(true);
-            emThread.start();
+          chargingStations.add(new ChargingStation("CS-01", 11, 0, WahouseObjectType.ChargingStation));
+          chargingStations.add(new ChargingStation("CS-02", 10, 0, WahouseObjectType.ChargingStation));
 
-            System.out.println("Updating Robot references to Final EquipmentManager...");
-            for (Robot r : availableRobots) {
-                r.setEquipmentManager(finalEquipmentManager); 
-            }
+          // Submit a demo order via TaskManager
+          TaskManager taskManager = new TaskManager(taskSubmissionQueue);
+          List<StorageShelf> storageShelves = warehouseManager.getAllStorageShelves();
+          
+          // Add pathFinding algorithm
+          WarehouseMap warehouseMap = new WarehouseMap(40, 40);
+          for (Robot r : availableRobots) {
+          	warehouseMap.addWarehouseObject(NodeType.Robot, true, r.getLocation());	
+          }
+          
+          for (PackingStation p : packingStations) {
+          	warehouseMap.addWarehouseObject(NodeType.PackingStation, false, p.getLocation());	
+          }
+          
+          System.out.println(packingStations);
+          for (ChargingStation c : chargingStations) {
+          	warehouseMap.addWarehouseObject(NodeType.ChargingStation, false, c.getLocation());	
+          }            
+          
+          for (StorageShelf s : storageShelves) {
+          	warehouseMap.addWarehouseObject(NodeType.Shelf, false, s.getLocation());	
+          }
+          
+  		for (int x = 0 ; x < warehouseMap.mapSizeX; x++) {
+  			for (int y = 0; y < warehouseMap.mapSizeY; y++) {
+  				
+  				if (warehouseMap.getWarehouseObject(new Point(x,y)) == null) {
+  					warehouseMap.addWarehouseObject(NodeType.None, true, new Point(x,y));
+  				}
+  			}
+  		}
+  		
+  		warehouseMap.showMap();
+  		PathFinding pathFinding = new PathFinding(warehouseMap);
+  		
+        // Recreate EquipmentManager with real packing stations
+        EquipmentManager finalEquipmentManager = new EquipmentManager(availableRobots,
+                                                                      chargingStations,
+                                                                      packingStations,
+                                                                      taskSubmissionQueue,
+                                                                      pathFinding);
+        // Start EquipmentManager thread
+        Thread emThread = new Thread(finalEquipmentManager, "EM-Brain-Thread");
+        emThread.setDaemon(true);
+        emThread.start();
+
+        System.out.println("Updating Robot references to Final EquipmentManager...");
+        for (Robot r : availableRobots) {
+            r.setEquipmentManager(finalEquipmentManager); 
+        }
+        
+        // Start robot threads
+        for (Robot r : availableRobots) {
+            Thread t = new Thread(r, "Robot-" + r.getID());
+            t.setDaemon(true);
+            t.start();
+        }
+
+        System.out.println(availableRobots);
+        try {           
+            int i = 0;     
+            System.out.printf("--- Submitting Order %d ---%n", i);
+            taskManager.createNewOrder( warehouseManager.getProductLocationByProductID("P-001"), "Apple", 1);
             
-            // Start robot threads
-            for (Robot r : availableRobots) {
-                Thread t = new Thread(r, "Robot-" + r.getID());
-                t.setDaemon(true);
-                t.start();
-            }
-
-            // Submit a demo order via TaskManager
-            TaskManager taskManager = new TaskManager(taskSubmissionQueue);
-            try {
-            	Random rand = new Random(); // <-- 1. KHỞI TẠO Ở ĐÂY
-                
-                String[] products = {"P-001", "P-002", "P-003"};
-                
-                System.out.println("\n--- Submitting 10 test orders randomly... ---");
-
-                for (int i = 0; i < 10; i++) {
-                    String randomProduct = products[rand.nextInt(products.length)];
-                    Point location = warehouseManager.getProductLocationByProductID(randomProduct);                    
-                    System.out.printf("--- Submitting Order %d (%s) ---%n", i+1, randomProduct);
-                    taskManager.createNewOrder(location, randomProduct, 1);
-                    TimeUnit.SECONDS.sleep(rand.nextInt(5) + 1);
-                }
-            } catch (TaskCreationException tce) {
-                log.log_print("ERROR", "robot", "Order creation failed: " + tce.getMessage());
-            }
+            System.out.printf("--- Submitting Order %d ---%n", i++);
+            taskManager.createNewOrder( warehouseManager.getProductLocationByProductID("P-002"), "Banana", 1);
+            
+            System.out.printf("--- Submitting Order %d ---%n", i++);
+            taskManager.createNewOrder( warehouseManager.getProductLocationByProductID("P-003"), "Orange", 1);
+            
+        } catch (TaskCreationException tce) {
+            log.log_print("ERROR", "robot", "Order creation failed: " + tce.getMessage());
+        }
 
 //            // Allow some time for processing (optional simple wait)
 //            try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
@@ -142,8 +179,8 @@ public class Main_warehouse {
 //            } catch (DataFileException dfe) {
 //                log.log_print("ERROR", "inventory", "Export failed: " + dfe.getMessage());
 //            }
-            System.out.println("Simulation running... Press CTRL + C to stop.");
-            emThread.join();
+        System.out.println("Simulation running... Press CTRL + C to stop.");
+        emThread.join();
 //            System.out.println("Simulation finished. Check Logging/ and data/ folders.");
         } catch (IllegalStateException fatal) {
             Logger logLocal = new Logger();

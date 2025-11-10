@@ -4,6 +4,7 @@ import equipmentManager.Robot;
 import warehouse.PackingStation;
 
 import java.awt.Point;
+import java.util.List;
 
 import equipmentManager.EquipmentManager; 
 
@@ -55,10 +56,12 @@ public class OrderTask implements Task {
     @Override
     public void execute(Robot robot, EquipmentManager manager) throws InterruptedException { 
     	System.out.printf("[%s] Executing %s (%s)%n", robot.getID(), this.orderId, this.itemName);
-
+		
         // 1. Go to item location
-        robot.moveTo(itemLocation);
-
+//        robot.moveTo(itemLocation);
+		List<Point> steps = manager.requestPath(robot, itemLocation);
+		robot.stepMove(steps);
+		
         // 2. Pick up item
         robot.pickUpItem(itemName); // Using Order ID as Item ID for simplicity
 
@@ -79,8 +82,10 @@ public class OrderTask implements Task {
                           robot.getID(), assignedStation.getID());
 
         // 4. Go to the assigned station
-        robot.moveTo(assignedStation.getLocation());
-
+//        robot.moveTo(assignedStation.getLocation());
+        steps = manager.requestPath(robot, assignedStation.getLocation());
+		robot.stepMove(steps);
+		
         // 5. Drop the item
         robot.dropItem(this.itemName);
 

@@ -2,5 +2,9 @@ package equipmentManager;
 
 public enum RobotState {
     IDLE,
-    BUSY
+    MOVING,
+    PICKING,
+    PACKING,
+    CHARGING,
+    WAITING
 }

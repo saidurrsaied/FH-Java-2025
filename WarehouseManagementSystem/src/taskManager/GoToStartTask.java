@@ -1,6 +1,8 @@
 package taskManager;
 
 import java.awt.Point;
+import java.util.List;
+
 import equipmentManager.*;
 
 public class GoToStartTask implements Task{
@@ -30,7 +32,9 @@ public class GoToStartTask implements Task{
 	@Override
 	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
 		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
-		robot.moveTo(startingPosition);
+		List<Point> steps = manager.requestPath(robot, startingPosition);
+		robot.stepMove(steps);
+//		robot.moveTo(startingPosition);
 	}
 
 	@Override
