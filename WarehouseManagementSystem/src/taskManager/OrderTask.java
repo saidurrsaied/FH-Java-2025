@@ -56,7 +56,7 @@ public class OrderTask implements Task {
      */
     @Override
     public void execute(Robot robot, EquipmentManager manager) throws InterruptedException { 
-    	System.out.printf("[%s] Executing %s (%s)%n", robot.getID(), this.orderId, this.itemName);
+    	System.out.printf("[%s] Executing %s (%s)%n", robot.getId(), this.orderId, this.itemName);
 		
         // 1. Go to item location
 //        robot.moveTo(itemLocation);
@@ -67,7 +67,7 @@ public class OrderTask implements Task {
         robot.pickUpItem(itemName); // Using Order ID as Item ID for simplicity
 
         // 3. --- JUST-IN-TIME STATION REQUEST ---
-        System.out.printf("[%s] Item picked up. Requesting available Packing Station...%n", robot.getID());
+        System.out.printf("[%s] Item picked up. Requesting available Packing Station...%n", robot.getId());
         
         // This call might block the robot's thread if all stations are busy
         robot.setState(RobotState.WAITING_FOR_AVAILABLE_PACKING_STATION);
@@ -75,13 +75,13 @@ public class OrderTask implements Task {
         
         // Check if interrupted while waiting (request might return null if interrupted)
         if (assignedStation == null) {
-             System.out.printf("[%s] Interrupted while waiting for Packing LoadingStation for Order %s. Aborting.%n", robot.getID(), this.itemName);
+             System.out.printf("[%s] Interrupted while waiting for Packing LoadingStation for Order %s. Aborting.%n", robot.getId(), this.itemName);
              // Optionally, robot could try to return the item or go to a safe spot.
              // For now, we just let the task end here. The finally block in Robot.run() will report.
         }
         
         System.out.printf("[%s] Assigned Packing Station %s. Moving to drop off...%n",
-                          robot.getID(), assignedStation.getID());
+                          robot.getId(), assignedStation.getId());
 
         // 4. Go to the assigned station
         steps = manager.requestPath(robot, assignedStation.getLocation());
@@ -90,7 +90,7 @@ public class OrderTask implements Task {
         // 5. Drop the item
         robot.dropItem(this.itemName);
 
-        System.out.printf("[%s] Completed Order at %s%n", robot.getID(), assignedStation.getID());
+        System.out.printf("[%s] Completed Order at %s%n", robot.getId(), assignedStation.getId());
         
         // 6. Release packing station
         manager.releasePackingStation(assignedStation);

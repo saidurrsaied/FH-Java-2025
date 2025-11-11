@@ -24,7 +24,7 @@ public class StockTask implements Task {
 
     @Override
     public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
-        System.out.printf("[%s] Executing %s (%s)%n", robot.getID(), this.stockId, this.itemName);
+        System.out.printf("[%s] Executing %s (%s)%n", robot.getId(), this.stockId, this.itemName);
         
         // 1. Go to item location
         robot.moveTo(new Point(unloadingArea.x, unloadingArea.y));
@@ -38,7 +38,7 @@ public class StockTask implements Task {
         // 4. Drop item at shelf
         robot.dropItem(itemName);
             
-        System.out.printf("[%s] Stocked %s at shelf %s%n", robot.getID(), this.itemName, this.shelfLocation);
+        System.out.printf("[%s] Stocked %s at shelf %s%n", robot.getId(), this.itemName, this.shelfLocation);
     }
 
     @Override

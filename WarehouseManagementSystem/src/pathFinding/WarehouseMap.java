@@ -26,7 +26,7 @@ public class WarehouseMap {
     public void showMap() {
     	// 1. Print map contents and Y-axis (row) headers
         // Loop 'y' backwards (from mapSizeY - 1 down to 0) so Y-axis '0' is at the bottom.
-    	for (int y = mapSizeY - 1; y >= 0; y--) { 
+    	for (int y = 0; y < mapSizeY; y++) {
     		
     		// Print the Y-axis header (e.g., "9 | ", "8 | ")
     		System.out.print(String.format("%-2d| ", y)); 

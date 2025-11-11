@@ -90,15 +90,15 @@ public class Main_warehouse {
                 }
             }
             
-          chargingStations.add(new ChargingStation("CS-01", 11, 0, WahouseObjectType.ChargingStation));
-          chargingStations.add(new ChargingStation("CS-02", 10, 0, WahouseObjectType.ChargingStation));
+          chargingStations.add(new ChargingStation("CS-01", 15, 13, WahouseObjectType.ChargingStation));
+          chargingStations.add(new ChargingStation("CS-02", 17, 13, WahouseObjectType.ChargingStation));
 
           // Submit a demo order via TaskManager
           TaskManager taskManager = new TaskManager(taskSubmissionQueue);
           List<StorageShelf> storageShelves = warehouseManager.getAllStorageShelves();
           
           // Add pathFinding algorithm
-          WarehouseMap warehouseMap = new WarehouseMap(40, 40);
+          WarehouseMap warehouseMap = new WarehouseMap(20, 15);
           for (Robot r : availableRobots) {
           	warehouseMap.addWarehouseObject(NodeType.Robot, true, r.getLocation());	
           }
@@ -146,7 +146,7 @@ public class Main_warehouse {
         
         // Start robot threads
         for (Robot r : availableRobots) {
-            Thread t = new Thread(r, "Robot-" + r.getID());
+            Thread t = new Thread(r, "Robot-" + r.getId());
             t.setDaemon(true);
             t.start();
         }

@@ -29,7 +29,6 @@ public class Robot extends WarehouseObject implements Runnable {
     private static final long IDLE_CHARGE_TIMEOUT_SECONDS = 15; // IDLE status timeout for charging
     
 	// --- State ---
-    private final String ID;
 	private double batteryPercentage = 100;
     private RobotState state = RobotState.IDLE; // Logical state
     private Point startingPosition; // The "home" base
@@ -47,9 +46,8 @@ public class Robot extends WarehouseObject implements Runnable {
      * @param startingPosition The "home" position to return to when idle.
      * @param manager A reference to the central EquipmentManager.
      */
-    public Robot(String ID, Point startingPosition, EquipmentManager manager, WahouseObjectType object_TYPE) {
-        super(ID, startingPosition.x, startingPosition.y, object_TYPE);
-        this.ID = ID;
+    public Robot(String id, Point startingPosition, EquipmentManager manager, WahouseObjectType object_TYPE) {
+        super(id, startingPosition.x, startingPosition.y, object_TYPE);
         this.startingPosition = startingPosition;
         this.currentPosition = startingPosition;
         this.equipmentManager = manager; // Store the reference to the "Brain"
@@ -61,7 +59,7 @@ public class Robot extends WarehouseObject implements Runnable {
      */
     public void assignTask(Task task) {
         taskQueue.add(task);
-        System.out.printf("[%s] Received task: %s %n", this.ID, task.getDescription());
+        System.out.printf("[%s] Received task: %s %n", super.getId(), task.getDescription());
     }
 
     /**
@@ -70,7 +68,7 @@ public class Robot extends WarehouseObject implements Runnable {
      */
     @Override
     public void run() {
-    	System.out.printf("[%s] Thread started at (%d, %d)%n", ID, currentPosition.x, currentPosition.y);
+    	System.out.printf("[%s] Thread started at (%d, %d)%n", super.getId(), currentPosition.x, currentPosition.y);
         Task currentTask = null; // Track the task being executed
         boolean taskStatus = false; // Report success/failure
         
@@ -81,7 +79,7 @@ public class Robot extends WarehouseObject implements Runnable {
 
                 // 1. Waiting for tasks in 15 seconds, if not Robot go for charging if battery percentage is below 90%
                 if (equipmentManager != null) { // Only wait if manager is set
-                     System.out.printf("[%s] Is IDLE. Waiting for task (%d sec timeout)...%n", ID, IDLE_CHARGE_TIMEOUT_SECONDS);
+                     System.out.printf("[%s] Is IDLE. Waiting for task (%d sec timeout)...%n", super.getId(), IDLE_CHARGE_TIMEOUT_SECONDS);
                     
                     // Wait for a task, with a timeout
                     currentTask = taskQueue.poll(IDLE_CHARGE_TIMEOUT_SECONDS, TimeUnit.SECONDS);
@@ -99,17 +97,17 @@ public class Robot extends WarehouseObject implements Runnable {
                     // --- ADDED EXCEPTION CATCHING ---
                     } catch (FindChargeTimeoutException e) { 
                         taskStatus = false; // Mark as failure
-                        System.err.printf("[%s] Task %s FAILED: %s%n", getID(), currentTask.getType(), e.getMessage());
+                        System.err.printf("[%s] Task %s FAILED: %s%n", super.getId(), currentTask.getType(), e.getMessage());
                     } catch (Exception e) { // Catch unexpected bugs (like NullPointerException)
                         taskStatus = false;
-                        System.err.printf("[%s] Task %s CRASHED (Unexpected): %s%n", getID(), currentTask.getType(), e.getMessage());
+                        System.err.printf("[%s] Task %s CRASHED (Unexpected): %s%n", super.getId(), currentTask.getType(), e.getMessage());
                         e.printStackTrace();
                     }
                 
                 } else {
                     // --- 2b. TIMEOUT (NO TASK) ---
                     // currentTask is null, so the 15-second timeout expired
-                    System.out.printf("[%s] IDLE TIMEOUT (%d sec). Requesting charge...%n", ID, IDLE_CHARGE_TIMEOUT_SECONDS);
+                    System.out.printf("[%s] IDLE TIMEOUT (%d sec). Requesting charge...%n", super.getId(), IDLE_CHARGE_TIMEOUT_SECONDS);
                     
                     // Call the manager to handle this idle charge request
                     equipmentManager.idleRobotRequestsCharge(this);
@@ -120,7 +118,7 @@ public class Robot extends WarehouseObject implements Runnable {
                 }
             } catch (InterruptedException e) {
                 // The poll() or a task's execute() was interrupted
-                System.out.printf("[%s] Thread interrupted. Exiting run loop...%n", ID);
+                System.out.printf("[%s] Thread interrupted. Exiting run loop...%n", super.getId());
                 Thread.currentThread().interrupt(); // Re-set the interrupt flag
                 break; // Exit the while(true) loop
                 
@@ -132,7 +130,7 @@ public class Robot extends WarehouseObject implements Runnable {
                         // Report the final status to the manager
                         equipmentManager.reportFinishedTask(this, currentTask, taskStatus);
                     } catch (InterruptedException e) {
-                        System.err.printf("[%s] CRITICAL: Interrupted while reporting task!%n", ID);
+                        System.err.printf("[%s] CRITICAL: Interrupted while reporting task!%n", super.getId());
                         Thread.currentThread().interrupt();
                     }
                 }
@@ -141,7 +139,7 @@ public class Robot extends WarehouseObject implements Runnable {
             }
         } // End of while(true)
         
-        System.out.printf("[%s] Thread stopped.%n", ID);
+        System.out.printf("[%s] Thread stopped.%n", super.getId());
     }
 
     // --- PRIMITIVE ACTIONS ---
@@ -164,17 +162,17 @@ public class Robot extends WarehouseObject implements Runnable {
         
         // Check if thread was interrupted during sleep
         if(Thread.currentThread().isInterrupted()) {
-            throw new InterruptedException("MoveTo interrupted for Robot " + ID);
+            throw new InterruptedException("MoveTo interrupted for Robot " + super.getId());
         }
 
         this.currentPosition = targetPosition;
-        System.out.printf("[%s] Arrived at (%d, %d) (Battery: %.0f%%)%n", ID, currentPosition.x, currentPosition.y, batteryPercentage);
+        System.out.printf("[%s] Arrived at (%d, %d) (Battery: %.0f%%)%n", super.getId(), currentPosition.x, currentPosition.y, batteryPercentage);
     }
 
     public void stepMove(List<Point> steps) throws InterruptedException {
     	// Optional: Log the start of the entire multi-step move
         System.out.printf("[%s] Starting multi-step path from (%d, %d) Following %d steps.%n",
-        		          ID, currentPosition.x, currentPosition.y, steps.size());
+        		          super.getId(), currentPosition.x, currentPosition.y, steps.size());
         
         this.state = RobotState.MOVING;
     	// Iterate through each Point (step) in the list
@@ -191,7 +189,7 @@ public class Robot extends WarehouseObject implements Runnable {
     	
         // Optional: Log the completion of the entire path
         System.out.printf("[%s] Finished multi-step path. Final location: (%d, %d)%n",
-                          ID, currentPosition.x, currentPosition.y);    	
+        		          super.getId(), currentPosition.x, currentPosition.y);    	
     }
     
     /**
@@ -200,11 +198,11 @@ public class Robot extends WarehouseObject implements Runnable {
      * @throws InterruptedException if the thread is interrupted.
      */
     public void pickUpItem(String itemId) throws InterruptedException {
-    	System.out.printf("[%s] Picking up item %s at (%d, %d)... %n", ID, itemId, currentPosition.x, currentPosition.y);
+    	System.out.printf("[%s] Picking up item %s at (%d, %d)... %n", super.getId(), itemId, currentPosition.x, currentPosition.y);
     	this.state = RobotState.PICKING;
         Thread.sleep(PICKING_TIME_MS); 
         if(Thread.currentThread().isInterrupted()) throw new InterruptedException("PickUp interrupted");
-        System.out.printf("[%s] Picked up item %s%n", ID, itemId);
+        System.out.printf("[%s] Picked up item %s%n", super.getId(), itemId);
     }
     
     /**
@@ -213,11 +211,11 @@ public class Robot extends WarehouseObject implements Runnable {
      * @throws InterruptedException if the thread is interrupted.
      */
     public void dropItem(String itemId) throws InterruptedException {
-        System.out.printf("[%s] Dropping item %s at (%d, %d)...%n", ID, itemId, currentPosition.x, currentPosition.y);
+        System.out.printf("[%s] Dropping item %s at (%d, %d)...%n", super.getId(), itemId, currentPosition.x, currentPosition.y);
         this.state = RobotState.PACKING;
         Thread.sleep(DROPPING_TIME_MS); 
         if(Thread.currentThread().isInterrupted()) throw new InterruptedException("DropItem interrupted");
-        System.out.printf("[%s] Dropped item %s%n", ID, itemId);
+        System.out.printf("[%s] Dropped item %s%n", super.getId(), itemId);
     }
     
     /**
@@ -226,14 +224,14 @@ public class Robot extends WarehouseObject implements Runnable {
      * @throws InterruptedException if the thread is interrupted during sleep (charging).
      */
     public void charge() throws InterruptedException {
-        System.out.printf("[%s] Charging at (%d, %d) (Current: %.0f%%)... %n", ID, currentPosition.x, currentPosition.y, batteryPercentage);
+        System.out.printf("[%s] Charging at (%d, %d) (Current: %.0f%%)... %n", super.getId(), currentPosition.x, currentPosition.y, batteryPercentage);
         
         // 1. Calculate how much charge is needed
         double neededPercentage = 100.0 - batteryPercentage;
         
         // 2. Check if charging is necessary
         if (neededPercentage <= 0) {
-             System.out.printf("[%s] Already fully charged.%n", ID);
+             System.out.printf("[%s] Already fully charged.%n", super.getId());
              return; // No need to charge
         }
 
@@ -242,21 +240,21 @@ public class Robot extends WarehouseObject implements Runnable {
         
         // 4. Set robot state to charging
         this.state = RobotState.CHARGING;
-        System.out.printf("[%s] Charging for %dms...%n", ID, chargeTimeMs);
+        System.out.printf("[%s] Charging for %dms...%n", super.getId(), chargeTimeMs);
         
         // 5. Simulate the charging time
         Thread.sleep(chargeTimeMs);
         
         // 6. Check if thread was interrupted during sleep
         if(Thread.currentThread().isInterrupted()) {
-             System.out.printf("[%s] Charging interrupted! Battery might not be full.%n", ID);
+             System.out.printf("[%s] Charging interrupted! Battery might not be full.%n", super.getId());
              // Propagate the interrupt to be caught by the run() loop
-             throw new InterruptedException("Charge interrupted for Robot " + ID);
+             throw new InterruptedException("Charge interrupted for Robot " + super.getId());
         }
 
         // 7. If successful, set battery to 100%
         this.batteryPercentage = 100.0;
-        System.out.printf("[%s] Fully charged.%n", ID);
+        System.out.printf("[%s] Fully charged.%n", super.getId());
     }
     
     
@@ -301,10 +299,6 @@ public class Robot extends WarehouseObject implements Runnable {
     @Override
     public String toString() {
         return String.format("Robot [ID=%s, state=%s, startingPosition=%s, %s, currentPosition=%s, %s]",
-                ID, state, startingPosition.x, startingPosition.y, currentPosition.x, currentPosition.y);
+        		super.getId(), state, startingPosition.x, startingPosition.y, currentPosition.x, currentPosition.y);
     }
-
-    public String getID() {
-		return ID;
-	}
 }
