@@ -1,5 +1,7 @@
 package warehouse;
 
+import equipmentManager.ChargingStation;
+import equipmentManager.Robot;
 import warehouse.datamanager.InventoryDataPacket;
 import warehouse.datamanager.WarehouseDataPacket;
 
@@ -132,6 +134,28 @@ public class WarehouseManager {
         }
         return shelves;
     }
+
+    // Return all charging stations on the floor
+    public List<ChargingStation> getAllChargingStations() {
+        List<ChargingStation> stations = new ArrayList<>();
+        for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
+            if (obj.getObjectType().equals(WahouseObjectType.ChargingStation)) {
+                stations.add((ChargingStation) obj);
+            }
+        }
+        return stations;
+    }
+
+    public List<Robot> getAllRobots() {
+        List<Robot> robots = new ArrayList<>();
+        for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
+            if (obj.getObjectType().equals(WahouseObjectType.Robot)) {
+                robots.add((Robot) obj);
+            }
+        }
+        return robots;
+    }
+
 
 }
 
