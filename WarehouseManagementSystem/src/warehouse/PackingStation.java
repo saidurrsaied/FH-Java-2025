@@ -1,5 +1,6 @@
 package warehouse;
 import equipmentManager.EquipmentInterface;
+import equipmentManager.ObjectState;
 
 import java.awt.Point;
 import java.util.concurrent.Semaphore;
@@ -46,5 +47,13 @@ public class PackingStation extends WarehouseObject implements EquipmentInterfac
     public String toString() {
         return "PackingStation [ID=" + super.getId() + ", location=" + location + "]";
     }
+
+    @Override
+    public void setState(ObjectState newState){
+        if (newState == ObjectState.FREE) permit.release();
+        else permit.acquireUninterruptibly();
+    }
+
+
 
 }
