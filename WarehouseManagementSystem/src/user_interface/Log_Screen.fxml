@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logging.LogManager">
+<AnchorPane prefHeight="750.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logger.LogManager">
     <!-- Folder selection section -->
     <Button fx:id="chooseFolderButton" layoutX="81.0" layoutY="25.0" onAction="#handleChooseFolder" prefHeight="36.0" prefWidth="143.0" text="Select Log Folder">
       <font>
