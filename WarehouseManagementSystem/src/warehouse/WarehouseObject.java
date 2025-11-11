@@ -7,9 +7,6 @@ public abstract class WarehouseObject {
     private Point location;
     private WahouseObjectType Object_TYPE ;
 
-
-
-
     public WarehouseObject(String id, int x, int y, WahouseObjectType object_TYPE) {
         this.id = id;
         this.location = new Point(x, y);

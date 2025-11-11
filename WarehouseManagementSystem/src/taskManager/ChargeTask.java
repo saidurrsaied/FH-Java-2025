@@ -1,6 +1,7 @@
 package taskManager;
 
 import java.awt.Point;
+import java.util.List;
 
 import equipmentManager.ChargingStation;
 import equipmentManager.EquipmentManager;
@@ -36,7 +37,8 @@ public class ChargeTask implements Task{
 	@Override
 	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
 		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
-		robot.moveTo(chargingStation.getLocation());
+		List<Point> steps = manager.requestPath(robot, chargingStation.getLocation());
+		robot.stepMove(steps);
 		robot.charge();
 		// Release charging station
 		manager.releaseChargeStation(chargingStation);

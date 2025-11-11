@@ -1,10 +1,14 @@
 package taskManager;
 
+import java.awt.Point;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 import equipmentManager.ChargingStation;
 import equipmentManager.EquipmentManager;
+import equipmentManager.ObjectState;
 import equipmentManager.Robot;
+import equipmentManager.RobotState;
 
 public class GoToChargingStationAndWaitTask implements Task {
     private final ChargingStation targetChargingStation;
@@ -36,18 +40,24 @@ public class GoToChargingStationAndWaitTask implements Task {
 
 	@Override
 	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException, FindChargeTimeoutException {
-		// 1. Robot move to nearest charging station to wait
-		robot.moveTo(targetChargingStation.getLocation());
+		// 1. Ask equipment manager for path finding
+		List<Point> steps = manager.requestPath(robot, targetChargingStation.getLocation());
+		robot.stepMove(steps);
 		
-		// 2. Wait for 15 minutes until previous Robot finishes charging
+		// 2. Wait for 15 minutes for available charging station
+		robot.setState(RobotState.WAITING_FOR_AVAILABLE_CHARGING_STATION);
 		ChargingStation foundChargingStation = manager.requestAvailableChargingStation(15);
+		
 		if (foundChargingStation != null) {
 		    System.out.printf("[%s] Found available Charging Station %s for Robot %s.%n", this.getClass().getName(), foundChargingStation.getID(), robot.getID());
+		    foundChargingStation.setState(ObjectState.BUSY);
 		    // Check if this charging station is the charging station robot stands
 		    if (foundChargingStation.getLocation().equals(robot.getCurrentPosition())) {
 		    	robot.charge();
 		    } else {
-		    	robot.moveTo(foundChargingStation.getLocation());
+		    	// Finding ways to charging station
+		    	steps = manager.requestPath(robot, foundChargingStation.getLocation());
+				robot.stepMove(steps);
 		    	robot.charge();
 		    }
 		    // Finally remove charging station when robot finishes charging

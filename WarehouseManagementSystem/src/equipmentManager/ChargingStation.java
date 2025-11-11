@@ -8,6 +8,7 @@ public class ChargingStation extends WarehouseObject implements EquipmentInterfa
 
     //TODO: ID is already defined in WarehouseObject. Keep it?
 	private final String ID;
+	
     //TODO: Location is already defined in WarehouseObject. Keep it?
 	private final Point location;
 	private ObjectState state = ObjectState.FREE;
@@ -23,7 +24,6 @@ public class ChargingStation extends WarehouseObject implements EquipmentInterfa
 		return this.ID;
 	}
 
-	@Override
 	public void setState(ObjectState newState) {
 		state = newState;
 	}
