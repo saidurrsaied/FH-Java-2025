@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * * This version does NOT use HoldingStations. Its only idle spot
  * is its StartingPosition.
  */
-public class Robot extends WarehouseObject implements Runnable, EquipmentInterface {
+public class Robot extends WarehouseObject implements Runnable {
     
     // --- Constants ---
     private static final int PICKING_TIME_MS = 50; 

@@ -49,7 +49,7 @@ public class GoToChargingStationAndWaitTask implements Task {
 		ChargingStation foundChargingStation = manager.requestAvailableChargingStation(15);
 		
 		if (foundChargingStation != null) {
-		    System.out.printf("[%s] Found available Charging Station %s for Robot %s.%n", this.getClass().getName(), foundChargingStation.getID(), robot.getID());
+		    System.out.printf("[%s] Found available Charging Station %s for Robot %s.%n", this.getClass().getName(), foundChargingStation.getId(), robot.getID());
 		    foundChargingStation.setState(ObjectState.BUSY);
 		    // Check if this charging station is the charging station robot stands
 		    if (foundChargingStation.getLocation().equals(robot.getCurrentPosition())) {

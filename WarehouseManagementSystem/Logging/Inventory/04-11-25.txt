@@ -1,0 +1,2 @@
+[INFO][04-11-25][20:14:40][Inventory] Loaded warehouse floor and inventory from CSV.
+[INFO][04-11-25][20:14:41][Inventory] Exported post-run inventory to data\inventory_post_run.csv

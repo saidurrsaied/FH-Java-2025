@@ -4,7 +4,7 @@ import java.awt.Point;
 import warehouse.WahouseObjectType;
 import warehouse.WarehouseObject;
 
-public class ChargingStation extends WarehouseObject implements EquipmentInterface {
+public class ChargingStation extends WarehouseObject {
 
     //TODO: ID is already defined in WarehouseObject. Keep it?
 	private final String ID;
@@ -20,7 +20,7 @@ public class ChargingStation extends WarehouseObject implements EquipmentInterfa
 	}
 
 	@Override
-	public String getID() {
+	public String getId() {
 		return this.ID;
 	}
 
@@ -28,7 +28,6 @@ public class ChargingStation extends WarehouseObject implements EquipmentInterfa
 		state = newState;
 	}
 	
-	@Override
 	public String getState() {
 		return state.toString();
 	}

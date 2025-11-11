@@ -84,7 +84,7 @@ public class EquipmentManager implements Runnable {
 	                            		           ID, (OrderTask) newTask, pendingPickTasks.size());
 	                        } else {
 	                            // Robot found, dispatch this OrderTask immediately.
-	                            System.out.printf("[%s] DISPATCH %s -> %s%n", ID, (OrderTask) newTask, foundRobot.getID());
+	                            System.out.printf("[%s] DISPATCH %s -> %s%n", ID, (OrderTask) newTask, foundRobot.getId());
 	                            availableRobots.remove(foundRobot);
 	                            foundRobot.assignTask(newTask); // Send task to robot
 	                        }
@@ -108,7 +108,7 @@ public class EquipmentManager implements Runnable {
      * @throws InterruptedException 
      */
     public synchronized void reportFinishedTask(Robot robot, Task finishedTask, boolean taskStatus) throws InterruptedException {
-            System.out.printf("[%s] Robot %s finished task %s.%n", ID, robot.getID(), finishedTask.getID());
+            System.out.printf("[%s] Robot %s finished task %s.%n", ID, robot.getId(), finishedTask.getID());
             
 			// No matter what the previous task, try to assign. There is battery check in the function then
             // no worry about low battery service
@@ -130,32 +130,32 @@ public class EquipmentManager implements Runnable {
 			            if (freeChargingStation != null) {
 		                	// Found available charging station
 			            	freeChargingStation.setState(ObjectState.BUSY);
-		                	System.out.printf("[%s] Assign charging station %s to robot %s.%n", ID, freeChargingStation.getID(), robot.getID());
-		                	robot.assignTask(new ChargeTask(freeChargingStation, robot.getID()));
+		                	System.out.printf("[%s] Assign charging station %s to robot %s.%n", ID, freeChargingStation.getId(), robot.getId());
+		                	robot.assignTask(new ChargeTask(freeChargingStation, robot.getId()));
 			            } else {
 			            	// No free charging station, robot needs to wait -> Assign 'GoToChargingStationAndWaitTask'
 	                        ChargingStation closest = findClosestChargingStation(robot.getCurrentPosition());
 	                        
 	                        if (closest != null) {
 	                            System.out.printf("[%s] %s battery low. All stations busy. Assigning 'GoToChargingStationAndWaitTask' (Target: %s)%n", 
-	                                              ID, robot.getID(), closest.getID());
+	                                              ID, robot.getId(), closest.getId());
 	                            robot.assignTask(new GoToChargingStationAndWaitTask(closest));
 	                        } else {
-	                            System.out.println("ERROR: No charging stations! Robot " + robot.getID() + " stuck!");
+	                            System.out.println("ERROR: No charging stations! Robot " + robot.getId() + " stuck!");
 	                            availableRobots.add(robot); 
 	                        }
 			            }
 			        } else {
 			        	// Robot battery is still high
 				        if (finishedTask.getType() == TaskType.GO_TO_START) {
-					        System.out.printf("[EquipmentManager] Robot %s is at Start Point. Now IDLE.%n", robot.getID());
+					        System.out.printf("[EquipmentManager] Robot %s is at Start Point. Now IDLE.%n", robot.getId());
 					        if (!availableRobots.contains(robot)) {
 			                    availableRobots.add(robot);
 			                    robot.setState(RobotState.IDLE);
 			                }
 				        } else {
 				        	// Just finished Pick or Start, no pending request -> back to Starting point
-				            System.out.printf("[EquipmentManager] No pending tasks. Sending %s to Start Point.%n", robot.getID());
+				            System.out.printf("[EquipmentManager] No pending tasks. Sending %s to Start Point.%n", robot.getId());
 				            robot.assignTask(new GoToStartTask(robot.getStartingPosition()));
 				        }
 			        }
@@ -163,19 +163,19 @@ public class EquipmentManager implements Runnable {
 			        
 			    case CHARGE_ROBOT:
 			        // Just fully charged, no pending task -> Back to Starting point
-			        System.out.printf("[EquipmentManager] %s finished charging. No pending tasks. Sending to Start Point.%n", robot.getID());
+			        System.out.printf("[EquipmentManager] %s finished charging. No pending tasks. Sending to Start Point.%n", robot.getId());
 			        robot.assignTask(new GoToStartTask(robot.getStartingPosition()));
 			        break;
 			
 			    case GO_TO_CHARGING_STATION_AND_WAIT:
-			        System.out.printf("[EquipmentManager] Robot %s finished 'GoToWait'. %n", robot.getID());
+			        System.out.printf("[EquipmentManager] Robot %s finished 'GoToWait'. %n", robot.getId());
 			        
 			        if (taskStatus) {
 			        	// Charge successfully
-				        System.out.printf("[EquipmentManager] Robot %s is fully charged %n", robot.getID());
+				        System.out.printf("[EquipmentManager] Robot %s is fully charged %n", robot.getId());
 			        } else {
 			        	// Can not get access to charging station, send to waiting queue for charging
-			        	System.out.printf("[EquipmentManager] Robot %s can not be charged, battery now is %.1f %n", robot.getID(), robot.getBatteryPercentage());
+			        	System.out.printf("[EquipmentManager] Robot %s can not be charged, battery now is %.1f %n", robot.getId(), robot.getBatteryPercentage());
 			        	robotsWaitingForCharge.add(robot);
 			        }
 			        // Go to starting point in both cases
@@ -194,7 +194,7 @@ public class EquipmentManager implements Runnable {
      * and 'run' (when accessing 'availableRobots').
      */
     public synchronized void idleRobotRequestsCharge(Robot robot) {
-        System.out.printf("[EquipmentManager] %s (IDLE) requested charge due to timeout.%n", robot.getID());
+        System.out.printf("[EquipmentManager] %s (IDLE) requested charge due to timeout.%n", robot.getId());
         
         // 1. Remove the robot from the available list (if it's there)
         // (Necessary to prevent a Race Condition)
@@ -203,7 +203,7 @@ public class EquipmentManager implements Runnable {
         // 2. Battery check logic (Same as in reportFinishedTask)
         // (Check if battery actually needs charging (< 90%))
         if (robot.getBatteryPercentage() >= HIGH_BATTERY_PERCENT) {
-            System.out.printf("[EquipmentManager] %s requested charge but is already full. Returning to IDLE.%n", robot.getID());
+            System.out.printf("[EquipmentManager] %s requested charge but is already full. Returning to IDLE.%n", robot.getId());
             availableRobots.add(robot); // Add it back
             return; // Do nothing
         }
@@ -213,8 +213,8 @@ public class EquipmentManager implements Runnable {
         if (freeStation != null) {
             // 3a. A free station is available
         	freeStation.setState(ObjectState.BUSY);
-            System.out.printf("[EquipmentManager] Found free station %s. Assigning 'ChargeTask'.%n", freeStation.getID());
-            robot.assignTask(new ChargeTask(freeStation, robot.getID())); // (Modify ChargeTask constructor if needed)
+            System.out.printf("[EquipmentManager] Found free station %s. Assigning 'ChargeTask'.%n", freeStation.getId());
+            robot.assignTask(new ChargeTask(freeStation, robot.getId())); // (Modify ChargeTask constructor if needed)
         } else {
             // 3b. No free stations
             ChargingStation closest = findClosestChargingStation(robot.getCurrentPosition());
@@ -222,7 +222,7 @@ public class EquipmentManager implements Runnable {
                 System.out.printf("[EquipmentManager] All stations busy. Assigning 'GoToChargingStationAndWaitTask'.%n");
                 robot.assignTask(new GoToChargingStationAndWaitTask(closest));
             } else {
-                System.out.println("[EquipmentManager] ERROR: No charging stations! Robot " + robot.getID() + " stuck in IDLE!");
+                System.out.println("[EquipmentManager] ERROR: No charging stations! Robot " + robot.getId() + " stuck in IDLE!");
                 availableRobots.add(robot); // Add it back
             }
         }
@@ -236,7 +236,7 @@ public class EquipmentManager implements Runnable {
     	// until there will be available packing station.
         PackingStation availableStation = availablePackStations.take();
         
-        System.out.printf("[%s] Found available Packing Station %s for Robot %s.%n", ID, availableStation.getID(), robot.getID());
+        System.out.printf("[%s] Found available Packing Station %s for Robot %s.%n", ID, availableStation.getId(), robot.getId());
         return availableStation;
     }
     
@@ -374,7 +374,7 @@ public class EquipmentManager implements Runnable {
         waitingRobot = robotsWaitingForCharge.poll();
         
         if (waitingRobot != null) {
-        	waitingRobot.assignTask(new ChargeTask(station, waitingRobot.getID()));
+        	waitingRobot.assignTask(new ChargeTask(station, waitingRobot.getId()));
         } else {
             try {
                 // put() will add the station back to the queue.
@@ -383,11 +383,11 @@ public class EquipmentManager implements Runnable {
             	availableChargeStations.put(station);
                 station.setState(ObjectState.FREE);
                 System.out.printf("[EquipmentManager] Charging Station %s released back to queue. (Queue size: %d)%n", 
-                                  station.getID(), availableChargeStations.size());
+                                  station.getId(), availableChargeStations.size());
                                   
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // Re-set the interrupt flag
-                System.err.printf("ERROR: Interrupted while trying to release station %s. Station may be lost!%n", station.getID());
+                System.err.printf("ERROR: Interrupted while trying to release station %s. Station may be lost!%n", station.getId());
             }
         }
 
@@ -410,11 +410,11 @@ public class EquipmentManager implements Runnable {
             availablePackStations.put(station);
             station.setState(ObjectState.FREE);
             System.out.printf("[EquipmentManager] Packing Station %s released back to queue. (Queue size: %d)%n", 
-                              station.getID(), availablePackStations.size());
+                              station.getId(), availablePackStations.size());
                               
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt(); // Re-set the interrupt flag
-            System.err.printf("ERROR: Interrupted while trying to release station %s. Station may be lost!%n", station.getID());
+            System.err.printf("ERROR: Interrupted while trying to release station %s. Station may be lost!%n", station.getId());
         }
     }
     
@@ -437,7 +437,7 @@ public class EquipmentManager implements Runnable {
                 
                 if (robot.getBatteryPercentage() >= requiredBattery) {
                     System.out.printf("[%s] Robot %s assigned PENDING task %s immediately.%n", 
-                                      this.ID, robot.getID(), task.getID());
+                                      this.ID, robot.getId(), task.getID());
                     iterator.remove();
                     robot.assignTask(task);
                     return true;
@@ -470,7 +470,7 @@ public class EquipmentManager implements Runnable {
                 }        		
         	} else {
         		// Not enough battery
-        		System.out.printf("[EquipmentManager] Robot %s does not have enough battery %n", robot.getID());
+        		System.out.printf("[EquipmentManager] Robot %s does not have enough battery %n", robot.getId());
         	}
         }
         return bestRobot;
