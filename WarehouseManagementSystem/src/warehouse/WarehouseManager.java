@@ -108,7 +108,6 @@ public class WarehouseManager {
 
     public StorageShelf getStorageShelfByProductID(String productID){return inventory.geInventoryItem(productID).getShelf();}
 
-
     public List<WarehouseDataPacket> exportFloorData(){
         return floorManager.exportWarehouseData();
     }
@@ -156,6 +155,13 @@ public class WarehouseManager {
         return robots;
     }
 
+    public List<WarehouseObject> getAllWarehouseObjects() {
+    	List<WarehouseObject> objects =  new ArrayList<>();
+        for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
+            objects.add(obj);
+        }
+    	return objects;
+    }
 
 }
 

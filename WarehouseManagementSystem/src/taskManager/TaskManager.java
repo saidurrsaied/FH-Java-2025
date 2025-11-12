@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.concurrent.BlockingQueue; // Dùng queue chung
 import java.util.concurrent.atomic.AtomicInteger;
 
+import warehouse.WarehouseManager;
+
 //import warehouse.WarehousePosition;
 
 public class TaskManager {
@@ -11,14 +13,16 @@ public class TaskManager {
     private final BlockingQueue<Task> taskSubmissionQueue;
     private final AtomicInteger orderIdCounter = new AtomicInteger(0);
     private final AtomicInteger stockIdCounter = new AtomicInteger(0);
+    private final WarehouseManager warehouseManager;
     
     // Queue for sending tasks to equipment manager
-    public TaskManager(BlockingQueue<Task> taskSubmissionQueue) {
+    public TaskManager(BlockingQueue<Task> taskSubmissionQueue, WarehouseManager warehouseManager) {
         this.taskSubmissionQueue = taskSubmissionQueue;
+        this.warehouseManager = warehouseManager;
     }
 
     // Method for creating Order task
-    public void createNewOrder(Point orderPosition, String itemId, int quantity) throws TaskCreationException {
+    public void createNewOrder(String productID, int quantity) throws TaskCreationException {
 
         int newId = orderIdCounter.incrementAndGet();
         String taskId = "Order-" + newId;
@@ -27,7 +31,7 @@ public class TaskManager {
         final Task newTask;
         
         try {
-            newTask = new OrderTask(taskId, itemId, orderPosition, quantity);
+            newTask = new OrderTask(taskId, productID, quantity, warehouseManager);
         } catch (OrderTaskException e) {
             // Chain the validation error from Order into a higher-level exception
             throw new TaskCreationException("Order validation failed for " + taskId, e);
@@ -36,7 +40,7 @@ public class TaskManager {
         // 2) Submit the task to the shared queue (may throw InterruptedException)
         try {
             taskSubmissionQueue.put(newTask);
-            System.out.printf("[TaskManager] Submitted %s (%s x%d)%n", taskId, itemId, quantity);
+            System.out.printf("[TaskManager] Submitted %s (%s x%d)%n", taskId, productID, quantity);
         } catch (InterruptedException e) {
             // Restore the thread's interrupted status
             Thread.currentThread().interrupt();

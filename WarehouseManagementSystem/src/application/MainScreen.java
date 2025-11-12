@@ -43,7 +43,7 @@ public class MainScreen {
         this.warehousemanager = warehousemanager;
         this.equipmentManager = equipmentManager;
         InventoryManager.initializeInventory(inventoryData);   
-        RobotManager.initializeRobot(this.equipmentManager.getRobot());
+//        RobotManager.initializeRobot(this.equipmentManager.getRobot());
     }
     
     // Set inventory data

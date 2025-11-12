@@ -72,8 +72,7 @@ public class OrderController {
 
             new Thread(() -> {
                 try {
-                    Point location = warehouseManager.getProductLocationByProductID(idText);
-                    taskManager.createNewOrder(location, idText, quantity);
+                    taskManager.createNewOrder(idText, quantity);
 
                     TimeUnit.SECONDS.sleep(5);
 

@@ -101,8 +101,6 @@ public class PathFinding {
 
         // Optional: remove first point (start position)
         if (!path.isEmpty()) path.remove(0);
-
-        System.out.println("Found path (" + path.size() + " steps): " + path);
         return path;
     }
 
