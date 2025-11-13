@@ -163,6 +163,8 @@ public class WarehouseManager {
     	return objects;
     }
 
+    public Rectangle getWarehouseArea() {
+        return this.floorManager.getWarehouseFloor();
+    }
+
 }
-
-

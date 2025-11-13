@@ -77,6 +77,8 @@ public class WarehouseFloorManager {
 
     }
 
+    public Rectangle getWarehouseFloor() { return warehouseFloor; }
+
     /**
      * Export the warehouse data as a list of WarehouseDataPackets
      * */
