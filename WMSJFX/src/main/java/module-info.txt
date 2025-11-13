@@ -1,0 +1,8 @@
+module wms.wmsjfx {
+    requires javafx.controls;
+    requires javafx.fxml;
+
+
+    opens wms.wmsjfx to javafx.fxml;
+    exports wms.wmsjfx;
+}
