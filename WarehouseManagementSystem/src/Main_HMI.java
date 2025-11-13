@@ -1,5 +1,3 @@
-package main;
-	
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +29,7 @@ import equipmentManager.ChargingStation;
 import equipmentManager.Robot;
 import warehouse.datamanager.InventoryDataPacket;
 
-public class Main extends Application {
+public class Main_HMI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException, InterruptedException {

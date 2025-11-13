@@ -475,4 +475,8 @@ public class EquipmentManager implements Runnable {
         }
         return bestRobot;
     }
+
+    public List<Robot> getRobot() {
+        return this.availableRobots;
+    }
 }
