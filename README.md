@@ -115,7 +115,9 @@ mvn clean javafx:run
 ```bash
 ./mvnw clean compile
 ```
-
+## Login Credentials
+-User Name: admin
+- Password: 1234
 ---
 
 
