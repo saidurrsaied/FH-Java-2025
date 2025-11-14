@@ -53,7 +53,7 @@ public class Login {
         if (username.equals("admin") && password.equals("1234")) {
             feedback.setText("Login successful!");
             feedback.setStyle("-fx-text-fill: green;");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Main_Screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main_Screen.fxml"));
             Scene loadingScene = new Scene(loader.load());
             MainScreen controller = loader.getController();
             controller.setMainData(warehousemanager, inventoryData, taskManager, equipmentManager);

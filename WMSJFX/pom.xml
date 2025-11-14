@@ -64,7 +64,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>wms.wmsjfx.Main_HMI</mainClass>
+                    <mainClass>wms.wmsjfx.Main</mainClass>
                 </configuration>
             </plugin>
 
