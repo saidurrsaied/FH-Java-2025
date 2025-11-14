@@ -11,16 +11,16 @@
 
 
 ## Task Distribution:
-* Md Saidur Rahman:
-** Package: warehouse
-** Project Management 
-** Maven Integration
+1. *Md Saidur Rahman:
+**Package:** warehouse
+**Project Management** 
+**Maven Integration**
 
-* Anh Phuc Dang: Task Management
-** Package: taskManager, pathFinding, equipmentManager
+2. * Anh Phuc Dang:
+** Package: taskManager, pathFinding, equipmentManager**
 
-* Hai Dang Duong: 
-** Package: application (JavaFX), logger
+3. * Hai Dang Duong: 
+** Package: application (JavaFX), logger**
 	
 
 ---
