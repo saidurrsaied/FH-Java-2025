@@ -1,3 +1,5 @@
+package wms.wmsjfx;
+
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
@@ -6,28 +8,28 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-import logger.Logger;
-import pathFinding.NodeType;
-import pathFinding.PathFinding;
-import pathFinding.WarehouseMap;
-import taskManager.Task;
-import taskManager.TaskManager;
-import warehouse.*;
-import warehouse.datamanager.DataFile;
-import warehouse.exceptions.DataFileException;
-import warehouse.exceptions.InventoryException;
-import javafx.scene.Parent;
+import wms.wmsjfx.pathFinding.NodeType;
+import wms.wmsjfx.pathFinding.PathFinding;
+import wms.wmsjfx.pathFinding.WarehouseMap;
+import wms.wmsjfx.taskManager.Task;
+import wms.wmsjfx.taskManager.TaskManager;
+import wms.wmsjfx.warehouse.PackingStation;
+import wms.wmsjfx.warehouse.StorageShelf;
+import wms.wmsjfx.warehouse.WahouseObjectType;
+import wms.wmsjfx.warehouse.WarehouseManager;
+import wms.wmsjfx.warehouse.*;
+import wms.wmsjfx.warehouse.datamanager.DataFile;
+import wms.wmsjfx.warehouse.exceptions.*;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
-import application.MainScreen;
-import equipmentManager.EquipmentManager;
-import equipmentManager.ChargingStation;
-import equipmentManager.Robot;
-import warehouse.datamanager.InventoryDataPacket;
+import wms.wmsjfx.application.MainScreen;
+import wms.wmsjfx.equipmentManager.EquipmentManager;
+import wms.wmsjfx.equipmentManager.ChargingStation;
+import wms.wmsjfx.equipmentManager.Robot;
+import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
 
 public class Main_HMI extends Application {
 
@@ -137,7 +139,7 @@ public class Main_HMI extends Application {
             t.start();
         }
 
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Main_Screen.fxml"));
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main_Screen.fxml"));
         	Scene loadingScene = new Scene(loader.load()); // Set the initial window size to 800x600
         	
         	// Inject inventory data into main screen

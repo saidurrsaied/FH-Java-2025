@@ -1,4 +1,4 @@
-package equipmentManager; // Assuming this is where EM resides
+package wms.wmsjfx.equipmentManager; // Assuming this is where EM resides
 
 import java.awt.Point;
 import java.util.ArrayDeque;
@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-import pathFinding.PathFinding;
-import taskManager.*; // Import Task and specific task types
-import warehouse.PackingStation;
+import wms.wmsjfx.pathFinding.PathFinding;
+import wms.wmsjfx.taskManager.*;
+import wms.wmsjfx.warehouse.PackingStation;
 
 /**
  * Central Brain using "Just-in-Time Locking".
