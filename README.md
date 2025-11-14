@@ -1,14 +1,12 @@
-# FH-Java-2025
+# FH-Java-2025 — Warehouse Management System (WMSJFX)
 
-## Warehouse Management System  
-### Team 19
+A JavaFX-based Warehouse Management System that simulates inventory handling, robot dispatching, pathfinding, and logging. Built with Maven and designed for easy setup via Maven Wrapper.
 
-### Team Members:
-- **Md Saidur Rahman**
-- **Anh Phuc Dang**
-- **Hai Dang Duong**
+## Team 19
+- Md Saidur Rahman
+- Anh Phuc Dang
+- Hai Dang Duong
 
----
 
 ## Task Distribution:
 
@@ -22,33 +20,70 @@
 
 - **Hai Dang Duong**  
   - **Packages:** `application (JavaFX)`, `logger`
+---
+
+## Project Overview
+WMSJFX provides:
+- A JavaFX UI (inventory, floor, robot, log screens)
+- Core warehouse domain (inventory, shelves, packing/loading/charging stations)
+- Robot equipment simulation with task execution and charging logic
+- A* pathfinding over a warehouse grid
+- File-based data import/export (CSV) and structured logging
+
+---
+
+## Tech
+- Java 25 (JDK 21+ compatible runtime)
+- JavaFX 25.x
+- Maven (via Maven Wrapper)
+
+---
+
+## JavaFX Dependencies
+Managed by Maven; modules are resolved per OS automatically:
+- javafx-controls
+- javafx-fxml
+
+---
+
+## Data and Logs
+- data/: input CSVs (inventory.csv, warehouse_floor.csv)
+- Logging/: created at runtime with categorized logs (Robot, Charging_Station, Inventory, System)
+
+---
 
 ---
 
 ## Requirements
-
-This is a JavaFX application built using **Maven**, with all dependencies (including JavaFX) downloaded automatically at build time.
-
-Before running the project, please ensure you have:
-
-- Java Development Kit (JDK) **21 or newer**
+- JDK 21 or newer
+- No manual JavaFX setup required (managed by Maven)
+- The project includes the **Maven Wrapper**, so **NO** need Maven installed. See **How To Run**
 
 ---
 
 ## Project Structure
 
-```
-WMSJFX/
- ├── src/
- ├── pom.xml
- ├── mvnw
- ├── mvnw.cmd
- └── .mvn/
-```
 
-The project includes the **Maven Wrapper**, so users do **NOT** need Maven installed.
+WMSJFX/ ├── .mvn/ # Maven wrapper files ├── mvnw, mvnw.cmd # Maven wrapper scripts ├── pom.xml # Maven configuration ├── data/ # Sample CSV data (inventory, floor) ├── Logging/ # Output logs (created at runtime) └── src/ ├── main/java/wms/wmsjfx/ │ ├── Main_HMI.java # JavaFX entry point │ ├── application/ # JavaFX controllers and UI helpers │ │ ├── inventory_screen/ │ │ └── robot_screen/ │ ├── equipmentManager/ # Robots, stations, central dispatcher │ ├── logger/ # Logging API and UI │ ├── pathFinding/ # A* grid map and algorithm │ ├── taskManager/ # Task abstraction and implementations │ └── warehouse/ # Domain model and data manager └── main/resources/ # FXML views and assets
+
+
+
+### Package Guide
+- application
+  - JavaFX controllers and UI utilities (Inventory, Robot, Floor, Log screens, dialogs).
+- equipmentManager
+  - Robot runtime (threaded), EquipmentManager (dispatcher), Charging/Packing stations, states.
+- logger
+  - File-based logger and JavaFX log viewer (filter, open, move, delete, archive).
+- pathFinding
+  - WarehouseMap grid, nodes, A* pathfinding (thread-safe path calculations).
+- taskManager
+  - Task interface, order/stock/charging tasks, creation and submission via TaskManager.
+- warehouse
+  - Core domain: Inventory, InventoryItem, Product, StorageShelf, Packing/Loading/Charging stations, floor manager, data packets and CSV utilities.
 
 ---
+
 
 # How to Run the Application
 
