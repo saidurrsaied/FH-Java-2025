@@ -11,6 +11,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Duration;
+import taskManager.Task;
+import taskManager.TaskManager;
 
 public class RobotController {
 
@@ -19,7 +21,7 @@ public class RobotController {
     @FXML private TableColumn<Robot, String> robotstate;
     @FXML private TableView<Robot> tablerobot;
 
-    private Timeline refreshTimeline;
+    private Timeline refreshTimeline_1, refreshTimeline_2;
 
     public void initialize() {
         robotid.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getId()));
@@ -32,6 +34,7 @@ public class RobotController {
 
         tablerobot.setItems(RobotManager.getRobots());
         
+
         tablerobot.setFixedCellSize(50); 
         tablerobot.prefHeightProperty().bind(
                 Bindings.size(tablerobot.getItems())
@@ -41,11 +44,14 @@ public class RobotController {
         tablerobot.minHeightProperty().bind(tablerobot.prefHeightProperty());
         tablerobot.maxHeightProperty().bind(tablerobot.prefHeightProperty());
         
-        refreshTimeline = new Timeline(
+        refreshTimeline_1 = new Timeline(
             new KeyFrame(Duration.millis(200), e -> tablerobot.refresh())
         );
-        refreshTimeline.setCycleCount(Timeline.INDEFINITE);
-        refreshTimeline.play();
+               
+        refreshTimeline_1.setCycleCount(Timeline.INDEFINITE);
+        refreshTimeline_2.setCycleCount(Timeline.INDEFINITE);
+        
+        refreshTimeline_1.play();
     }
 
     private <T> TableCell<Robot, T> centeredCell(TableColumn<Robot, T> col) {
@@ -91,12 +97,13 @@ public class RobotController {
                 }
 
                 setText(state.toUpperCase());
-                String color = switch (state.toUpperCase()) {
-                    case "IDLE" -> "#4CAF50";
-                    case "MOVING" -> "#FF9800";
-                    case "CHARGING" -> "#2196F3";
-                    default -> "#9E9E9E";
-                };
+                String color;
+                	if(state.toUpperCase().equals("IDLE")) {
+                		color = "#4CAF50";
+                	}
+                	else {
+                		color = "#2196F3";               		
+                	}
                 setStyle("-fx-alignment: CENTER; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + color + ";");
             }
         };

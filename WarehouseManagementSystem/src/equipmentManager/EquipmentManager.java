@@ -23,7 +23,7 @@ import logger.Logger;
 public class EquipmentManager implements Runnable {
 	// --- Constants ---
     private static final int LOW_BATTERY_PERCENT = 30;        // <30% means low battery, robot needs to be charged
-    private static final int HIGH_BATTERY_PERCENT = 90;       // >90% means high battery, no need to charge more
+    private static final int HIGH_BATTERY_PERCENT = 70;       // >90% means high battery, no need to charge more
     private static final double ENERGY_UNAVAILABLE = -1.0;    // Sentinel for path/energy calculation failure
     
     private final String ID = "Equipment Manager";
@@ -74,6 +74,9 @@ public class EquipmentManager implements Runnable {
         }
     }
     
+    public List<Robot> getRobot(){
+    		return this.availableRobots;
+    }
     @Override
     public void run() {
     	logger.log_print("info", "equipment_manager", " Dispatcher started.");

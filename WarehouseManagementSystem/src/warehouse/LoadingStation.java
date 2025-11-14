@@ -29,7 +29,7 @@ public class LoadingStation extends WarehouseObject {
     public Point getLocation() { 
         return this.location;
     }
-    
+ 
     public String getState() { 
         return state.toString(); 
     }

@@ -12,63 +12,64 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FloorController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.robot_screen.FloorController">
    <children>
       <GridPane fx:id="gridPane" alignment="CENTER" prefHeight="781.0" prefWidth="1116.0" style="-fx-alignment: CENTER;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="70.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="70.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="70.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="70.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="70.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="70.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="70.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="40.0" minHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="40.0" minHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="40.0" minHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="40.0" minHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Group fx:id="robot1" GridPane.rowIndex="13">
                <children>
-                  <Circle fill="WHITE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="circle1" fill="WHITE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label layoutX="-21.0" layoutY="-38.0" text="Robot 1" />
                </children>
             </Group>
             <Group fx:id="robot2" GridPane.columnIndex="1" GridPane.rowIndex="13">
                <children>
-                  <Circle fill="WHITE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="circle2" fill="WHITE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label layoutX="-21.0" layoutY="-38.0" text="Robot 2" />
                </children>
             </Group>
             <Group fx:id="robot3" GridPane.columnIndex="2" GridPane.rowIndex="13">
                <children>
-                  <Circle fill="WHITE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="circle3" fill="WHITE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label layoutX="-21.0" layoutY="-38.0" text="Robot 3" />
                </children>
             </Group>
@@ -81,83 +82,98 @@
             <Polygon fill="#1a64a9" points="-79.1429214477539, 11.429203987121582, -37.4285774230957, 11.429203987121582, -22.571521759033203, -19.99944496154785, -37.42853927612305, -57.142276763916016, -79.1429214477539, -57.142269134521484, -94.57151794433594, -19.999452590942383" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="10" GridPane.rowIndex="9" />
             <Polygon fill="#1a64a9" points="-79.1429214477539, 11.429203987121582, -37.4285774230957, 11.429203987121582, -22.571521759033203, -19.99944496154785, -37.42853927612305, -57.142276763916016, -79.1429214477539, -57.142269134521484, -94.57151794433594, -19.999452590942383" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="15" GridPane.rowIndex="5" />
             <Polygon fill="#1a64a9" points="-79.1429214477539, 11.429203987121582, -37.4285774230957, 11.429203987121582, -22.571521759033203, -19.99944496154785, -37.42853927612305, -57.142276763916016, -79.1429214477539, -57.142269134521484, -94.57151794433594, -19.999452590942383" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="15" GridPane.rowIndex="9" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c5a52e" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" GridPane.columnIndex="7" GridPane.rowIndex="13" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c5a52e" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" GridPane.columnIndex="9" GridPane.rowIndex="13" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#258f35" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" GridPane.columnIndex="15" GridPane.rowIndex="13" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#258f35" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" GridPane.columnIndex="17" GridPane.rowIndex="13" />
-            <Label text="SHELF 3" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 2" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 1" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 4" GridPane.columnIndex="10" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 5" GridPane.columnIndex="10" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 6" GridPane.columnIndex="10" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 9" GridPane.columnIndex="15" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 8" GridPane.columnIndex="15" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label text="SHELF 7" GridPane.columnIndex="15" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label prefHeight="16.0" prefWidth="90.0" text="PACKING 1" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Verdana Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label prefHeight="16.0" prefWidth="90.0" text="PACKING 2" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c5a52e" height="60.0" stroke="BLACK" strokeType="INSIDE" width="52.0" GridPane.columnIndex="7" GridPane.rowIndex="13" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c5a52e" height="60.0" stroke="BLACK" strokeType="INSIDE" width="51.0" GridPane.columnIndex="9" GridPane.rowIndex="13" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#258f35" height="60.0" stroke="BLACK" strokeType="INSIDE" width="70.0" GridPane.columnIndex="15" GridPane.rowIndex="13" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#258f35" height="60.0" stroke="BLACK" strokeType="INSIDE" width="70.0" GridPane.columnIndex="17" GridPane.rowIndex="13" />
+            <Label prefHeight="16.0" prefWidth="86.0" text="PACKING 1" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="TOP">
                <font>
                   <Font name="Verdana Bold" size="13.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="4.0" />
+                  <Insets left="12.0" />
                </GridPane.margin>
             </Label>
-            <Label prefHeight="16.0" prefWidth="90.0" text="CHARGING 1" GridPane.columnIndex="15" GridPane.columnSpan="3" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
+            <Label fx:id="shelf3" text="SHELF3" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="shelf2" text="SHELF2" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="shelf1" text="SHELF1" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="shelf6" text="SHELF6" GridPane.columnIndex="10" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="shelf9" text="SHELF9" GridPane.columnIndex="15" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="shelf8" text="SHELF8" GridPane.columnIndex="15" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label prefHeight="16.0" prefWidth="90.0" text="PACKING 2" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="shelf7" text="SHELF7" GridPane.columnIndex="15" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label prefHeight="16.0" prefWidth="90.0" text="CHARGING 1" GridPane.columnIndex="14" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="TOP">
                <font>
                   <Font name="Verdana Bold" size="12.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="2.0" />
+                  <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label prefHeight="16.0" prefWidth="90.0" text="CHARGING 2" GridPane.columnIndex="17" GridPane.columnSpan="2" GridPane.rowIndex="12" GridPane.valignment="BOTTOM">
+            <Label prefHeight="16.0" prefWidth="90.0" text="CHARGING 2" GridPane.columnIndex="16" GridPane.columnSpan="3" GridPane.rowIndex="14" GridPane.valignment="TOP">
                <font>
                   <Font name="Verdana Bold" size="12.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="2.0" />
+                  <Insets left="5.0" />
                </GridPane.margin>
+            </Label>
+            <Label fx:id="shelf4" text="SHELF4" GridPane.columnIndex="10" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="shelf5" text="SHELF5" GridPane.columnIndex="10" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f286e9" height="52.0" stroke="BLACK" strokeType="INSIDE" width="52.0" GridPane.rowIndex="4" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f286e9" height="54.0" stroke="BLACK" strokeType="INSIDE" width="52.0" GridPane.rowIndex="6" />
+            <Label prefHeight="16.0" prefWidth="86.0" text="Loading 1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label prefHeight="16.0" prefWidth="86.0" text="Loading 2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Verdana Bold" size="13.0" />
+               </font>
             </Label>
          </children>
       </GridPane>

@@ -10,16 +10,15 @@ import warehouse.Product;
 import warehouse.StorageShelf;
 import warehouse.datamanager.InventoryDataPacket;
 import warehouse.WahouseObjectType;
+import warehouse.WarehouseManager;
 public class InventoryManager {
 
 	private static final ObservableList<InventoryItem> ITEMS = FXCollections.observableArrayList();
 
-    // Constructor that takes a list of InventoryDataPacket to initialize the inventory
-    public static void initializeInventory(List<InventoryDataPacket> inventoryDataList) {
+    public static void initializeInventory(List<InventoryDataPacket> inventoryDataList, WarehouseManager warehousemanager) {
         ITEMS.clear(); 
         for (InventoryDataPacket dataPacket : inventoryDataList) {
-            InventoryItem item = convertToInventoryItem(dataPacket);
-            ITEMS.add(item);
+            ITEMS.add(warehousemanager.getInventoryItem(dataPacket.getProductId()));            
         }
     }
 
@@ -27,7 +26,6 @@ public class InventoryManager {
         return ITEMS;
     }
 
-    /* Returns the InventoryItem by exact name, or null if not found */
     public static InventoryItem findByName(String name) {
             for (InventoryItem item : ITEMS) {
             	String check_name=item.getProduct().getProductName();
@@ -42,9 +40,7 @@ public class InventoryManager {
         InventoryItem it = findByName(name);
         return it.getProduct().getProductID();  // Update the quantity in the InventoryItem
     }
-    
-    /** Update quantity to an absolute value. Returns true if item existed and was updated. 
-     * @return */
+
     public static void incrementQuantity(String name, int increment) {
         InventoryItem it = findByName(name);
         it.addQuantity(increment);  // Update the quantity in the InventoryItem
@@ -65,8 +61,7 @@ public class InventoryManager {
         for (InventoryItem item : inventoryItems) {
             InventoryDataPacket packet = convertToInventoryDataPacket(item);
             dataPacketList.add(packet);
-        }
-        
+        }       
         return dataPacketList;
     }
     

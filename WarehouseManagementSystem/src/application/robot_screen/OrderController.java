@@ -1,7 +1,5 @@
 package application.robot_screen;
 
-import java.awt.Point;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -10,12 +8,14 @@ import application.inventory_screen.InventoryManager;
 import equipmentManager.EquipmentManager;
 import taskManager.Task;
 import taskManager.TaskManager;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import logger.Logger;
+import warehouse.InventoryItem;
 import warehouse.WarehouseManager;
-import warehouse.datamanager.InventoryDataPacket;
 
 public class OrderController {
 	    @FXML private ComboBox<String> itemComboBox;
@@ -28,14 +28,14 @@ public class OrderController {
         
         TaskManager taskManager;
         EquipmentManager equipmentManager;
-        // Reverted logging
+        Logger log = new Logger();
 
-        public void setInventoryManager(List<InventoryDataPacket> inventoryData) {
-	        populateItemComboBox(inventoryData);  // Update the table view whenever inventoryManager is set
-	    }
+        public void setInventoryManager() {
+            populateItemComboBox(InventoryManager.getItems());
+        }
 
         public void setManager(WarehouseManager warehouseManager,TaskManager taskManager, EquipmentManager equipmentManager) {
-	        this.warehouseManager = warehouseManager;  // Update the table view whenever inventoryManager is set
+	        this.warehouseManager = warehouseManager;  
 	        this.taskManager = taskManager;
 	        this.equipmentManager = equipmentManager;
 	    }
@@ -74,13 +74,11 @@ public class OrderController {
                     taskManager.createNewOrder(idText, quantity);
 
                     TimeUnit.SECONDS.sleep(5);
-
                     javafx.application.Platform.runLater(() -> {
                         feedback.setText("Order created successfully.");
                     });
 
                 } catch (Exception e) {
-                    System.err.println("[robot] Order creation failed: " + e.getMessage());
                     javafx.application.Platform.runLater(() -> {
                         feedback.setText("Order creation failed.");
                     });
@@ -92,20 +90,16 @@ public class OrderController {
 	    // Handle Clear button click: Reset the form
 	    @FXML
 	    private void handleClear() {
-	        itemComboBox.setValue(null); // Clear selected item in ComboBox
-	        qtyField.clear();            // Clear the quantity field
-	        feedback.setText("");        // Clear the feedback message
+	        itemComboBox.setValue(null); 
+	        qtyField.clear();            
+	        feedback.setText("");       
 	    }
 	    
 	    // Populate the ComboBox with item names
-	    private void populateItemComboBox(List<InventoryDataPacket> inventoryData) {
-	        // Clear current items in the combo box
+	    private void populateItemComboBox(ObservableList<InventoryItem> inventoryData) {
 	        itemComboBox.getItems().clear();
-
-	        // Add item names to the combo box from the inventoryItems list
-	        for (InventoryDataPacket item : inventoryData) {
-	            itemComboBox.getItems().add(item.getProductName());
+	        for (InventoryItem item : inventoryData) {
+	            itemComboBox.getItems().add(item.getProduct().getProductName());
 	        }
 	    }
-
 }

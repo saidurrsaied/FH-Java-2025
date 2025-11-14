@@ -101,13 +101,13 @@ public class Logger {
             case "inventory":
         	 	logFolderPath = folder_inventory.getPath(); 
         		system = "Inventory";
-    			break;
-    		      
+    			break;    		      
     		case "charging":
         	 	logFolderPath = folder_charging.getPath(); 
         		system = "Charging";
     			break;
     		default:
+        	 	logFolderPath = folder_system.getPath(); 
 		}     
         
         // Format the log message
