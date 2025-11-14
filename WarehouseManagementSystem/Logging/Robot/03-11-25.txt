@@ -1,6 +1,0 @@
-[INFO][03-11-25][17:06:57][Robot] Submitted demo order for Banana x2.
-[INFO][03-11-25][17:12:00][Robot] Submitted demo order for Banana x2.
-[INFO][03-11-25][17:13:52][Robot] Submitted demo order for Banana x2.
-[INFO][03-11-25][17:14:25][Robot] Submitted demo order for Banana x2.
-[INFO][03-11-25][17:14:37][Robot] Submitted demo order for Banana x2.
-[INFO][03-11-25][17:15:59][Robot] Submitted demo order for Banana x2.

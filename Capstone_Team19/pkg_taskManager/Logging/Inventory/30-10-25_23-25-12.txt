@@ -1,2 +1,0 @@
-[INFO][30-10-25][23:25:12][Inventory] Exported inventory CSV to data\inventory.csv
-[INFO][30-10-25][23:25:12][Inventory] Loaded inventory from CSV.

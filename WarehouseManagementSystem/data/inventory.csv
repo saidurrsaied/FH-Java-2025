@@ -1,4 +1,0 @@
-ProductID,ProductName,Quantity,ShelfID,X,Y
-P-001,Apple,12,SHELF1,50,50
-P-002,Banana,10,SHELF2,10,50
-P-003,Orange,10,SHELF3,160,50

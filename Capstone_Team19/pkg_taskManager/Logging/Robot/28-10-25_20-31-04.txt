@@ -1,1 +1,0 @@
-[INFO][28-10-25][20:31:04][Robot] Assigned task to robot: PickOrder[Banana x2 from java.awt.Point[x=120,y=50] to packing station]

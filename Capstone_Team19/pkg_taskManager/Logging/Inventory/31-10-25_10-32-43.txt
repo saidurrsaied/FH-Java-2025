@@ -1,2 +1,0 @@
-[INFO][31-10-25][10:32:43][Inventory] Decreased Banana by 2 after pick.
-[INFO][31-10-25][10:32:43][Inventory] Exported post-run inventory to data\inventory_post_run.csv

@@ -1,7 +1,0 @@
-ObjectID,ObjectType,X,Y,Available
-SHELF1,StorageShelf,2,3,True
-SHELF2,StorageShelf,4,1,True
-SHELF3,StorageShelf,5,2,True
-SHELF4,StorageShelf,3,4,True
-ST01,Station,1,1,True
-ST02,Station,6,3,True
