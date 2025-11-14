@@ -43,8 +43,10 @@ public class EquipmentManager implements Runnable {
     private LinkedBlockingQueue<ChargingStation> availableChargeStations;
     private LinkedBlockingQueue<PackingStation> availablePackStations;
 
-    // Thread tracking for graceful shutdown
-    // Removed shutdown feature: no longer tracking threads/stopping flag
+    // Thread tracking for graceful shutdown (minimal addition)
+    private volatile boolean stopping = false;
+    private final List<Thread> robotThreads = new ArrayList<>();
+    private volatile Thread dispatcherThread; // optional: register by caller
 
     // --- Other utilities  ---
     private final PathFinding pathFinding;
@@ -72,6 +74,7 @@ public class EquipmentManager implements Runnable {
         for (Robot r : availableRobots) {
             Thread t = new Thread(r, "Robot-" + r.getId());
             t.start();
+            robotThreads.add(t);
         }
     }
 
@@ -80,9 +83,13 @@ public class EquipmentManager implements Runnable {
     }
     @Override
     public void run() {
+        // If someone runs EM as a dispatcher in a thread, allow stop() to find it
+        if (dispatcherThread == null) {
+            dispatcherThread = Thread.currentThread();
+        }
         logger.log_print("info", "equipment_manager", " Dispatcher started.");
 
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted() && !stopping) {
             try {
                 // Original blocking behavior: wait until a task arrives
                 Task newTask = taskSubmissionQueue.take();
@@ -123,6 +130,61 @@ public class EquipmentManager implements Runnable {
             }
         }
         logger.log_print("info", "equipment_manager", " Dispatcher stopped.");
+    }
+
+    /**
+     * Register the dispatcher thread so stop() can interrupt it later.
+     * This is optional; if not set, it will be auto-set when run() starts.
+     */
+    public void registerDispatcherThread(Thread t) {
+        this.dispatcherThread = t;
+    }
+
+    /**
+     * Gracefully stop: interrupt dispatcher and all robot threads and await termination.
+     * Minimal, non-breaking addition for JavaFX Application.stop() to call.
+     */
+    public void stop(long timeoutMs) throws InterruptedException {
+        stopping = true;
+        // Interrupt dispatcher if known
+        Thread dt = this.dispatcherThread;
+        if (dt != null) {
+            dt.interrupt();
+        }
+        // Interrupt robots
+        for (Thread t : robotThreads) {
+            t.interrupt();
+        }
+
+        long deadline = System.currentTimeMillis() + Math.max(0, timeoutMs);
+        // Join dispatcher
+        if (dt != null) {
+            long remaining = Math.max(0, deadline - System.currentTimeMillis());
+            if (remaining > 0) dt.join(remaining);
+        }
+        // Join robots
+        for (Thread t : robotThreads) {
+            long remaining = Math.max(0, deadline - System.currentTimeMillis());
+            if (remaining <= 0) break;
+            try {
+                t.join(remaining);
+            } catch (InterruptedException ie) {
+                // Preserve interrupt and stop waiting further
+                Thread.currentThread().interrupt();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Testing/monitoring helper: returns number of alive robot threads tracked by EM.
+     */
+    public int getAliveRobotThreadCount() {
+        int alive = 0;
+        for (Thread t : robotThreads) {
+            if (t.isAlive()) alive++;
+        }
+        return alive;
     }
 
     /**

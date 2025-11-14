@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import wms.wmsjfx.logger.Logger;
@@ -27,8 +28,14 @@ import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
 
 public class Main extends Application {
 
+    // Keep references so we can stop threads in Application.stop()
+    private EquipmentManager equipmentManager;
+    private Thread emThread;
+
     @Override
     public void start(Stage primaryStage) throws IOException, InterruptedException {
+        // Ensure JVM exits when the last JavaFX window is closed
+        Platform.setImplicitExit(true);
         Logger log = new Logger();
 
         try {
@@ -79,7 +86,7 @@ public class Main extends Application {
             PathFinding pathFinding = new PathFinding(warehouseManager);
 
             // All needed class for equipment manager are created, now create equipmentManager and start its thread
-            EquipmentManager equipmentManager = new EquipmentManager(
+            equipmentManager = new EquipmentManager(
                     warehouseManager,
                     taskSubmissionQueue,
                     pathFinding
@@ -92,7 +99,9 @@ public class Main extends Application {
 
 
             // Start EquipmentManager thread
-            Thread emThread = new Thread(equipmentManager, "EM-Brain-Thread");
+            emThread = new Thread(equipmentManager, "EM-Brain-Thread");
+            // Register dispatcher thread so EquipmentManager.stop() can interrupt/join it
+            equipmentManager.registerDispatcherThread(emThread);
             emThread.start();
 
             // Create Task manager
@@ -120,6 +129,16 @@ public class Main extends Application {
 
             primaryStage.setScene(loadingScene);
             primaryStage.setTitle("Loading...");
+
+            // On window close, attempt a graceful shutdown of background threads
+            primaryStage.setOnCloseRequest(evt -> {
+                try {
+                    if (equipmentManager != null) equipmentManager.stop(1500);
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                }
+                Platform.exit();
+            });
             primaryStage.show();
 
         } catch (IllegalStateException fatal) {
@@ -128,6 +147,15 @@ public class Main extends Application {
         } catch (Exception unexpected) {
             Logger logLocal = new Logger();
             logLocal.log_print("ERROR", "inventory", "Unexpected error: " + unexpected.getMessage());
+        }
+    }
+    @Override
+    public void stop() {
+        // Called by JavaFX when the last window is closed or Platform.exit() is invoked
+        try {
+            if (equipmentManager != null) equipmentManager.stop(1500);
+        } catch (InterruptedException ignored) {
+            Thread.currentThread().interrupt();
         }
     }
     public static void main(String[] args) {
