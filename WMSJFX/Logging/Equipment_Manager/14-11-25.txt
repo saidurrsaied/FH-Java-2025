@@ -536,3 +536,19 @@
 [info][14-11-25][16:09:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
 [info][14-11-25][16:09:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
 [info][14-11-25][16:09:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:56][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:56][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:58][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:58][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:10:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:10:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:10:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:10:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:10:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:10:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:10:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:10:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:10:26][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:10:26][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:10:28][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:10:28][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
