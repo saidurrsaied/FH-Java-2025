@@ -13132,3 +13132,250 @@
 [info][14-11-25][20:15:46][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
 [info][14-11-25][20:15:46][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
 [info][14-11-25][20:15:46][Robot2] [R2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:19][Equipment_Manager] Charging Station C1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:19][null] [R-Stop] Robot thread started at (0, 0)
+[info][14-11-25][20:27:19][Equipment_Manager]  Dispatcher started.
+[info][14-11-25][20:27:19][null] [R-Stop] Robot thread started at (0, 0)
+[info][14-11-25][20:27:19][Equipment_Manager]  Dispatcher started.
+[info][14-11-25][20:27:19][Equipment_Manager]  Dispatcher stopped.
+[info][14-11-25][20:27:19][null] [R-Stop] Thread stopped.
+[info][14-11-25][20:27:19][null] [R-1] Received task: Pick 2x P1 [ID: Order-1]
+[info][14-11-25][20:27:19][null] [R-1] Received task: Pick 2x P1 [ID: Order-1]
+[info][14-11-25][20:27:19][null] [R-1] Robot thread started at (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] Robot thread started at (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-1] Starting multi-step path from (0, 0). Steps: 0
+[info][14-11-25][20:27:19][null] [R-1] Starting multi-step path from (0, 0). Steps: 0
+[info][14-11-25][20:27:19][null] [R-1] Finished path. Final: (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] Finished path. Final: (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] Picking up P1 at (0,0)
+[info][14-11-25][20:27:19][null] [R-1] Picking up P1 at (0,0)
+[info][14-11-25][20:27:19][null] [R-1] Picked P1
+[info][14-11-25][20:27:19][null] [R-1] Picked P1
+[info][14-11-25][20:27:19][Equipment_Manager]  Found available Packing Station P1 for Robot R-1.
+[info][14-11-25][20:27:19][null] [R-1] Starting multi-step path from (0, 0). Steps: 0
+[info][14-11-25][20:27:19][null] [R-1] Starting multi-step path from (0, 0). Steps: 0
+[info][14-11-25][20:27:19][null] [R-1] Finished path. Final: (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] Finished path. Final: (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] Dropping P1 at (0,0)
+[info][14-11-25][20:27:19][null] [R-1] Dropping P1 at (0,0)
+[info][14-11-25][20:27:19][null] [R-1] Dropped P1
+[info][14-11-25][20:27:19][null] [R-1] Dropped P1
+[info][14-11-25][20:27:19][Equipment_Manager] Packing Station P1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-1 finished task Order-1.
+[info][14-11-25][20:27:19][Equipment_Manager] No pending tasks. Sending R-1 to Start Point.
+[info][14-11-25][20:27:19][null] [R-1] Received task: Task: Return to Starting Point (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] Received task: Task: Return to Starting Point (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-1] Starting multi-step path from (0, 0). Steps: 0
+[info][14-11-25][20:27:19][null] [R-1] Starting multi-step path from (0, 0). Steps: 0
+[info][14-11-25][20:27:19][null] [R-1] Finished path. Final: (0, 0)
+[info][14-11-25][20:27:19][null] [R-1] Finished path. Final: (0, 0)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-1 finished task GoToStart(0,0).
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-1 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:19][null] [R-1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-1] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:27:19][null] [R-1] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:27:19][null] [R-1] Thread stopped.
+[info][14-11-25][20:27:19][null] [R-1] Thread stopped.
+[info][14-11-25][20:27:19][null] [R-3] Robot thread started at (2, 2)
+[info][14-11-25][20:27:19][null] [R-3] Robot thread started at (2, 2)
+[info][14-11-25][20:27:19][null] [R-3] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-3] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-3] Received task: Task: Move to (2.0, 2.0) and charge.
+[info][14-11-25][20:27:19][null] [R-3] Starting multi-step path from (2, 2). Steps: 0
+[info][14-11-25][20:27:19][null] [R-3] Received task: Task: Move to (2.0, 2.0) and charge.
+[info][14-11-25][20:27:19][null] [R-3] Starting multi-step path from (2, 2). Steps: 0
+[info][14-11-25][20:27:19][null] [R-3] Finished path. Final: (2, 2)
+[info][14-11-25][20:27:19][null] [R-3] Finished path. Final: (2, 2)
+[info][14-11-25][20:27:19][null] [R-3] Charging at (2,2) current 95%
+[info][14-11-25][20:27:19][null] [R-3] Charging at (2,2) current 95%
+[info][14-11-25][20:27:19][null] [R-3] Charging for 50ms
+[info][14-11-25][20:27:19][null] [R-3] Charging for 50ms
+[info][14-11-25][20:27:19][null] [R-3] Fully charged
+[info][14-11-25][20:27:19][null] [R-3] Fully charged
+[info][14-11-25][20:27:19][Equipment_Manager] Charging Station C1 released back to queue. (Queue size: 2)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 finished task Charge-R-3.
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 finished charging. Sending to Start Point.
+[info][14-11-25][20:27:19][null] [R-3] Received task: Task: Return to Starting Point (2, 2)
+[info][14-11-25][20:27:19][null] [R-3] Received task: Task: Return to Starting Point (2, 2)
+[info][14-11-25][20:27:19][null] [R-3] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-3] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-3] Starting multi-step path from (2, 2). Steps: 0
+[info][14-11-25][20:27:19][null] [R-3] Starting multi-step path from (2, 2). Steps: 0
+[info][14-11-25][20:27:19][null] [R-3] Finished path. Final: (2, 2)
+[info][14-11-25][20:27:19][null] [R-3] Finished path. Final: (2, 2)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 finished task GoToStart(2,2).
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:19][null] [R-3] Thread stopped.
+[info][14-11-25][20:27:19][null] [R-3] Thread stopped.
+[info][14-11-25][20:27:19][null] [R-2] Robot thread started at (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] Robot thread started at (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-2] Received task: Stock 3x P1 [ID: Stock-1]
+[info][14-11-25][20:27:19][null] [R-2] Received task: Stock 3x P1 [ID: Stock-1]
+[info][14-11-25][20:27:19][null] [R-2] Starting multi-step path from (1, 1). Steps: 0
+[info][14-11-25][20:27:19][null] [R-2] Starting multi-step path from (1, 1). Steps: 0
+[info][14-11-25][20:27:19][null] [R-2] Finished path. Final: (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] Finished path. Final: (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] Picking up P1 at (1,1)
+[info][14-11-25][20:27:19][null] [R-2] Picking up P1 at (1,1)
+[info][14-11-25][20:27:19][null] [R-2] Picked P1
+[info][14-11-25][20:27:19][null] [R-2] Picked P1
+[info][14-11-25][20:27:19][null] [R-2] Starting multi-step path from (1, 1). Steps: 0
+[info][14-11-25][20:27:19][null] [R-2] Starting multi-step path from (1, 1). Steps: 0
+[info][14-11-25][20:27:19][null] [R-2] Finished path. Final: (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] Finished path. Final: (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] Dropping P1 at (1,1)
+[info][14-11-25][20:27:19][null] [R-2] Dropping P1 at (1,1)
+[info][14-11-25][20:27:19][null] [R-2] Dropped P1
+[info][14-11-25][20:27:19][null] [R-2] Dropped P1
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-2 finished task Stock-1.
+[info][14-11-25][20:27:19][Equipment_Manager] No pending tasks. Sending R-2 to Start Point.
+[info][14-11-25][20:27:19][null] [R-2] Received task: Task: Return to Starting Point (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] Received task: Task: Return to Starting Point (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-2] Starting multi-step path from (1, 1). Steps: 0
+[info][14-11-25][20:27:19][null] [R-2] Starting multi-step path from (1, 1). Steps: 0
+[info][14-11-25][20:27:19][null] [R-2] Finished path. Final: (1, 1)
+[info][14-11-25][20:27:19][null] [R-2] Finished path. Final: (1, 1)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-2 finished task GoToStart(1,1).
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-2 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:19][null] [R-2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-2] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:27:19][null] [R-2] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:27:19][null] [R-2] Thread stopped.
+[info][14-11-25][20:27:19][null] [R-2] Thread stopped.
+[info][14-11-25][20:27:19][null] [R-4] Received task: Pick 1x P1 [ID: Order-2]
+[info][14-11-25][20:27:19][null] [R-4] Received task: Pick 1x P1 [ID: Order-2]
+[info][14-11-25][20:27:19][null] [R-4] Robot thread started at (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] Robot thread started at (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:19][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:19][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] Picking up P1 at (3,3)
+[info][14-11-25][20:27:19][null] [R-4] Picking up P1 at (3,3)
+[info][14-11-25][20:27:19][null] [R-4] Picked P1
+[info][14-11-25][20:27:19][null] [R-4] Picked P1
+[info][14-11-25][20:27:19][Equipment_Manager]  Found available Packing Station P1 for Robot R-4.
+[info][14-11-25][20:27:19][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:19][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:19][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] Dropping P1 at (3,3)
+[info][14-11-25][20:27:19][null] [R-4] Dropping P1 at (3,3)
+[info][14-11-25][20:27:19][null] [R-4] Dropped P1
+[info][14-11-25][20:27:19][null] [R-4] Dropped P1
+[info][14-11-25][20:27:19][Equipment_Manager] Packing Station P1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-4 finished task Order-2.
+[info][14-11-25][20:27:19][Equipment_Manager]  Assign charging station C1 to robot R-4.
+[info][14-11-25][20:27:19][null] [R-4] Received task: Task: Move to (3.0, 3.0) and charge.
+[info][14-11-25][20:27:19][null] [R-4] Received task: Task: Move to (3.0, 3.0) and charge.
+[info][14-11-25][20:27:19][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:19][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:19][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:19][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:19][null] [R-4] Charging at (3,3) current 10%
+[info][14-11-25][20:27:19][null] [R-4] Charging at (3,3) current 10%
+[info][14-11-25][20:27:19][null] [R-4] Charging for 900ms
+[info][14-11-25][20:27:19][null] [R-4] Charging for 900ms
+[info][14-11-25][20:27:20][null] [R-4] Fully charged
+[info][14-11-25][20:27:20][null] [R-4] Fully charged
+[info][14-11-25][20:27:20][Equipment_Manager] Charging Station C1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 finished task Charge-R-4.
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 finished charging. Sending to Start Point.
+[info][14-11-25][20:27:20][null] [R-4] Received task: Task: Return to Starting Point (3, 3)
+[info][14-11-25][20:27:20][null] [R-4] Received task: Task: Return to Starting Point (3, 3)
+[info][14-11-25][20:27:20][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:20][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:20][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:20][null] [R-4] Starting multi-step path from (3, 3). Steps: 0
+[info][14-11-25][20:27:20][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:20][null] [R-4] Finished path. Final: (3, 3)
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 finished task GoToStart(3,3).
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:20][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:20][null] [R-4] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:20][null] [R-4] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:27:20][null] [R-4] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:27:20][null] [R-4] Thread stopped.
+[info][14-11-25][20:27:20][null] [R-4] Thread stopped.
+[info][14-11-25][20:27:20][Equipment_Manager]  Dispatcher started.
+[info][14-11-25][20:27:20][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P1] → Pending (1)
+[info][14-11-25][20:27:20][Equipment_Manager]  No available robot for wms.wmsjfx.taskManager.StockTask@35be6bff → Pending (2)
+[info][14-11-25][20:27:20][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P1] → Pending (3)
+[info][14-11-25][20:27:20][Equipment_Manager]  Interrupt received. Stopping dispatcher...
+[info][14-11-25][20:27:20][Equipment_Manager]  Dispatcher stopped.
+[INFO][14-11-25][20:27:24][Inventory] Loaded warehouse floor and inventory from CSV.
+[info][14-11-25][20:27:25][Robot3] [R3] Robot thread started at (2, 13)
+[info][14-11-25][20:27:25][Robot2] [R2] Robot thread started at (1, 13)
+[info][14-11-25][20:27:25][Robot1] [R1] Robot thread started at (0, 13)
+[info][14-11-25][20:27:25][Robot2] [R2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:25][Equipment_Manager]  Dispatcher started.
+[info][14-11-25][20:27:25][Robot1] [R1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:25][Robot3] [R3] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:56][Robot1] [R1] IDLE TIMEOUT (30 sec). Requesting charge...
+[info][14-11-25][20:27:56][Robot2] [R2] IDLE TIMEOUT (30 sec). Requesting charge...
+[info][14-11-25][20:27:56][Robot3] [R3] IDLE TIMEOUT (30 sec). Requesting charge...
+[info][14-11-25][20:27:56][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:56][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:56][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:56][Robot1] [R1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:56][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:56][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:56][Robot2] [R2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:27:56][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:56][Robot3] [R3] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:28:12][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R1 (Dist: 35.97) = Total: 35.97
+[info][14-11-25][20:28:12][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R2 (Dist: 35.56) = Total: 35.56
+[info][14-11-25][20:28:12][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R3 (Dist: 35.97) = Total: 35.97
+[info][14-11-25][20:28:12][Equipment_Manager]  DISPATCH wms.wmsjfx.taskManager.StockTask@286d94ae -> R1
+[info][14-11-25][20:28:12][Robot1] [R1] Starting multi-step path from (0, 13). Steps: 9
+[info][14-11-25][20:28:12][Robot1] [R1] Received task: Stock 1000x P-006 [ID: Stock-1]
+[info][14-11-25][20:28:14][Robot1] [R1] Finished path. Final: (0, 4)
+[info][14-11-25][20:28:14][Robot1] [R1] Picking up P-006 at (0,4)
+[info][14-11-25][20:28:14][Robot1] [R1] Picked P-006
+[info][14-11-25][20:28:14][Robot1] [R1] Starting multi-step path from (0, 4). Steps: 10
+[info][14-11-25][20:28:17][Robot1] [R1] Finished path. Final: (10, 1)
+[info][14-11-25][20:28:17][Robot1] [R1] Dropping P-006 at (10,1)
+[info][14-11-25][20:28:17][Robot1] [R1] Dropped P-006
+[info][14-11-25][20:28:17][Equipment_Manager]  Robot R1 finished task Stock-1.
+[info][14-11-25][20:28:17][Equipment_Manager] No pending tasks. Sending R1 to Start Point.
+[info][14-11-25][20:28:17][Robot1] [R1] Received task: Task: Return to Starting Point (0, 13)
+[info][14-11-25][20:28:17][Robot1] [R1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:28:17][Robot1] [R1] Starting multi-step path from (10, 1). Steps: 12
+[info][14-11-25][20:28:21][Robot1] [R1] Finished path. Final: (0, 13)
+[info][14-11-25][20:28:21][Equipment_Manager]  Robot R1 finished task GoToStart(0,13).
+[info][14-11-25][20:28:21][Equipment_Manager]  Robot R1 is at Start Point. Now IDLE.
+[info][14-11-25][20:28:21][Robot1] [R1] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:28:26][Robot2] [R2] IDLE TIMEOUT (30 sec). Requesting charge...
+[info][14-11-25][20:28:26][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:28:26][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:28:26][Robot2] [R2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:28:26][Robot3] [R3] IDLE TIMEOUT (30 sec). Requesting charge...
+[info][14-11-25][20:28:26][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:28:26][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:28:26][Robot3] [R3] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][20:28:44][Robot2] [R2] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:28:44][Robot1] [R1] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:28:44][Robot3] [R3] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:28:44][Equipment_Manager]  Interrupt received. Stopping dispatcher...
+[info][14-11-25][20:28:44][Robot3] [R3] Thread stopped.
+[info][14-11-25][20:28:44][Equipment_Manager]  Dispatcher stopped.
+[info][14-11-25][20:28:44][Robot1] [R1] Thread stopped.
+[info][14-11-25][20:28:44][Robot2] [R2] Thread stopped.

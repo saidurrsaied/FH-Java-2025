@@ -2941,3 +2941,58 @@
 [info][14-11-25][20:15:42][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
 [info][14-11-25][20:15:46][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
 [info][14-11-25][20:15:46][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:19][Equipment_Manager] Charging Station C1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:19][Equipment_Manager]  Dispatcher stopped.
+[info][14-11-25][20:27:19][null] [R-Stop] Thread stopped.
+[info][14-11-25][20:27:19][Equipment_Manager]  Found available Packing Station P1 for Robot R-1.
+[info][14-11-25][20:27:19][Equipment_Manager] Packing Station P1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-1 finished task Order-1.
+[info][14-11-25][20:27:19][Equipment_Manager] No pending tasks. Sending R-1 to Start Point.
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-1 finished task GoToStart(0,0).
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-1 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:19][Equipment_Manager] Charging Station C1 released back to queue. (Queue size: 2)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 finished task Charge-R-3.
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 finished charging. Sending to Start Point.
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 finished task GoToStart(2,2).
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-3 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-2 finished task Stock-1.
+[info][14-11-25][20:27:19][Equipment_Manager] No pending tasks. Sending R-2 to Start Point.
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-2 finished task GoToStart(1,1).
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-2 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:19][Equipment_Manager]  Found available Packing Station P1 for Robot R-4.
+[info][14-11-25][20:27:19][Equipment_Manager] Packing Station P1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:19][Equipment_Manager]  Robot R-4 finished task Order-2.
+[info][14-11-25][20:27:19][Equipment_Manager]  Assign charging station C1 to robot R-4.
+[info][14-11-25][20:27:20][Equipment_Manager] Charging Station C1 released back to queue. (Queue size: 1)
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 finished task Charge-R-4.
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 finished charging. Sending to Start Point.
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 finished task GoToStart(3,3).
+[info][14-11-25][20:27:20][Equipment_Manager]  Robot R-4 is at Start Point. Now IDLE.
+[info][14-11-25][20:27:20][Equipment_Manager]  Dispatcher started.
+[info][14-11-25][20:27:20][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P1] → Pending (1)
+[info][14-11-25][20:27:20][Equipment_Manager]  No available robot for wms.wmsjfx.taskManager.StockTask@35be6bff → Pending (2)
+[info][14-11-25][20:27:20][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P1] → Pending (3)
+[info][14-11-25][20:27:20][Equipment_Manager]  Interrupt received. Stopping dispatcher...
+[info][14-11-25][20:27:20][Equipment_Manager]  Dispatcher stopped.
+[info][14-11-25][20:27:56][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:27:56][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:56][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:27:56][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:28:12][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R1 (Dist: 35.97) = Total: 35.97
+[info][14-11-25][20:28:12][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R2 (Dist: 35.56) = Total: 35.56
+[info][14-11-25][20:28:12][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R3 (Dist: 35.97) = Total: 35.97
+[info][14-11-25][20:28:12][Equipment_Manager]  DISPATCH wms.wmsjfx.taskManager.StockTask@286d94ae -> R1
+[info][14-11-25][20:28:17][Equipment_Manager]  Robot R1 finished task Stock-1.
+[info][14-11-25][20:28:17][Equipment_Manager] No pending tasks. Sending R1 to Start Point.
+[info][14-11-25][20:28:21][Equipment_Manager]  Robot R1 finished task GoToStart(0,13).
+[info][14-11-25][20:28:21][Equipment_Manager]  Robot R1 is at Start Point. Now IDLE.
+[info][14-11-25][20:28:26][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:28:26][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:28:26][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][20:28:26][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][20:28:44][Robot1] [R1] Thread interrupted. Exiting run loop...
+[info][14-11-25][20:28:44][Robot3] [R3] Thread interrupted. Exiting run loop...
