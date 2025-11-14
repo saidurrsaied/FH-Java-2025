@@ -33,7 +33,7 @@ public class Inventory {
      **/
     private final Map<String, InventoryItem> productInventory = new HashMap<>();
 
-    public void addProduct(Product product, int quantity, StorageShelf shelf) {
+    public synchronized void addProduct(Product product, int quantity, StorageShelf shelf) {
 
         /* Only one product can be stored on a shelf at a time */
         if (!shelf.isAvailable() && !shelf.getStoredProduct().getProductID().equals(product.getProductID())) {
@@ -54,18 +54,18 @@ public class Inventory {
         }
     }
 
-    public Map<String, InventoryItem> getAllItems() {
-        return productInventory;
+    public synchronized Map<String, InventoryItem> getAllItems() {
+        return new HashMap<>(productInventory);
     }
 
-    public InventoryItem geInventoryItem(String productID) {
+    public synchronized InventoryItem geInventoryItem(String productID) {
         if (!productInventory.containsKey(productID)) {
             throw new InventoryException("Product not found: " + productID);
         }
         else return productInventory.get(productID);
     }
 
-    public void removeProduct(String productID) {
+    public synchronized void removeProduct(String productID) {
         if (!productInventory.containsKey(productID)) {
             throw new InventoryException("Product not found: " + productID);
         }
@@ -78,7 +78,7 @@ public class Inventory {
     }
 
 
-    public int getProductQuantity(String productID) {
+    public synchronized int getProductQuantity(String productID) {
         if (!productInventory.containsKey(productID)) {
             throw new InventoryException("Product not found: " + productID);
         }
@@ -88,7 +88,7 @@ public class Inventory {
     }
 
 
-    public void increaseProductQuantity(String productID, int amount) {
+    public synchronized void increaseProductQuantity(String productID, int amount) {
         if (!productInventory.containsKey(productID)) {
             throw new InventoryException("Product not found: " + productID);
         }
@@ -96,7 +96,7 @@ public class Inventory {
             productInventory.get(productID).addQuantity(amount);
         }
     }
-    public void decreaseProductQuantity(String productID, int amount) {
+    public synchronized void decreaseProductQuantity(String productID, int amount) {
         if (!productInventory.containsKey(productID)) {
             throw new InventoryException("Product not found: " + productID);
         }
@@ -108,7 +108,7 @@ public class Inventory {
         }
     }
 
-    public boolean isProductInStock(String productID) {
+    public synchronized boolean isProductInStock(String productID) {
         if (!productInventory.containsKey(productID)) {
             throw new InventoryException("Product not found: " + productID);        }
         else {
@@ -119,7 +119,7 @@ public class Inventory {
     /**
      * Method to export the inventory data as a list of InventoryDataPacket objects
     * */
-    public List<InventoryDataPacket> exportInventoryData() {
+    public synchronized List<InventoryDataPacket> exportInventoryData() {
         List<InventoryDataPacket> dataPacket = new ArrayList<>();
 
         for (InventoryItem item : productInventory.values()) {
