@@ -1,11 +1,9 @@
 # FH-Java-2025
 
 
-# Warehouse Management System
+## Warehouse Management System
+### Team 19
 
-This is a JavaFX application built using **Maven**, with all dependencies (including JavaFX) downloaded automatically at build time. 
-
-##Team 19
 ### Team Members: 
 * Md Saidur Rahman
 * Anh Phuc Dang
@@ -28,8 +26,9 @@ This is a JavaFX application built using **Maven**, with all dependencies (inclu
 ---
 
 ## Requirements
+This is a JavaFX application built using **Maven**, with all dependencies (including JavaFX) downloaded automatically at build time.
 
-Before running the project, ensure you have:
+Before running the project, please ensure you have:
 
 ### Java Development Kit (JDK) **21 or newer**
 
