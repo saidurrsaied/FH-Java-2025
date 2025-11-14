@@ -12,7 +12,7 @@ A JavaFX-based Warehouse Management System that simulates inventory handling, ro
 
 - **Md Saidur Rahman**  
   - **Package:** `warehouse`  
-  - **Project Management`  
+  - **Project Management**  
   - **Maven Integration**
 
 - **Anh Phuc Dang**  
@@ -52,7 +52,6 @@ Managed by Maven; modules are resolved per OS automatically:
 
 ---
 
----
 
 ## Requirements
 - JDK 21 or newer
@@ -60,13 +59,6 @@ Managed by Maven; modules are resolved per OS automatically:
 - The project includes the **Maven Wrapper**, so **NO** need Maven installed. See **How To Run**
 
 ---
-
-## Project Structure
-
-
-WMSJFX/ ├── .mvn/ # Maven wrapper files ├── mvnw, mvnw.cmd # Maven wrapper scripts ├── pom.xml # Maven configuration ├── data/ # Sample CSV data (inventory, floor) ├── Logging/ # Output logs (created at runtime) └── src/ ├── main/java/wms/wmsjfx/ │ ├── Main_HMI.java # JavaFX entry point │ ├── application/ # JavaFX controllers and UI helpers │ │ ├── inventory_screen/ │ │ └── robot_screen/ │ ├── equipmentManager/ # Robots, stations, central dispatcher │ ├── logger/ # Logging API and UI │ ├── pathFinding/ # A* grid map and algorithm │ ├── taskManager/ # Task abstraction and implementations │ └── warehouse/ # Domain model and data manager └── main/resources/ # FXML views and assets
-
-
 
 ### Package Guide
 - application
@@ -87,32 +79,23 @@ WMSJFX/ ├── .mvn/ # Maven wrapper files ├── mvnw, mvnw.cmd # Maven w
 
 # How to Run the Application
 
-You can run WMSJFX in two ways:  
-1. **Using Maven Wrapper** (recommended)  
-2. **Using installed Maven**
+You can run the project **Using Maven Wrapper** (included)
 
----
 
-## Option A: Run with Maven Wrapper (Recommended)
 
-### 🪟 Windows
+### Windows
 ```powershell
-.\mvnw clean javafx:run
+.\mvnw clean install javafx:run
 ```
 
-### 🍎 macOS / 🐧 Linux
+###  macOS /  Linux
 ```bash
-./mvnw clean javafx:run
+./mvnw clean install javafx:run
 ```
 
 ---
 
-## Option B: Run with Installed Maven
-
-Check Maven installation:
-```bash
-mvn -v
-```
+## Optionally: Run with Installed Maven
 
 Run:
 ```bash
@@ -121,7 +104,7 @@ mvn clean javafx:run
 
 ---
 
-# 🛠 Building the Project
+#  Building the Project
 
 ### Windows
 ```powershell
@@ -135,15 +118,4 @@ mvn clean javafx:run
 
 ---
 
-# JavaFX Dependencies
-
-JavaFX is managed by Maven — **no manual installation required**.  
-Maven automatically downloads JavaFX modules for your OS.
-
-Includes:
-
-- `javafx-controls`
-- `javafx-fxml`
-
----
 
