@@ -1,36 +1,37 @@
 # FH-Java-2025
 
-
-## Warehouse Management System
+## Warehouse Management System  
 ### Team 19
 
-### Team Members: 
-* Md Saidur Rahman
-* Anh Phuc Dang
-* Hai Dang Duong
+### Team Members:
+- **Md Saidur Rahman**
+- **Anh Phuc Dang**
+- **Hai Dang Duong**
 
+---
 
 ## Task Distribution:
-*Md Saidur Rahman:
-**Package:** warehouse
-**Project Management** 
-**Maven Integration**
 
-* Anh Phuc Dang:
-**Package: taskManager, pathFinding, equipmentManager**
+- **Md Saidur Rahman**  
+  - **Package:** `warehouse`  
+  - **Project Management`  
+  - **Maven Integration**
 
-* Hai Dang Duong: 
-**Package: application (JavaFX), logger**
-	
+- **Anh Phuc Dang**  
+  - **Packages:** `taskManager`, `pathFinding`, `equipmentManager`
+
+- **Hai Dang Duong**  
+  - **Packages:** `application (JavaFX)`, `logger`
 
 ---
 
 ## Requirements
+
 This is a JavaFX application built using **Maven**, with all dependencies (including JavaFX) downloaded automatically at build time.
 
 Before running the project, please ensure you have:
 
-### Java Development Kit (JDK) **21 or newer**
+- Java Development Kit (JDK) **21 or newer**
 
 ---
 
@@ -57,21 +58,21 @@ You can run WMSJFX in two ways:
 
 ---
 
-##  Option A: Run with Maven Wrapper (Recommended)
+## Option A: Run with Maven Wrapper (Recommended)
 
 ### 🪟 Windows
 ```powershell
 .\mvnw clean javafx:run
 ```
 
-###  macOS /  Linux
+### 🍎 macOS / 🐧 Linux
 ```bash
 ./mvnw clean javafx:run
 ```
 
 ---
 
-##  Option B: Run with Installed Maven
+## Option B: Run with Installed Maven
 
 Check Maven installation:
 ```bash
@@ -99,16 +100,15 @@ mvn clean javafx:run
 
 ---
 
-
 # JavaFX Dependencies
 
-JavaFX is managed by Maven — **no manual installation required**. 
-Maven automatically downloads JavaFX modules for your OS. 
+JavaFX is managed by Maven — **no manual installation required**.  
+Maven automatically downloads JavaFX modules for your OS.
 
-The project includes:
+Includes:
 
 - `javafx-controls`
 - `javafx-fxml`
 
-
 ---
+
