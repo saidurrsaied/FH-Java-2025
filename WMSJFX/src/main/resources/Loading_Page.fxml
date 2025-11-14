@@ -2,34 +2,31 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Loading">
-   <children>
-      <AnchorPane prefHeight="430.0" prefWidth="281.0" style="-fx-background-color: #001f3d;">
-         <children>
-            <Label layoutX="14.0" layoutY="22.0" text="WAREHOUSE" textFill="WHITE">
-               <font>
-                  <Font name="Verdana Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="61.0" text="Table Management" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="136.0" fitWidth="140.0" layoutX="73.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Image/delivery-distribution.png" />
-               </image>
-            </ImageView>
-            <ProgressBar fx:id="progressBar" layoutX="214.0" layoutY="376.0" prefHeight="32.0" prefWidth="54.0" progress="0.0" />
-            <Circle fill="#ffffff03" layoutX="141.0" layoutY="231.0" radius="100.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="5.0" />
-         </children>
-      </AnchorPane>
-   </children>
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wms.wmsjfx.application.Loading">
+    <children>
+        <AnchorPane prefHeight="430.0" prefWidth="281.0" style="-fx-background-color: #001f3d;">
+            <children>
+                <Label layoutX="14.0" layoutY="22.0" text="WAREHOUSE" textFill="WHITE">
+                    <font>
+                        <Font name="Verdana Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="61.0" text="Table Management" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <ProgressBar fx:id="progressBar" layoutX="214.0" layoutY="376.0" prefHeight="32.0" prefWidth="54.0" progress="0.0" />
+                <Circle fill="#ffffff03" layoutX="141.0" layoutY="231.0" radius="100.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="5.0" />
+                <Polygon fill="WHITE" layoutX="140.0" layoutY="233.0" points="-50.0, 40.0, 50.0, 40.0, 50.00001525878906, -13.428573608398438, 0.0, -60.0, -49.99998474121094, -13.428573608398438" stroke="BLACK" strokeType="INSIDE" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#001f3d" height="32.0" layoutX="129.0" layoutY="241.0" stroke="BLACK" strokeType="INSIDE" width="22.0" />
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

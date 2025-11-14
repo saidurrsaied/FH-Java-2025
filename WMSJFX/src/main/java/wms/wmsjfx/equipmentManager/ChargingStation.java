@@ -1,45 +1,25 @@
 package wms.wmsjfx.equipmentManager;
 
-import java.awt.Point;
 import wms.wmsjfx.warehouse.WahouseObjectType;
 import wms.wmsjfx.warehouse.WarehouseObject;
 
 public class ChargingStation extends WarehouseObject {
+    private ObjectState state = ObjectState.FREE;
 
-    //TODO: ID is already defined in WarehouseObject. Keep it?
-	private final String ID;
-	
-    //TODO: Location is already defined in WarehouseObject. Keep it?
-	private final Point location;
-	private ObjectState state = ObjectState.FREE;
+    public ChargingStation(String id, int x, int y, WahouseObjectType objectType) {
+        super(id, x, y, objectType);
+    }
 
-	public ChargingStation(String id, int x, int y, WahouseObjectType objectType) {
-		super(id, x, y, objectType);
-		this.ID = id;
-		this.location = new Point(x, y);
-	}
+    public void setState(ObjectState newState) {
+        state = newState;
+    }
 
-	@Override
-	public String getId() {
-		return this.ID;
-	}
-
-	public void setState(ObjectState newState) {
-		state = newState;
-	}
-	
-	public String getState() {
-		return state.toString();
-	}
-
-	@Override
-	public Point getLocation() {
-		return location;
-	}
+    public String getState() {
+        return state.toString();
+    }
 
     @Override
     public String toString() {
-        return "ChargingStation [ID=" + ID + ", location=" + location + "]";
+        return "ChargingStation [ID=" + super.getId() + ", location=" + super.getLocation() + "]";
     }
-
 }

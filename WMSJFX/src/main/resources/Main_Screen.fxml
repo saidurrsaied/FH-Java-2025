@@ -8,57 +8,57 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1430.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wms.wmsjfx.application.MainScreen">
-   <left>
-      <VBox alignment="TOP_CENTER" prefHeight="731.0" prefWidth="165.0" spacing="20.0" style="-fx-background-color: #2e3b4e;;" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets top="20.0" />
-         </padding>
-         <children>
-            <Button fx:id="inventoryButton" onAction="#showInventory" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Inventory">
-               <font>
-                  <Font name="Verdana Bold" size="16.0" />
-               </font></Button>
-            <Button fx:id="warehouseButton" onAction="#showFloor" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Warehouse">
-               <font>
-                  <Font name="Verdana Bold" size="16.0" />
-               </font></Button>
-            <Button fx:id="robotButton" onAction="#showRobot" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Robot">
-               <font>
-                  <Font name="Verdana Bold" size="16.0" />
-               </font></Button>
-            <Button fx:id="logButton" onAction="#showLog" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Log">
-               <font>
-                  <Font name="Verdana Bold" size="16.0" />
-               </font></Button>
-         </children>
-      </VBox>
-   </left>
-   <top>
-      <BorderPane prefHeight="69.0" prefWidth="1400.0" style="-fx-background-color: #2e3b4e;" BorderPane.alignment="CENTER">
-         <right>
-            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="285.0" spacing="20.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="stockButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showStock" prefHeight="50.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;" text="Stock">
-                     <font>
-                        <Font name="Verdana Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="orderButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showOrder" prefHeight="50.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;" text="Order">
-                     <font>
-                        <Font name="Verdana Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="exportButton" mnemonicParsing="false" onAction="#handleExportCSV" prefHeight="24.0" prefWidth="47.0" text="Export">
-                     <font>
-                        <Font name="Verdana Italic" size="10.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-         </right>
-      </BorderPane>
-   </top>
-   <center>
-      <BorderPane fx:id="mainContent" prefHeight="780.0" prefWidth="1300.0" BorderPane.alignment="CENTER" />
-   </center>
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="731.0" prefWidth="165.0" spacing="20.0" style="-fx-background-color: #2e3b4e;;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+            <children>
+                <Button fx:id="inventoryButton" onAction="#showInventory" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Inventory">
+                    <font>
+                        <Font name="Verdana Bold" size="16.0" />
+                    </font></Button>
+                <Button fx:id="warehouseButton" onAction="#showFloor" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Warehouse">
+                    <font>
+                        <Font name="Verdana Bold" size="16.0" />
+                    </font></Button>
+                <Button fx:id="robotButton" onAction="#showRobot" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Robot">
+                    <font>
+                        <Font name="Verdana Bold" size="16.0" />
+                    </font></Button>
+                <Button fx:id="logButton" onAction="#showLog" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #D3D3D3;" text="Log">
+                    <font>
+                        <Font name="Verdana Bold" size="16.0" />
+                    </font></Button>
+            </children>
+        </VBox>
+    </left>
+    <top>
+        <BorderPane prefHeight="69.0" prefWidth="1400.0" style="-fx-background-color: #2e3b4e;" BorderPane.alignment="CENTER">
+            <right>
+                <HBox alignment="CENTER" prefHeight="69.0" prefWidth="285.0" spacing="20.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="stockButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showStock" prefHeight="50.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;" text="Stock">
+                            <font>
+                                <Font name="Verdana Bold" size="12.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="orderButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showOrder" prefHeight="50.0" prefWidth="80.0" style="-fx-background-color: #D3D3D3;" text="Order">
+                            <font>
+                                <Font name="Verdana Bold" size="12.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="exportButton" mnemonicParsing="false" onAction="#handleExportCSV" prefHeight="24.0" prefWidth="47.0" text="Export">
+                            <font>
+                                <Font name="Verdana Italic" size="10.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            </right>
+        </BorderPane>
+    </top>
+    <center>
+        <BorderPane fx:id="mainContent" prefHeight="780.0" prefWidth="1300.0" BorderPane.alignment="CENTER" />
+    </center>
 </BorderPane>

@@ -6,10 +6,10 @@ package wms.wmsjfx.taskManager;
  * Inherits from OrderTaskException (or Exception) so Robot.run() can catch it.
  */
 public class FindChargeTimeoutException extends Exception {
-	public FindChargeTimeoutException(String message) {
+    public FindChargeTimeoutException(String message) {
         super(message); // Call parent constructor
     }
-    
+
     public FindChargeTimeoutException(String message, Throwable cause) {
         super(message, cause);
     }

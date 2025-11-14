@@ -26,10 +26,16 @@
         <Label text="Item Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <ComboBox fx:id="itemComboBox" prefHeight="25.0" prefWidth="262.0" promptText="Select an Item" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField fx:id="qtyField" promptText="e.g. 25" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Quantity:" GridPane.rowIndex="3" />
+        <Label text="Loading Station" GridPane.rowIndex="1" />
+        <TextField fx:id="qtyField" promptText="e.g. 25" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <ComboBox fx:id="loadingComboBox" prefHeight="25.0" prefWidth="262.0" promptText="Select a station" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
             <RowConstraints />
             <RowConstraints />
         </rowConstraints>

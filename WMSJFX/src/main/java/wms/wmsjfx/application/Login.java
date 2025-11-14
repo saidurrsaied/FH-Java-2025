@@ -1,14 +1,18 @@
 package wms.wmsjfx.application;
 
-import java.io.IOException;
+import java.util.List;
 
+import wms.wmsjfx.equipmentManager.EquipmentManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.animation.PauseTransition;
+import wms.wmsjfx.logger.Logger;
+import wms.wmsjfx.taskManager.TaskManager;
+import wms.wmsjfx.warehouse.WarehouseManager;
+import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
+import javafx.collections.FXCollections;
 
 public class Login {
 
@@ -18,23 +22,28 @@ public class Login {
     @FXML private Button cancelButton;
     @FXML private Label feedback;
 
+    private List<InventoryDataPacket> inventoryData = FXCollections.observableArrayList();
+    private TaskManager taskManager;
+    private WarehouseManager warehousemanager;
+    private EquipmentManager equipmentManager;
+    private Logger log = new Logger();
     @FXML
     private void initialize() {
         // Disable the Login button until both fields are filled
         loginButton.disableProperty().bind(
-            usernameField.textProperty().isEmpty()
-                .or(passwordField.textProperty().isEmpty())
+                usernameField.textProperty().isEmpty()
+                        .or(passwordField.textProperty().isEmpty())
         );
-        
+
         // Handle Enter key on password field (for login)
         passwordField.setOnAction(e -> {
-			try {
-				handleLogin();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
+            try {
+                handleLogin();
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                log.log_print("ERROR", "system", "Login Screen error");
+            }
+        });
     }
     @FXML
     private void handleLogin() throws Exception {
@@ -44,30 +53,16 @@ public class Login {
         if (username.equals("admin") && password.equals("1234")) {
             feedback.setText("Login successful!");
             feedback.setStyle("-fx-text-fill: green;");
-            // Wait for 1 second before closing the login window
-            PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
-            pause.setOnFinished(event -> {
-                // Load the Main Screen
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main_Screen.fxml"));
-                Scene mainScene = null;
-				try {
-					mainScene = new Scene(loader.load());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} // Set the initial window size to 800x600
-
-                // Create a new Stage for the Main Screen
-                Stage mainStage = new Stage();
-                mainStage.setScene(mainScene);
-                mainStage.setTitle("Welcome!");
-                mainStage.show();
-
-                // Close the login window
-                Stage loginStage = (Stage) usernameField.getScene().getWindow();
-                loginStage.close();
-            });
-            pause.play();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Main_Screen.fxml"));
+            Scene loadingScene = new Scene(loader.load());
+            MainScreen controller = loader.getController();
+            controller.setMainData(warehousemanager, inventoryData, taskManager, equipmentManager);
+            Stage mainStage = new Stage();
+            mainStage.setScene(loadingScene);
+            mainStage.setTitle("Welcome!");
+            mainStage.show();
+            Stage loginStage = (Stage) usernameField.getScene().getWindow();
+            loginStage.close();
         } else {
             feedback.setText("Invalid credentials.");
             feedback.setStyle("-fx-text-fill: red;");
@@ -79,5 +74,12 @@ public class Login {
         usernameField.clear();
         passwordField.clear();
         feedback.setText("");
+    }
+
+    public void setMainData(WarehouseManager warehousemanager, List<InventoryDataPacket> data, TaskManager taskManager, EquipmentManager equipmentManager) {
+        this.inventoryData = data;
+        this.taskManager = taskManager;
+        this.warehousemanager = warehousemanager;
+        this.equipmentManager = equipmentManager;
     }
 }

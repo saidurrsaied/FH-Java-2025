@@ -18,7 +18,6 @@ import java.util.*;
  *
  */
 
-
 public class WarehouseFloorManager {
     private final Rectangle warehouseFloor;
     private final Map<String, WarehouseObject> objectMap = new HashMap<>();
@@ -29,21 +28,9 @@ public class WarehouseFloorManager {
     }
 
     /**
-    * Add an asset to the warehouse floor if it is not overlapping with any other asset.
-    * */
+     * Add an asset to the warehouse floor if it is not overlapping with any other asset.
+     * */
     public boolean addObject(WarehouseObject asset) {
-//        Rectangle area = asset.getOccupiedArea();
-//        if (!warehouseFloor.contains(area)) {
-//            System.out.println("Out of warehouse boundaries");
-//        return false;}
-//
-//        for (WarehouseObject existingObject : objectList) {
-//            if (existingObject.getOccupiedArea().intersects(area)) {
-//                System.out.println("Overlap detected: " + asset.getId() + " overlaps with " + existingObject.getId());
-//                return false;
-//            }
-//        }
-
         objectList.add(asset);
         objectMap.put(asset.getId(), asset);
         System.out.println("Added object: " + asset.getId());
@@ -54,11 +41,11 @@ public class WarehouseFloorManager {
         WarehouseObject obj = objectMap.remove(objectId);
         if (obj == null) return false;
         else { objectList.remove(obj);
-        return true;}
+            return true;}
     }
 
-    public Optional<WarehouseObject> getObjectById(String objectId) {
-        return Optional.ofNullable(objectMap.get(objectId));
+    public WarehouseObject getObjectById(String objectId) {
+        return objectMap.get(objectId);
     }
 
     public Collection<WarehouseObject> getAllObjects() {
@@ -77,6 +64,8 @@ public class WarehouseFloorManager {
 
     }
 
+    public Rectangle getWarehouseFloor() { return warehouseFloor; }
+
     /**
      * Export the warehouse data as a list of WarehouseDataPackets
      * */
@@ -86,13 +75,12 @@ public class WarehouseFloorManager {
         for (WarehouseObject obj : objectMap.values()) {
             dataPacket.add(
                     new WarehouseDataPacket(
-                        obj.getId(),
-                        obj.getObjectType().toString(),
-                        obj.getLocation().x,
-                        obj.getLocation().y)
-                        );
+                            obj.getId(),
+                            obj.getObjectType().toString(),
+                            obj.getLocation().x,
+                            obj.getLocation().y)
+            );
         }
         return dataPacket;
     }
-
 }

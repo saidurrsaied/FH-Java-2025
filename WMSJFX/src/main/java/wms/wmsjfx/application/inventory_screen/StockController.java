@@ -1,29 +1,50 @@
 package wms.wmsjfx.application.inventory_screen;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import wms.wmsjfx.application.MainScreen;
+import wms.wmsjfx.equipmentManager.EquipmentManager;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import wms.wmsjfx.taskManager.TaskManager;
+import wms.wmsjfx.warehouse.InventoryItem;
+import wms.wmsjfx.warehouse.LoadingStation;
+import wms.wmsjfx.warehouse.WarehouseManager;
+import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
 import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
 
 public class StockController {
 
     @FXML private ComboBox<String> itemComboBox;
-    @FXML private TextField qtyField; 
-    @FXML private Label feedback; 
-    private MainScreen mainScreen;  
+    @FXML private ComboBox<String> loadingComboBox;
+    @FXML private TextField qtyField;
+    @FXML private Label feedback;
 
-    public void setInventoryManager(List<InventoryDataPacket> inventoryData) {
-        populateItemComboBox(inventoryData);
+    private WarehouseManager warehouseManager;
+    private TaskManager taskManager;
+    EquipmentManager equipmentManager;
+
+    public void setInventoryManager(WarehouseManager warehousemanager) {
+        populateItemComboBox(InventoryManager.getItems(), warehousemanager);
     }
-    
+
+    public void setManager(WarehouseManager warehouseManager,TaskManager taskManager, EquipmentManager equipmentManager) {
+        this.warehouseManager = warehouseManager;
+        this.taskManager = taskManager;
+        this.equipmentManager = equipmentManager;
+    }
+
     // Handle Apply button click: Update the inventory quantity
     @FXML
     private void handleApply() {
         String selectedItem = itemComboBox.getValue();
+        String selectedStation = loadingComboBox.getValue();
         String qtyText = qtyField.getText();
+        String idText = InventoryManager.getID(selectedItem);
 
         if (selectedItem == null || selectedItem.isEmpty()) {
             feedback.setText("Please select an item.");
@@ -34,7 +55,8 @@ public class StockController {
             feedback.setText("Please enter a quantity.");
             return;
         }
-        int quantity = 0;
+
+        int quantity;
         try {
             quantity = Integer.parseInt(qtyText);
             if (quantity <= 0) {
@@ -42,11 +64,25 @@ public class StockController {
                 return;
             }
         } catch (NumberFormatException e) {
-            feedback.setText("Invalid quantity. Please enter a valid number.");
+            feedback.setText("Invalid quantity.");
+            return;
         }
-        InventoryManager.incrementQuantity(selectedItem, quantity);
-        feedback.setText("Quantity updated successfully.");
-        showInventory(InventoryManager.convertToInventoryDataPacketList(InventoryManager.getItems()));
+
+        new Thread(() -> {
+            try {
+                taskManager.createNewStock(selectedStation, idText, quantity);
+
+                TimeUnit.SECONDS.sleep(5);
+                javafx.application.Platform.runLater(() -> {
+                    feedback.setText("Stock created successfully.");
+                });
+
+            } catch (Exception e) {
+                javafx.application.Platform.runLater(() -> {
+                    feedback.setText("Stock creation failed.");
+                });
+            }
+        }).start();
     }
 
     // Handle Clear button click: Reset the form
@@ -56,22 +92,16 @@ public class StockController {
         qtyField.clear();            // Clear the quantity field
         feedback.setText("");        // Clear the feedback message
     }
-    
-    // Setter to allow injecting MainScreen reference
-    public void setMainScreen(MainScreen mainScreen) {
-        this.mainScreen = mainScreen;
-    }
-    
-    public void showInventory(List<InventoryDataPacket> inventoryData) {
-        mainScreen.showInventory();
-        mainScreen.updateinventoryData(inventoryData);
-    }
-    
+
     // Populate the ComboBox with item names
-    private void populateItemComboBox(List<InventoryDataPacket> inventoryData) {
+    private void populateItemComboBox(ObservableList<InventoryItem> inventoryData, WarehouseManager warehousemanager) {
         itemComboBox.getItems().clear();
-        for (InventoryDataPacket item : inventoryData) {
-            itemComboBox.getItems().add(item.getProductName());
+        loadingComboBox.getItems().clear();
+        for (InventoryItem item : inventoryData) {
+            itemComboBox.getItems().add(item.getProduct().getProductName());
+        }
+        for(LoadingStation station : warehousemanager.getAllLoadingStations()) {
+            loadingComboBox.getItems().add(station.getId());
         }
     }
 }

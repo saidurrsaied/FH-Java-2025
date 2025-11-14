@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.util.concurrent.BlockingQueue; // Dùng queue chung
 import java.util.concurrent.atomic.AtomicInteger;
 
+import wms.wmsjfx.warehouse.LoadingStation;
+import wms.wmsjfx.warehouse.WarehouseManager;
+
 //import warehouse.WarehousePosition;
 
 public class TaskManager {
@@ -11,23 +14,25 @@ public class TaskManager {
     private final BlockingQueue<Task> taskSubmissionQueue;
     private final AtomicInteger orderIdCounter = new AtomicInteger(0);
     private final AtomicInteger stockIdCounter = new AtomicInteger(0);
-    
+    private final WarehouseManager warehouseManager;
+
     // Queue for sending tasks to equipment manager
-    public TaskManager(BlockingQueue<Task> taskSubmissionQueue) {
+    public TaskManager(BlockingQueue<Task> taskSubmissionQueue, WarehouseManager warehouseManager) {
         this.taskSubmissionQueue = taskSubmissionQueue;
+        this.warehouseManager = warehouseManager;
     }
 
     // Method for creating Order task
-    public void createNewOrder(Point orderPosition, String itemId, int quantity) throws TaskCreationException {
+    public void createNewOrder(String productID, int quantity) throws TaskCreationException {
 
         int newId = orderIdCounter.incrementAndGet();
         String taskId = "Order-" + newId;
 
         // 1) Create a new Order (may throw OrderTaskException if invalid)
         final Task newTask;
-        
+
         try {
-            newTask = new OrderTask(taskId, itemId, orderPosition, quantity);
+            newTask = new OrderTask(taskId, productID, quantity, warehouseManager);
         } catch (OrderTaskException e) {
             // Chain the validation error from Order into a higher-level exception
             throw new TaskCreationException("Order validation failed for " + taskId, e);
@@ -36,7 +41,7 @@ public class TaskManager {
         // 2) Submit the task to the shared queue (may throw InterruptedException)
         try {
             taskSubmissionQueue.put(newTask);
-            System.out.printf("[TaskManager] Submitted %s (%s x%d)%n", taskId, itemId, quantity);
+            System.out.printf("[TaskManager] Submitted %s (%s x%d)%n", taskId, productID, quantity);
         } catch (InterruptedException e) {
             // Restore the thread's interrupted status
             Thread.currentThread().interrupt();
@@ -46,20 +51,28 @@ public class TaskManager {
             // throw new RuntimeException("Interrupted while enqueuing " + taskId, e);
         }
     }
-    
- // Method for creating Stock task
-    public void createNewStock(String itemName, Point unloadingArea, Point shelfLocation) {
-    	int newId = stockIdCounter.incrementAndGet();
-    	String taskId = "Stock-" + newId;
-        Task newTask = new StockTask(taskId, itemName, unloadingArea, shelfLocation);
-        
+
+    // Method for creating Stock task
+    public void createNewStock(String loadingStationID, String productID, int quantity) throws TaskCreationException {
+        int newId = stockIdCounter.incrementAndGet();
+        String taskId = "Stock-" + newId;
+
+        final Task newTask;
+        LoadingStation loadingStation = (LoadingStation) warehouseManager.getObjectFromFloor(loadingStationID);
+        try {
+            newTask = new StockTask(taskId, productID, loadingStation, quantity, warehouseManager);
+        } catch (OrderTaskException e) {
+            // Chain the validation error from Stock into a higher-level exception
+            throw new TaskCreationException("Order validation failed for " + taskId, e);
+        }
+
         try {
             // Push new task into queue
             taskSubmissionQueue.put(newTask);
-            System.out.println("[TaskManager] Submitted new task " + itemName + " to shared queue.");
+            System.out.println("[TaskManager] Submitted new task " + taskId + " to shared queue.");
         } catch (InterruptedException e) {
-             Thread.currentThread().interrupt();
-             System.err.println("[TaskManager] Failed to submit task " + itemName);
+            Thread.currentThread().interrupt();
+            System.err.println("[TaskManager] Failed to submit task " + taskId);
         }
     }
 }
