@@ -32,7 +32,7 @@ WMSJFX provides:
 
 ---
 
-## Tech
+## Tools
 - Java 25 (JDK 21+ compatible runtime)
 - JavaFX 25.x
 - Maven (via Maven Wrapper)
