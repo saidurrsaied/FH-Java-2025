@@ -1,4 +1,4 @@
-package wms.wmsjfx.equipmentManager;
+package equipmentManager;
 
 public enum ObjectState {
     FREE,

@@ -1,4 +1,4 @@
-package wms.wmsjfx.equipmentManager;
+package equipmentManager;
 
 public enum RobotState {
     IDLE,
@@ -6,6 +6,6 @@ public enum RobotState {
     PICKING,
     WAITING_FOR_AVAILABLE_PACKING_STATION,
     PACKING,
-    CHARGING,
     WAITING_FOR_AVAILABLE_CHARGING_STATION,
+    CHARGING,
 }

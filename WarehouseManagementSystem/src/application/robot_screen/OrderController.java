@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import logger.Logger;
 import warehouse.WarehouseManager;
 import warehouse.datamanager.InventoryDataPacket;
 
@@ -29,7 +28,7 @@ public class OrderController {
         
         TaskManager taskManager;
         EquipmentManager equipmentManager;
-        Logger log = new Logger();
+        // Reverted logging
 
         public void setInventoryManager(List<InventoryDataPacket> inventoryData) {
 	        populateItemComboBox(inventoryData);  // Update the table view whenever inventoryManager is set
@@ -72,8 +71,7 @@ public class OrderController {
 
             new Thread(() -> {
                 try {
-                    Point location = warehouseManager.getProductLocationByProductID(idText);
-                    taskManager.createNewOrder(location, idText, quantity);
+                    taskManager.createNewOrder(idText, quantity);
 
                     TimeUnit.SECONDS.sleep(5);
 
@@ -82,7 +80,7 @@ public class OrderController {
                     });
 
                 } catch (Exception e) {
-                    log.log_print("ERROR", "robot", "Order creation failed: " + e.getMessage());
+                    System.err.println("[robot] Order creation failed: " + e.getMessage());
                     javafx.application.Platform.runLater(() -> {
                         feedback.setText("Order creation failed.");
                     });

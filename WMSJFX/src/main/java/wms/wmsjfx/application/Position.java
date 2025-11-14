@@ -1,4 +1,4 @@
-package wms.wmsjfx.application;
+package application;
 
 public class Position {
        double x, y;

@@ -1,4 +1,4 @@
-package wms.wmsjfx.warehouse;
+package warehouse;
 
 public class StorageShelf extends WarehouseObject implements Locatable {
 

@@ -3,116 +3,133 @@ package taskManager.unitTests;
 import taskManager.Task;
 import taskManager.TaskManager;
 import taskManager.TaskCreationException;
+import warehouse.WarehouseManager;
+import warehouse.StorageShelf;
+import warehouse.Product;
+import warehouse.WahouseObjectType;
+import warehouse.exceptions.InventoryException;
 
-import java.awt.Point;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * 5 log-based test cases for TaskManager.createNewOrder(...)
- * Demonstrates chained exceptions (OrderTaskException -> TaskCreationException).
- *
- * Assumptions in Order constructor validations (no enum, message-only):
- * - itemLocation == null                -> "Item location cannot be null"
- * - itemName == null/blank              -> "Item name cannot be null or blank"
- * - quantity <= 0                       -> "Quantity must be greater than zero"
- * - itemName equals "Item-Z" (example)  -> "Item-Z is out of stock"
- *
- * Note: orderId is generated inside TaskManager ("Order-N"), so we do NOT test blank orderId here.
+ * Log-based tests for TaskManager.createNewOrder(productID, quantity)
+ * Validations come from OrderTask constructor and Inventory.
  */
 public class CreateOrderCasesLogTest {
 
+    private static class Ctx {
+        BlockingQueue<Task> q;
+        WarehouseManager wm;
+        TaskManager tm;
+        String okProductId;
+    }
+
     public static void main(String[] args) {
-        System.out.println("===== Running 5 Create-Order Cases (log-based) =====");
+        System.out.println("===== CREATE ORDER TESTS =====");
+        Ctx ctx = setup();
 
-        // Shared unbounded queue; we don't need a consumer for these tests
-        BlockingQueue<Task> queue = new LinkedBlockingQueue<>();
-        TaskManager tm = new TaskManager(queue);
+        case1_nullProduct_shouldChain(ctx);
+        case2_blankProduct_shouldChain(ctx);
+        case3_quantityZero_shouldChain(ctx);
+        case4_productNotFound_runtimeInventory(ctx);
+        case5_quantityTooLarge_shouldChain(ctx);
+        case6_validOrder_enqueued(ctx);
 
-        case1_nullPickupLocation_shouldChain(tm);
-        case2_blankItemName_shouldChain(tm);
-        case3_quantityZero_shouldChain(tm);
-        case4_nullItemName_shouldChain(tm);
-        case5_validOrder_shouldPass(tm);
-
-        System.out.println("===== All cases executed =====");
+        System.out.println("===== ALL TESTS FINISHED =====");
     }
 
-    // Case 1: orderPosition == null -> expect TaskCreationException; cause msg "Item location cannot be null"
-    private static void case1_nullPickupLocation_shouldChain(TaskManager tm) {
-        System.out.print("Case 1 (null pickup location): ");
+    private static Ctx setup() {
+        Ctx c = new Ctx();
+        c.q = new LinkedBlockingQueue<>();
+        c.wm = new WarehouseManager(12, 12);
+
+        // Create one shelf and one product in inventory
+        StorageShelf shelf = new StorageShelf("S1", 5, 5, WahouseObjectType.StorageShelf);
+        c.wm.addObjectToFloor(shelf);
+        Product prod = new Product("Widget", "PROD-OK");
+        c.wm.addProductToInventory(prod, 5, shelf.getId());
+        c.okProductId = prod.getProductID();
+
+        c.tm = new TaskManager(c.q, c.wm);
+        return c;
+    }
+
+    private static void case1_nullProduct_shouldChain(Ctx c) {
+        System.out.print("Case 1 (productID=null): ");
         try {
-            tm.createNewOrder(null, "Item-A", 1);
-            System.out.println("❌ FAIL (expected TaskCreationException)");
+            c.tm.createNewOrder(null, 1);
+            System.out.println("[FAIL] expected TaskCreationException");
         } catch (TaskCreationException e) {
-            printChained(e, "Item location cannot be null");
+            expectCauseContains(e, "Order ID and productID cannot be null or blank");
         } catch (Exception e) {
-            System.out.println("❌ FAIL (unexpected exception): " + e);
+            System.out.println("[FAIL] unexpected: " + e);
         }
     }
 
-    // Case 2: itemName blank -> expect TaskCreationException; cause msg "Item name cannot be null or blank"
-    private static void case2_blankItemName_shouldChain(TaskManager tm) {
-        System.out.print("Case 2 (blank item name): ");
+    private static void case2_blankProduct_shouldChain(Ctx c) {
+        System.out.print("Case 2 (productID blank): ");
         try {
-            tm.createNewOrder(new Point(1, 1), "   ", 1);
-            System.out.println("❌ FAIL (expected TaskCreationException)");
+            c.tm.createNewOrder("  \t", 1);
+            System.out.println("[FAIL] expected TaskCreationException");
         } catch (TaskCreationException e) {
-            printChained(e, "Item name cannot be null or blank");
+            expectCauseContains(e, "Order ID and productID cannot be null or blank");
         } catch (Exception e) {
-            System.out.println("❌ FAIL (unexpected exception): " + e);
+            System.out.println("[FAIL] unexpected: " + e);
         }
     }
 
-    // Case 3: quantity <= 0 -> expect TaskCreationException; cause msg "Quantity must be greater than zero"
-    private static void case3_quantityZero_shouldChain(TaskManager tm) {
-        System.out.print("Case 3 (quantity = 0): ");
+    private static void case3_quantityZero_shouldChain(Ctx c) {
+        System.out.print("Case 3 (quantity=0): ");
         try {
-            tm.createNewOrder(new Point(2, 2), "Item-B", 0);
-            System.out.println("❌ FAIL (expected TaskCreationException)");
+            c.tm.createNewOrder(c.okProductId, 0);
+            System.out.println("[FAIL] expected TaskCreationException");
         } catch (TaskCreationException e) {
-            printChained(e, "Quantity must be greater than zero");
+            expectCauseContains(e, "Quantity must be greater than zero");
         } catch (Exception e) {
-            System.out.println("❌ FAIL (unexpected exception): " + e);
+            System.out.println("[FAIL] unexpected: " + e);
         }
     }
 
-    // Case 4: out of stock sentinel (e.g., "Item-Z") -> expect TaskCreationException; cause msg "Item-Z is out of stock"
-    private static void case4_nullItemName_shouldChain(TaskManager tm) {
-        System.out.print("Case 4 (null item name): ");
+    private static void case4_productNotFound_runtimeInventory(Ctx c) {
+        System.out.print("Case 4 (product not found): ");
         try {
-            tm.createNewOrder(new Point(3, 3), null, 1);
-            System.out.println("❌ FAIL (expected TaskCreationException)");
+            c.tm.createNewOrder("MISSING", 1);
+            System.out.println("[FAIL] expected InventoryException");
+        } catch (InventoryException ex) {
+            System.out.println("[PASS] " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("[FAIL] unexpected: " + e);
+        }
+    }
+
+    private static void case5_quantityTooLarge_shouldChain(Ctx c) {
+        System.out.print("Case 5 (quantity too large): ");
+        try {
+            c.tm.createNewOrder(c.okProductId, 999);
+            System.out.println("[FAIL] expected TaskCreationException");
         } catch (TaskCreationException e) {
-            printChained(e, "Item name cannot be null or blank");
+            expectCauseContains(e, "Quantity is not enough");
         } catch (Exception e) {
-            System.out.println("❌ FAIL (unexpected exception): " + e);
+            System.out.println("[FAIL] unexpected: " + e);
         }
     }
 
-    // Case 5: valid order -> should NOT throw; success log printed by TaskManager
-    private static void case5_validOrder_shouldPass(TaskManager tm) {
-        System.out.print("Case 5 (valid order): ");
+    private static void case6_validOrder_enqueued(Ctx c) {
+        System.out.print("Case 6 (valid order): ");
         try {
-            tm.createNewOrder(new Point(10, 10), "Item-OK", 2);
-            System.out.println("✅ PASS");
+            int before = c.q.size();
+            c.tm.createNewOrder(c.okProductId, 2);
+            int after = c.q.size();
+            System.out.println(after == before + 1 ? "[PASS]" : "[FAIL] queue not incremented");
         } catch (Exception e) {
-            System.out.println("❌ FAIL (unexpected exception): " + e);
+            System.out.println("[FAIL] unexpected: " + e);
         }
     }
 
-    // Helper to print chained messages and verify expected root-cause text
-    private static void printChained(TaskCreationException e, String expectedCauseSnippet) {
-        String msg = e.getMessage();
+    private static void expectCauseContains(TaskCreationException e, String text) {
         String causeMsg = (e.getCause() != null ? e.getCause().getMessage() : null);
-
-        boolean hasCause = (e.getCause() != null);
-        boolean causeMatch = (causeMsg != null && causeMsg.contains(expectedCauseSnippet));
-
-        System.out.println((hasCause && causeMatch ? "✅ PASS" : "❌ FAIL")
-                + " | TaskCreationException: \"" + msg + "\""
-                + " | cause: " + (hasCause
-                    ? (e.getCause().getClass().getSimpleName() + " - \"" + causeMsg + "\"")
-                    : "null"));
+        boolean ok = (causeMsg != null && causeMsg.contains(text));
+        System.out.println(ok ? "[PASS]" : ("[FAIL] cause=" + causeMsg));
     }
 }

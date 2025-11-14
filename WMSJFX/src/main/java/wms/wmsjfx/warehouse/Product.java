@@ -1,4 +1,4 @@
-package wms.wmsjfx.warehouse;
+package warehouse;
 
 import java.awt.*;
 

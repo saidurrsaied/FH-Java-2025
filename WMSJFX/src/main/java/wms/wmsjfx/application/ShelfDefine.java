@@ -1,4 +1,4 @@
-package wms.wmsjfx.application;
+package application;
 
 import java.util.HashMap;
 import java.util.Map;

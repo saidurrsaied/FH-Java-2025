@@ -1,4 +1,4 @@
-package wms.wmsjfx.warehouse.exceptions;
+package warehouse.exceptions;
 
 public class DataFileException extends RuntimeException {
     public DataFileException(String message) { super(message); }

@@ -12,6 +12,10 @@ public class Logger {
     private static String logFolderPath;
     private static String logSystemPath;
     private static File folder_robot;
+    private static File folder_robot1;
+    private static File folder_robot2;
+    private static File folder_robot3;
+    private static File folder_equipment_manager;
     private static File folder_charging;
     private static File folder_inventory;
     private static File folder_system;
@@ -26,6 +30,22 @@ public class Logger {
         folder_robot = new File("Logging", "Robot");
         if (!folder_robot.exists()) {
         		folder_robot.mkdir();
+        }
+        folder_robot1 = new File("Logging/Robot", "Robot1");
+        if (!folder_robot1.exists()) {
+        		folder_robot1.mkdir();
+        }
+        folder_robot2 = new File("Logging/Robot", "Robot2");
+        if (!folder_robot2.exists()) {
+        		folder_robot2.mkdir();
+        }
+        folder_robot3 = new File("Logging/Robot", "Robot3");
+        if (!folder_robot3.exists()) {
+        		folder_robot3.mkdir();
+        }
+        folder_equipment_manager = new File("Logging", "Equipment_Manager");
+        if (!folder_equipment_manager.exists()) {
+        		folder_equipment_manager.mkdir();
         }
         folder_charging = new File("Logging", "Charging_Station");
         if (!folder_charging.exists()) {
@@ -58,12 +78,27 @@ public class Logger {
         
         String system = null;
         switch(component) {
-        case "robot":
+            case "robot":
         	 	logFolderPath = folder_robot.getPath(); 
         		system = "Robot";
         		break;
-        
-    		case "inventory":
+            case "R1":
+        	 	logFolderPath = folder_robot1.getPath();
+        		system = "Robot1";
+        		break;
+            case "R2":
+        	 	logFolderPath = folder_robot2.getPath();
+                system = "Robot2";
+        		break;      
+            case "R3":
+        	 	logFolderPath = folder_robot3.getPath();
+                system = "Robot3";      
+                break;
+            case "equipment_manager":
+        	 	logFolderPath = folder_equipment_manager.getPath();
+        		system = "Equipment_Manager";
+        		break;
+            case "inventory":
         	 	logFolderPath = folder_inventory.getPath(); 
         		system = "Inventory";
     			break;

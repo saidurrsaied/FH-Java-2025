@@ -1,6 +1,6 @@
-package wms.wmsjfx.warehouse;
+package warehouse;
 
-import wms.wmsjfx.warehouse.exceptions.InventoryException;
+import warehouse.exceptions.InventoryException;
 
 public class InventoryItem {
     private final Product product;
@@ -13,8 +13,6 @@ public class InventoryItem {
         this.availableQuantity = quantity;
         this.shelf = shelf;
     }
-
-    //getInventoryItem(pid).getProduct().getProductName()
 
     public Product getProduct() { return product; }
     public StorageShelf getShelf() { return shelf; }

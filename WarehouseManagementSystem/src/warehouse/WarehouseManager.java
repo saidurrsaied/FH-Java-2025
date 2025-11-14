@@ -88,7 +88,7 @@ public class WarehouseManager {
 //    public boolean removeObjectFromFloor (String objectID){
 //        return floorManager.removeObject(objectID);
 //    }
-    public Optional<WarehouseObject> getObjectFromFloor (String objectID){
+    public WarehouseObject getObjectFromFloor (String objectID){
         return floorManager.getObjectById(objectID);
     }
 
@@ -107,7 +107,6 @@ public class WarehouseManager {
     public Point getProductLocationByProductID(String productID){return inventory.geInventoryItem(productID).getShelf().getLocation();}
 
     public StorageShelf getStorageShelfByProductID(String productID){return inventory.geInventoryItem(productID).getShelf();}
-
 
     public List<WarehouseDataPacket> exportFloorData(){
         return floorManager.exportWarehouseData();
@@ -146,6 +145,16 @@ public class WarehouseManager {
         return stations;
     }
 
+    public List<LoadingStation> getAllLoadingStations() {
+        List<LoadingStation> stations = new ArrayList<>();
+        for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
+            if (obj.getObjectType().equals(WahouseObjectType.LoadingStation)) {
+                stations.add((LoadingStation) obj);
+            }
+        }
+        return stations;
+    }
+    
     public List<Robot> getAllRobots() {
         List<Robot> robots = new ArrayList<>();
         for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
@@ -156,7 +165,16 @@ public class WarehouseManager {
         return robots;
     }
 
+    public List<WarehouseObject> getAllWarehouseObjects() {
+    	List<WarehouseObject> objects =  new ArrayList<>();
+        for (WarehouseObject obj : WarehouseManager.this.floorManager.getAllObjects()) {
+            objects.add(obj);
+        }
+    	return objects;
+    }
+
+    public Rectangle getWarehouseArea() {
+        return this.floorManager.getWarehouseFloor();
+    }
 
 }
-
-

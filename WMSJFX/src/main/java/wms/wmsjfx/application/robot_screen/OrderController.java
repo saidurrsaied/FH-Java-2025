@@ -1,4 +1,4 @@
-package wms.wmsjfx.application.robot_screen;
+package application.robot_screen;
 
 import java.awt.Point;
 import java.util.List;
@@ -6,17 +6,16 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import wms.wmsjfx.application.inventory_screen.InventoryManager;
-import wms.wmsjfx.equipmentManager.EquipmentManager;
-import wms.wmsjfx.taskManager.Task;
-import wms.wmsjfx.taskManager.TaskManager;
+import application.inventory_screen.InventoryManager;
+import equipmentManager.EquipmentManager;
+import taskManager.Task;
+import taskManager.TaskManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import wms.wmsjfx.logger.Logger;
-import wms.wmsjfx.warehouse.WarehouseManager;
-import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
+import warehouse.WarehouseManager;
+import warehouse.datamanager.InventoryDataPacket;
 
 public class OrderController {
 	    @FXML private ComboBox<String> itemComboBox;
@@ -29,7 +28,7 @@ public class OrderController {
         
         TaskManager taskManager;
         EquipmentManager equipmentManager;
-        Logger log = new Logger();
+        // Reverted logging
 
         public void setInventoryManager(List<InventoryDataPacket> inventoryData) {
 	        populateItemComboBox(inventoryData);  // Update the table view whenever inventoryManager is set
@@ -72,8 +71,7 @@ public class OrderController {
 
             new Thread(() -> {
                 try {
-                    Point location = warehouseManager.getProductLocationByProductID(idText);
-                    taskManager.createNewOrder(location, idText, quantity);
+                    taskManager.createNewOrder(idText, quantity);
 
                     TimeUnit.SECONDS.sleep(5);
 
@@ -82,7 +80,7 @@ public class OrderController {
                     });
 
                 } catch (Exception e) {
-                    log.log_print("ERROR", "robot", "Order creation failed: " + e.getMessage());
+                    System.err.println("[robot] Order creation failed: " + e.getMessage());
                     javafx.application.Platform.runLater(() -> {
                         feedback.setText("Order creation failed.");
                     });

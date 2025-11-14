@@ -3,15 +3,65 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import equipmentManager.ChargingStation;
+import equipmentManager.Robot;
+import warehouse.PackingStation;
+import warehouse.StorageShelf;
+import warehouse.WahouseObjectType;
+import warehouse.WarehouseObject;
+
 public class WarehouseMap {
-    public Node nodeArray[][];
-    public int mapSizeX;
-    public int mapSizeY;
+    private Node nodeArray[][];
+    private final int mapSizeX;
+    private final  int mapSizeY;
+    private final List<WarehouseObject> warehouseObjects;
     
-    public WarehouseMap(int mapSizeX, int mapSizeY) {
+    public WarehouseMap(int mapSizeX, int mapSizeY, List<WarehouseObject> warehouseObjects) {
     	this.mapSizeX = mapSizeX;
     	this.mapSizeY = mapSizeY;
-    	nodeArray = new Node[mapSizeX][mapSizeY];
+    	this.warehouseObjects = warehouseObjects;
+    	try {
+        	nodeArray = new Node[mapSizeX][mapSizeY];
+		} catch (Exception e) {
+			System.out.println("Got error" + e);
+		}
+    	System.out.println("Create successfully");
+    	createWarehouseMap();
+    	System.out.println("Create successfully");
+    }
+    
+    private void createWarehouseMap() {
+        for (WarehouseObject object : warehouseObjects) {
+        	switch (object.getObjectType()) {
+        	    case WahouseObjectType.ChargingStation:
+        	    	addWarehouseObject(NodeType.ChargingStation, false, object.getLocation()); 
+        	    	break;
+        	    case WahouseObjectType.PackingStation:
+        	    	addWarehouseObject(NodeType.PackingStation, false, object.getLocation());
+        	    	break;
+        	    case WahouseObjectType.LoadingStation:
+        	    	addWarehouseObject(NodeType.LoadingStation, false, object.getLocation());        	    	
+        	    	break;
+        	    case WahouseObjectType.StorageShelf:
+        	    	addWarehouseObject(NodeType.Shelf, false, object.getLocation());
+        	    	break;
+        	    case WahouseObjectType.Robot:
+                    addWarehouseObject(NodeType.Robot, true, object.getLocation());   
+        	    	break;
+
+        	    default:
+                    addWarehouseObject(NodeType.None, true, object.getLocation());
+        	    	break;
+        	}
+        }
+        
+        for (int x = 0 ; x < this.mapSizeX; x++) {
+			for (int y = 0; y < this.mapSizeY; y++) {
+				if (getWarehouseObject(new Point(x,y)) == null) {
+					addWarehouseObject(NodeType.None, true, new Point(x,y));
+				}
+			}
+		}
     }
     
     public void addWarehouseObject(NodeType nodeType, boolean walkable, Point position) {
@@ -26,7 +76,7 @@ public class WarehouseMap {
     public void showMap() {
     	// 1. Print map contents and Y-axis (row) headers
         // Loop 'y' backwards (from mapSizeY - 1 down to 0) so Y-axis '0' is at the bottom.
-    	for (int y = mapSizeY - 1; y >= 0; y--) { 
+    	for (int y = 0; y < mapSizeY; y++) {
     		
     		// Print the Y-axis header (e.g., "9 | ", "8 | ")
     		System.out.print(String.format("%-2d| ", y)); 
@@ -46,6 +96,9 @@ public class WarehouseMap {
     					case PackingStation:
     						System.out.print("P ");
     						break;
+    					case LoadingStation:
+    						System.out.print("L ");
+    						break;   						
     					case Shelf:
     						System.out.print("S ");
     						break;

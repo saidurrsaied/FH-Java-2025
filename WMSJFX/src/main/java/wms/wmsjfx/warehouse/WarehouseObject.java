@@ -1,4 +1,5 @@
-package wms.wmsjfx.warehouse;
+package warehouse;
+import java.awt.Rectangle;
 import java.awt.Point;
 
 public abstract class WarehouseObject {

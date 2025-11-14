@@ -1,4 +1,4 @@
-package wms.wmsjfx.taskManager;
+package taskManager;
 
 /**
  * Custom exception thrown when a Robot

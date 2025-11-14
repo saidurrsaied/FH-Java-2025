@@ -1,10 +1,9 @@
 package warehouse;
-import equipmentManager.EquipmentInterface;
 import equipmentManager.ObjectState;
 
 import java.awt.Point;
 
-public class PackingStation extends WarehouseObject implements EquipmentInterface {
+public class PackingStation extends WarehouseObject {
 	private final Point location;
     private ObjectState state = ObjectState.FREE;
     
@@ -16,16 +15,6 @@ public class PackingStation extends WarehouseObject implements EquipmentInterfac
 	@Override
 	public Point getLocation() {
 		return location;
-	}
-
-	@Override
-	public String getState() {
-		return state.toString();
-	}
-
-	@Override
-	public String getID() {
-		return super.getId();
 	}
 	
     //Overloaded

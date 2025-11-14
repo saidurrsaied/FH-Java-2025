@@ -1,4 +1,4 @@
-package wms.wmsjfx.application.inventory_screen;
+package application.inventory_screen;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -6,7 +6,7 @@ import javafx.scene.control.TableView;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import wms.wmsjfx.warehouse.InventoryItem;
+import warehouse.InventoryItem;
 
 public class InventoryController {
 

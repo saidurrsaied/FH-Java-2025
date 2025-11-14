@@ -1,11 +1,11 @@
-package wms.wmsjfx.warehouse.datamanager;
+package warehouse.datamanager;
 
 
-import wms.wmsjfx.equipmentManager.ChargingStation;
-import wms.wmsjfx.equipmentManager.EquipmentManager;
-import wms.wmsjfx.equipmentManager.Robot;
-import wms.wmsjfx.warehouse.*;
-import wms.wmsjfx.warehouse.exceptions.DataFileException;
+import equipmentManager.ChargingStation;
+import equipmentManager.EquipmentManager;
+import equipmentManager.Robot;
+import warehouse.*;
+import warehouse.exceptions.DataFileException;
 
 import java.awt.*;
 import java.io.*;

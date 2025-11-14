@@ -1,4 +1,4 @@
-package wms.wmsjfx.warehouse.datamanager;
+package warehouse.datamanager;
 
 public class WarehouseDataPacket {
     private final String id;

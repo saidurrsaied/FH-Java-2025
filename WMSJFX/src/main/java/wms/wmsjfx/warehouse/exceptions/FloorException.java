@@ -1,4 +1,4 @@
-package wms.wmsjfx.warehouse.exceptions;
+package warehouse.exceptions;
 
 public class FloorException extends RuntimeException {
     public FloorException(String message) { super(message); }

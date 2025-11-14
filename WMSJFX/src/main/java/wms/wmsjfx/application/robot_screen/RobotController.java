@@ -1,6 +1,6 @@
-package wms.wmsjfx.application.robot_screen;
+package application.robot_screen;
 
-import wms.wmsjfx.equipmentManager.Robot;
+import equipmentManager.Robot;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;

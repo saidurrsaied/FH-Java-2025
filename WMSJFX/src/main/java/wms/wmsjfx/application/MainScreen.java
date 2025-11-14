@@ -1,15 +1,17 @@
-package wms.wmsjfx.application;
+package application;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
-import wms.wmsjfx.application.inventory_screen.*;
-import wms.wmsjfx.application.inventory_screen.InventoryManager;
-import wms.wmsjfx.application.inventory_screen.StockController;
-import wms.wmsjfx.application.robot_screen.OrderController;
-import wms.wmsjfx.application.robot_screen.RobotManager;
-import wms.wmsjfx.equipmentManager.EquipmentManager;
+import application.inventory_screen.*;
+import application.robot_screen.OrderController;
+import application.robot_screen.RobotManager;
+import equipmentManager.EquipmentManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
@@ -20,10 +22,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
-import wms.wmsjfx.taskManager.TaskManager;
-import wms.wmsjfx.warehouse.WarehouseManager;
-import wms.wmsjfx.warehouse.datamanager.DataFile;
-import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
+import logger.*;
+import taskManager.TaskManager;
+import warehouse.InventoryItem;
+import warehouse.WahouseObjectType;
+import warehouse.WarehouseManager;
+import warehouse.datamanager.DataFile;
+import warehouse.datamanager.InventoryDataPacket;
 public class MainScreen {
 	
     @FXML private BorderPane mainContent;
@@ -37,8 +42,8 @@ public class MainScreen {
         this.taskManager = taskManager;
         this.warehousemanager = warehousemanager;
         this.equipmentManager = equipmentManager;
-        InventoryManager.initializeInventory(inventoryData);
-        RobotManager.initializeRobot(this.equipmentManager.getRobot());
+        InventoryManager.initializeInventory(inventoryData);   
+//        RobotManager.initializeRobot(this.equipmentManager.getRobot());
     }
     
     // Set inventory data
@@ -59,7 +64,7 @@ public class MainScreen {
     public void showInventory() {
         // Load and set content for Inventory
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Inventory_Screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Inventory_Screen.fxml"));
             Node screen = loader.load();
             mainContent.setCenter(screen);            
         } catch (Exception e) {
@@ -72,7 +77,7 @@ public class MainScreen {
     private void showFloor() {
         // Load and set content for Floor
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Floor_Screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Floor_Screen.fxml"));
             Node floorScreen = loader.load();
 
 //            FloorController floorController = loader.getController();
@@ -88,7 +93,7 @@ public class MainScreen {
     private void showRobot() {
         // Load and set content for Robot
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Robot_Screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Robot_Screen.fxml"));
             Node robotScreen = loader.load();
             mainContent.setCenter(robotScreen);
         } catch (Exception e) {
@@ -101,7 +106,7 @@ public class MainScreen {
     private void showLog() {
         // Load and set content for Log
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Log_Screen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Log_Screen.fxml"));
             Node inventoryScreen = loader.load();
             mainContent.setCenter(inventoryScreen);
         } catch (Exception e) {
@@ -111,7 +116,7 @@ public class MainScreen {
     @FXML private void showStock() {
         try {
             // Load the Stock screen FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Stock_Form.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Stock_Form.fxml"));
             Parent stockForm = loader.load();
             
             // Get the controller of Inventory Screen
@@ -131,7 +136,7 @@ public class MainScreen {
     @FXML private void showOrder() {
         try {
             // Load the Stock screen FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Order_Form.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_interface/Order_Form.fxml"));
             Parent orderForm = loader.load();
             
             // Get the controller of Inventory Screen

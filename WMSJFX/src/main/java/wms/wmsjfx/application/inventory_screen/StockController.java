@@ -1,12 +1,12 @@
-package wms.wmsjfx.application.inventory_screen;
+package application.inventory_screen;
 
 import java.util.List;
-import wms.wmsjfx.application.MainScreen;
+import application.MainScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
+import warehouse.datamanager.InventoryDataPacket;
 
 public class StockController {
 

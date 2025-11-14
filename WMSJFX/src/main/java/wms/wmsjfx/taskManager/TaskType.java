@@ -1,4 +1,4 @@
-package wms.wmsjfx.taskManager;
+package taskManager;
 
 // Send to equipment manager
 public enum TaskType {

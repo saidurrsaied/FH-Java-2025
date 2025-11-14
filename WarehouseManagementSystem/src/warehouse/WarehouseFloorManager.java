@@ -57,8 +57,8 @@ public class WarehouseFloorManager {
         return true;}
     }
 
-    public Optional<WarehouseObject> getObjectById(String objectId) {
-        return Optional.ofNullable(objectMap.get(objectId));
+    public WarehouseObject getObjectById(String objectId) {
+        return objectMap.get(objectId);
     }
 
     public Collection<WarehouseObject> getAllObjects() {
@@ -76,6 +76,8 @@ public class WarehouseFloorManager {
 
 
     }
+
+    public Rectangle getWarehouseFloor() { return warehouseFloor; }
 
     /**
      * Export the warehouse data as a list of WarehouseDataPackets

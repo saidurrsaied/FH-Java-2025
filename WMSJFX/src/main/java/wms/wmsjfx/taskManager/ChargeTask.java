@@ -1,11 +1,11 @@
-package wms.wmsjfx.taskManager;
+package taskManager;
 
 import java.awt.Point;
 import java.util.List;
 
-import wms.wmsjfx.equipmentManager.ChargingStation;
-import wms.wmsjfx.equipmentManager.EquipmentManager;
-import wms.wmsjfx.equipmentManager.Robot;
+import equipmentManager.ChargingStation;
+import equipmentManager.EquipmentManager;
+import equipmentManager.Robot;
 
 public class ChargeTask implements Task{
 	private final ChargingStation chargingStation;
@@ -36,7 +36,7 @@ public class ChargeTask implements Task{
 
 	@Override
 	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
-		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
+		System.out.printf("[charging][%s] Executing %s...%n", robot.getId(), this.ID);
 		List<Point> steps = manager.requestPath(robot, chargingStation.getLocation());
 		robot.stepMove(steps);
 		robot.charge();

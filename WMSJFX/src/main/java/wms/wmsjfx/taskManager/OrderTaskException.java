@@ -1,4 +1,4 @@
-package wms.wmsjfx.taskManager;
+package taskManager;
 
 public class OrderTaskException extends Exception {
 	

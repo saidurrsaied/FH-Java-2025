@@ -3,6 +3,9 @@ package pathFinding;
 import java.awt.Point;
 import java.util.*;
 
+import warehouse.WarehouseManager;
+import warehouse.WarehouseObject;
+
 /**
  * Thread-safe PathFinding class using A* algorithm.
  * It does NOT modify WarehouseMap nodes directly.
@@ -13,8 +16,13 @@ public class PathFinding {
 
     private final WarehouseMap warehouseMap;
 
-    public PathFinding(WarehouseMap warehouseMap) {
-        this.warehouseMap = warehouseMap;
+    public PathFinding(WarehouseManager warehouseManager) {
+        List<WarehouseObject> warehouseObjects = warehouseManager.getAllWarehouseObjects();
+        System.out.println(warehouseObjects);
+        System.out.println(warehouseManager.getWarehouseArea().width);
+        System.out.println(warehouseManager.getWarehouseArea().height);
+        this.warehouseMap = new WarehouseMap(warehouseManager.getWarehouseArea().width, warehouseManager.getWarehouseArea().height, warehouseObjects);
+        warehouseMap.showMap();
     }
 
     /**
@@ -101,8 +109,6 @@ public class PathFinding {
 
         // Optional: remove first point (start position)
         if (!path.isEmpty()) path.remove(0);
-
-        System.out.println("Found path (" + path.size() + " steps): " + path);
         return path;
     }
 

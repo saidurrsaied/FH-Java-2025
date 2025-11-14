@@ -1,7 +1,7 @@
-package wms.wmsjfx.taskManager;
+package taskManager;
 
-import wms.wmsjfx.equipmentManager.Robot;
-import wms.wmsjfx.equipmentManager.EquipmentManager; // <-- Needs reference to the manager
+import equipmentManager.Robot;
+import equipmentManager.EquipmentManager; // <-- Needs reference to the manager
 
 /**
  * Task Interface.

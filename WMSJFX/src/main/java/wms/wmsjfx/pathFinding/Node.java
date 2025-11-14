@@ -1,4 +1,4 @@
-package wms.wmsjfx.pathFinding;
+package pathFinding;
 import java.awt.Point;
 
 public class Node {

@@ -1,7 +1,7 @@
-package wms.wmsjfx.application;
+package application;
 
-import wms.wmsjfx.application.robot_screen.RobotManager;
-import wms.wmsjfx.equipmentManager.Robot;
+import application.robot_screen.RobotManager;
+import equipmentManager.Robot;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

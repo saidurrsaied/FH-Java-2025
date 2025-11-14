@@ -1,4 +1,4 @@
-package wms.wmsjfx.taskManager;
+package taskManager;
 
 public class TaskCreationException extends Exception{
     public TaskCreationException(String message) { super(message); }

@@ -1,8 +1,8 @@
-package wms.wmsjfx.application.robot_screen;
+package application.robot_screen;
 
 import java.util.List;
 
-import wms.wmsjfx.equipmentManager.Robot;
+import equipmentManager.Robot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

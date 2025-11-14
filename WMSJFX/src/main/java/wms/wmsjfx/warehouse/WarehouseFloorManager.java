@@ -1,7 +1,7 @@
-package wms.wmsjfx.warehouse;
+package warehouse;
 
-import wms.wmsjfx.warehouse.datamanager.WarehouseDataPacket;
-import wms.wmsjfx.warehouse.exceptions.FloorException;
+import warehouse.datamanager.WarehouseDataPacket;
+import warehouse.exceptions.FloorException;
 
 import java.awt.Rectangle;
 import java.util.*;
@@ -57,8 +57,8 @@ public class WarehouseFloorManager {
         return true;}
     }
 
-    public Optional<WarehouseObject> getObjectById(String objectId) {
-        return Optional.ofNullable(objectMap.get(objectId));
+    public WarehouseObject getObjectById(String objectId) {
+        return objectMap.get(objectId);
     }
 
     public Collection<WarehouseObject> getAllObjects() {
@@ -76,6 +76,8 @@ public class WarehouseFloorManager {
 
 
     }
+
+    public Rectangle getWarehouseFloor() { return warehouseFloor; }
 
     /**
      * Export the warehouse data as a list of WarehouseDataPackets

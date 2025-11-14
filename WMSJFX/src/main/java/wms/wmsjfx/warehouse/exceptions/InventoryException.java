@@ -1,4 +1,4 @@
-package wms.wmsjfx.warehouse.exceptions;
+package warehouse.exceptions;
 
 public class InventoryException extends RuntimeException {
     public InventoryException(String message) { super(message); }

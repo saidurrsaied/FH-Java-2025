@@ -1,26 +1,45 @@
-package wms.wmsjfx.warehouse;
+package warehouse; // (Hoặc package của bạn)
 
-public class LoadingStation extends WarehouseObject implements Locatable {
+import equipmentManager.ObjectState;
+import java.awt.Point;
+import java.util.concurrent.Semaphore;
 
-    private boolean isAvailable;
+public class LoadingStation extends WarehouseObject {
+    
+    private ObjectState state = ObjectState.FREE;
+    private final Point location;
+    private final Semaphore permit = new Semaphore(1, true);
 
-    public LoadingStation( String id, int x, int y, WahouseObjectType object_TYPE) {
-        super(id, x, y, object_TYPE);
-        this.isAvailable = true;
+    public LoadingStation(String id, int x, int y, WahouseObjectType objectType) {
+        super(id, x, y, objectType);
+        this.location = new Point(x, y);
     }
 
-
-    public boolean isAvailable() { return isAvailable; }
-    public void setOccupied() { this.isAvailable = false; }
-    public void setFree() { this.isAvailable = true; }
-
-
-
-
-    @Override
-    public String toString() {
-        return  "ID:" + super.getId() + (this.isAvailable ? "  is Available" : " is Occupied");
+    public void acquire() throws InterruptedException {
+        permit.acquire();
+        this.state = ObjectState.BUSY;
     }
 
+    public void release() {
+        this.state = ObjectState.FREE;
+        permit.release();
+    }
+    
+    // --- Getters ---
+    public Point getLocation() { 
+        return this.location;
+    }
+    
+    public String getState() { 
+        return state.toString(); 
+    }
+    
+    public void setState(ObjectState s) { 
+        this.state = s; 
+    }
 
+	@Override
+	public String toString() {
+        return "LoadingStation [ID=" + super.getId() + ", location=" + location + "]";
+	}
 }

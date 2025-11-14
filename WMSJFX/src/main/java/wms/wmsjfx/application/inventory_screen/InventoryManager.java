@@ -1,15 +1,15 @@
-package wms.wmsjfx.application.inventory_screen;
+package application.inventory_screen;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import wms.wmsjfx.warehouse.InventoryItem;
-import wms.wmsjfx.warehouse.Product;
-import wms.wmsjfx.warehouse.StorageShelf;
-import wms.wmsjfx.warehouse.datamanager.InventoryDataPacket;
-import wms.wmsjfx.warehouse.WahouseObjectType;
+import warehouse.InventoryItem;
+import warehouse.Product;
+import warehouse.StorageShelf;
+import warehouse.datamanager.InventoryDataPacket;
+import warehouse.WahouseObjectType;
 public class InventoryManager {
 
 	private static final ObservableList<InventoryItem> ITEMS = FXCollections.observableArrayList();

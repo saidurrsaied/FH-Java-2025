@@ -31,10 +31,9 @@ public class GoToStartTask implements Task{
 
 	@Override
 	public void execute(Robot robot, EquipmentManager manager) throws InterruptedException {
-		System.out.printf("[%s] Executing %s...%n", robot.getID(), this.ID);
+		System.out.printf("[robot][%s] Executing %s%n", robot.getId(), this.ID);
 		List<Point> steps = manager.requestPath(robot, startingPosition);
 		robot.stepMove(steps);
-//		robot.moveTo(startingPosition);
 	}
 
 	@Override

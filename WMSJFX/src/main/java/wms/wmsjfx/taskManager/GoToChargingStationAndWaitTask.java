@@ -1,13 +1,14 @@
-package wms.wmsjfx.taskManager;
+package taskManager;
 
 import java.awt.Point;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
-import wms.wmsjfx.equipmentManager.ChargingStation;
-import wms.wmsjfx.equipmentManager.EquipmentManager;
-import wms.wmsjfx.equipmentManager.ObjectState;
-import wms.wmsjfx.equipmentManager.Robot;
-import wms.wmsjfx.equipmentManager.RobotState;
+import equipmentManager.ChargingStation;
+import equipmentManager.EquipmentManager;
+import equipmentManager.ObjectState;
+import equipmentManager.Robot;
+import equipmentManager.RobotState;
 
 public class GoToChargingStationAndWaitTask implements Task {
     private final ChargingStation targetChargingStation;
@@ -46,9 +47,9 @@ public class GoToChargingStationAndWaitTask implements Task {
 		// 2. Wait for 15 minutes for available charging station
 		robot.setState(RobotState.WAITING_FOR_AVAILABLE_CHARGING_STATION);
 		ChargingStation foundChargingStation = manager.requestAvailableChargingStation(15);
-		
+
 		if (foundChargingStation != null) {
-		    System.out.printf("[%s] Found available Charging Station %s for Robot %s.%n", this.getClass().getName(), foundChargingStation.getId(), robot.getID());
+	    System.out.printf("[charging][%s] Found charging station %s for %s%n", this.getClass().getSimpleName(), foundChargingStation.getId(), robot.getId());
 		    foundChargingStation.setState(ObjectState.BUSY);
 		    // Check if this charging station is the charging station robot stands
 		    if (foundChargingStation.getLocation().equals(robot.getCurrentPosition())) {
@@ -62,8 +63,8 @@ public class GoToChargingStationAndWaitTask implements Task {
 		    // Finally remove charging station when robot finishes charging
 		    manager.releaseChargeStation(foundChargingStation);
 		} else {
-            // Can not found available, go to starting point and wait
-			throw new FindChargeTimeoutException("Can not find charge in 15 minutes %n");
+	            System.err.printf("[charging][%s] No station found in timeout%n", robot.getId());
+			throw new FindChargeTimeoutException("Can not find charge in 15 minutes");
 		}
 	}
     
