@@ -90,3 +90,449 @@
 [info][14-11-25][15:44:09][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
 [info][14-11-25][15:44:22][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
 [info][14-11-25][15:44:22][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:44:38][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:44:38][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:44:38][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:44:38][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:44:38][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:44:38][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:44:39][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:44:39][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:44:39][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:44:39][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:44:52][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:44:52][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:08][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:08][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:08][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:08][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:08][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:08][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:09][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:09][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:09][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:09][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:22][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:22][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:38][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:38][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:38][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:38][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:39][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:39][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:39][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:39][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:45:52][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:45:52][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:08][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:08][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:08][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:08][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:08][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:09][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:09][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:09][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:09][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:22][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:22][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:38][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:38][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:38][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:38][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:38][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:38][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:39][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:39][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:39][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:39][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:46:52][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:46:52][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:57:48][Robot1] [R1] Robot thread started at (0, 0)
+[info][14-11-25][15:57:48][Equipment_Manager]  Dispatcher started.
+[info][14-11-25][15:58:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:58:18][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:58:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:58:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:58:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:58:48][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:58:48][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:58:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:59:16][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 30.97) = Total: 30.97
+[info][14-11-25][15:59:16][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 29.97) = Total: 29.97
+[info][14-11-25][15:59:16][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 31.97) = Total: 31.97
+[info][14-11-25][15:59:16][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-002] -> R3
+[info][14-11-25][15:59:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:59:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:59:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:59:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:59:19][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][15:59:21][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 2)
+[info][14-11-25][15:59:21][Equipment_Manager]  Robot R3 finished task Order-1.
+[info][14-11-25][15:59:21][Equipment_Manager] No pending tasks. Sending R3 to Start Point.
+[info][14-11-25][15:59:24][Equipment_Manager]  Robot R3 finished task GoToStart(2,0).
+[info][14-11-25][15:59:24][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][15:59:34][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 30.97) = Total: 30.97
+[info][14-11-25][15:59:34][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 31.97) = Total: 31.97
+[info][14-11-25][15:59:34][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 29.97) = Total: 29.97
+[info][14-11-25][15:59:34][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-002] -> R3
+[info][14-11-25][15:59:37][Equipment_Manager]  Found available Packing Station PST02 for Robot R3.
+[info][14-11-25][15:59:39][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 2)
+[info][14-11-25][15:59:39][Equipment_Manager]  Robot R3 finished task Order-2.
+[info][14-11-25][15:59:39][Equipment_Manager] No pending tasks. Sending R3 to Start Point.
+[info][14-11-25][15:59:43][Equipment_Manager]  Robot R3 finished task GoToStart(2,0).
+[info][14-11-25][15:59:43][Equipment_Manager]  Assign charging station CS02 to robot R3.
+[info][14-11-25][15:59:44][Equipment_Manager] Charging Station CS02 released back to queue. (Queue size: 2)
+[info][14-11-25][15:59:44][Equipment_Manager]  Robot R3 finished task Charge-R3.
+[info][14-11-25][15:59:44][Equipment_Manager]  Robot R3 finished charging. Sending to Start Point.
+[info][14-11-25][15:59:45][Equipment_Manager]  Robot R3 finished task GoToStart(2,0).
+[info][14-11-25][15:59:45][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][15:59:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:59:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][15:59:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][15:59:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:00:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:00:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:00:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:00:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:00:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:00:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:00:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:00:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:00:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:00:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:00:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:00:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:01:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:01:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:01:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:01:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:01:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:01:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:01:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:01:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:01:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:01:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:01:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:02:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:02:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:02:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:02:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:02:18][Robot2] [R2] IDLE. Waiting for task (30 sec timeout)...
+[info][14-11-25][16:02:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:02:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:02:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:02:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:02:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:02:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:02:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:02:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:03:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:03:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:03:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:03:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:03:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:03:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:03:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:03:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:03:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:03:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:03:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:03:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:04:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:04:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:04:18][Robot1] [R1] IDLE TIMEOUT (30 sec). Requesting charge...
+[info][14-11-25][16:04:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:04:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:04:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:04:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:04:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:04:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:04:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:04:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:04:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:05:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:05:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:05:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:05:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:05:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:05:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:05:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:05:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:05:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:05:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:05:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:05:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:09][Robot1] [R1] Robot thread started at (0, 13)
+[info][14-11-25][16:06:09][Equipment_Manager]  Dispatcher started.
+[info][14-11-25][16:06:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:06:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:06:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:06:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:39][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:06:39][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:39][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:39][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:42][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 20.14) = Total: 20.14
+[info][14-11-25][16:06:42][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 19.73) = Total: 19.73
+[info][14-11-25][16:06:42][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 21.14) = Total: 21.14
+[info][14-11-25][16:06:42][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-001] -> R3
+[info][14-11-25][16:06:44][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][16:06:45][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:06:45][Equipment_Manager]  Robot R3 finished task Order-1.
+[info][14-11-25][16:06:45][Equipment_Manager] No pending tasks. Sending R3 to Start Point.
+[info][14-11-25][16:06:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:06:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:46][Equipment_Manager]  Robot R3 finished task GoToStart(2,13).
+[info][14-11-25][16:06:46][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][16:06:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:06:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:06:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:06:56][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 39.80) = Total: 39.80
+[info][14-11-25][16:06:56][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 40.21) = Total: 40.21
+[info][14-11-25][16:06:56][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 39.38) = Total: 39.38
+[info][14-11-25][16:06:56][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-006] -> R3
+[info][14-11-25][16:06:59][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 26.73) = Total: 26.73
+[info][14-11-25][16:06:59][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 27.73) = Total: 27.73
+[info][14-11-25][16:06:59][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-004] -> R2
+[info][14-11-25][16:07:00][Equipment_Manager]  Found available Packing Station PST02 for Robot R3.
+[info][14-11-25][16:07:02][Equipment_Manager]  Found available Packing Station PST01 for Robot R2.
+[info][14-11-25][16:07:03][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:03][Equipment_Manager]  Robot R3 finished task Order-2.
+[info][14-11-25][16:07:03][Equipment_Manager] No pending tasks. Sending R3 to Start Point.
+[info][14-11-25][16:07:03][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 40.46) = Total: 40.46
+[info][14-11-25][16:07:03][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-008] -> R1
+[info][14-11-25][16:07:03][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:03][Equipment_Manager]  Robot R2 finished task Order-3.
+[info][14-11-25][16:07:03][Equipment_Manager] No pending tasks. Sending R2 to Start Point.
+[info][14-11-25][16:07:05][Equipment_Manager]  Robot R2 finished task GoToStart(1,13).
+[info][14-11-25][16:07:05][Equipment_Manager]  Robot R2 is at Start Point. Now IDLE.
+[info][14-11-25][16:07:05][Equipment_Manager]  Robot R3 finished task GoToStart(2,13).
+[info][14-11-25][16:07:05][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][16:07:05][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 39.46) = Total: 39.46
+[info][14-11-25][16:07:05][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 38.46) = Total: 38.46
+[info][14-11-25][16:07:05][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-008] -> R3
+[info][14-11-25][16:07:07][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 39.46) = Total: 39.46
+[info][14-11-25][16:07:07][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-008] -> R2
+[info][14-11-25][16:07:08][Equipment_Manager]  Found available Packing Station PST02 for Robot R1.
+[info][14-11-25][16:07:08][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (1)
+[info][14-11-25][16:07:09][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (2)
+[info][14-11-25][16:07:10][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][16:07:10][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:10][Equipment_Manager]  Robot R1 finished task Order-4.
+[info][14-11-25][16:07:10][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:10][Equipment_Manager] [Equipment Manager] Robot R1 assigned pending task Order-7
+[info][14-11-25][16:07:11][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (2)
+[info][14-11-25][16:07:11][Equipment_Manager]  Found available Packing Station PST02 for Robot R2.
+[info][14-11-25][16:07:12][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (3)
+[info][14-11-25][16:07:12][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:12][Equipment_Manager]  Robot R3 finished task Order-5.
+[info][14-11-25][16:07:12][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:12][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:12][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:12][Equipment_Manager]  Assign charging station CS02 to robot R3.
+[info][14-11-25][16:07:13][Equipment_Manager]  Found available Packing Station PST01 for Robot R1.
+[info][14-11-25][16:07:14][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:14][Equipment_Manager]  Robot R2 finished task Order-6.
+[info][14-11-25][16:07:14][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:14][Equipment_Manager] [Equipment Manager] Robot R2 assigned pending task Order-8
+[info][14-11-25][16:07:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:07:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:07:16][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:16][Equipment_Manager]  Robot R1 finished task Order-7.
+[info][14-11-25][16:07:16][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:16][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:16][Equipment_Manager] No pending tasks. Sending R1 to Start Point.
+[info][14-11-25][16:07:16][Equipment_Manager] Charging Station CS02 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:16][Equipment_Manager]  Robot R3 finished task Charge-R3.
+[info][14-11-25][16:07:16][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 30.97) = Total: 30.97
+[info][14-11-25][16:07:16][Equipment_Manager] [Equipment Manager] Robot R3 assigned pending task Order-9
+[info][14-11-25][16:07:17][Equipment_Manager]  Found available Packing Station PST02 for Robot R2.
+[info][14-11-25][16:07:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:07:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:07:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:07:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:07:18][Equipment_Manager]  Robot R1 finished task GoToStart(0,13).
+[info][14-11-25][16:07:18][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 40.46) = Total: 40.46
+[info][14-11-25][16:07:18][Equipment_Manager]  Assign charging station CS01 to robot R1.
+[info][14-11-25][16:07:18][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][16:07:19][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:19][Equipment_Manager]  Robot R2 finished task Order-8.
+[info][14-11-25][16:07:19][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:19][Equipment_Manager]  Assign charging station CS02 to robot R2.
+[info][14-11-25][16:07:21][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:21][Equipment_Manager]  Robot R3 finished task Order-9.
+[info][14-11-25][16:07:21][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:21][Equipment_Manager] [Equipment Manager] Robot R3 assigned pending task Order-10
+[info][14-11-25][16:07:23][Equipment_Manager] Charging Station CS01 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:23][Equipment_Manager]  Robot R1 finished task Charge-R1.
+[info][14-11-25][16:07:23][Equipment_Manager]  Robot R1 finished charging. Sending to Start Point.
+[info][14-11-25][16:07:23][Equipment_Manager] Charging Station CS02 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:23][Equipment_Manager]  Robot R2 finished task Charge-R2.
+[info][14-11-25][16:07:23][Equipment_Manager]  Robot R2 finished charging. Sending to Start Point.
+[info][14-11-25][16:07:24][Equipment_Manager]  Found available Packing Station PST02 for Robot R3.
+[info][14-11-25][16:07:26][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (1)
+[info][14-11-25][16:07:26][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (2)
+[info][14-11-25][16:07:26][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (3)
+[info][14-11-25][16:07:26][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (4)
+[info][14-11-25][16:07:27][Equipment_Manager]  Robot R1 finished task GoToStart(0,13).
+[info][14-11-25][16:07:27][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 40.46) = Total: 40.46
+[info][14-11-25][16:07:27][Equipment_Manager] [Equipment Manager] Robot R1 assigned pending task Order-11
+[info][14-11-25][16:07:27][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (4)
+[info][14-11-25][16:07:27][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (5)
+[info][14-11-25][16:07:27][Equipment_Manager]  Robot R2 finished task GoToStart(1,13).
+[info][14-11-25][16:07:27][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 39.46) = Total: 39.46
+[info][14-11-25][16:07:27][Equipment_Manager] [Equipment Manager] Robot R2 assigned pending task Order-12
+[info][14-11-25][16:07:27][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (5)
+[info][14-11-25][16:07:27][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:27][Equipment_Manager]  Robot R3 finished task Order-10.
+[info][14-11-25][16:07:27][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:27][Equipment_Manager] [Equipment Manager] Robot R3 assigned pending task Order-13
+[info][14-11-25][16:07:27][Equipment_Manager]  No available robot for Task [taskType=PICK_ORDER, itemName=P-008] → Pending (5)
+[info][14-11-25][16:07:30][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][16:07:31][Equipment_Manager]  Found available Packing Station PST02 for Robot R1.
+[info][14-11-25][16:07:32][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:32][Equipment_Manager]  Found available Packing Station PST01 for Robot R2.
+[info][14-11-25][16:07:32][Equipment_Manager]  Robot R3 finished task Order-13.
+[info][14-11-25][16:07:32][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:32][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:32][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:32][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:32][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:32][Equipment_Manager]  Assign charging station CS01 to robot R3.
+[info][14-11-25][16:07:34][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:34][Equipment_Manager]  Robot R1 finished task Order-11.
+[info][14-11-25][16:07:34][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:34][Equipment_Manager] [Equipment Manager] Robot R1 assigned pending task Order-14
+[info][14-11-25][16:07:35][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:35][Equipment_Manager]  Robot R2 finished task Order-12.
+[info][14-11-25][16:07:35][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:35][Equipment_Manager] [Equipment Manager] Robot R2 assigned pending task Order-15
+[info][14-11-25][16:07:36][Equipment_Manager] Charging Station CS01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:36][Equipment_Manager]  Robot R3 finished task Charge-R3.
+[info][14-11-25][16:07:36][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 30.97) = Total: 30.97
+[info][14-11-25][16:07:36][Equipment_Manager] [Equipment Manager] Robot R3 assigned pending task Order-16
+[info][14-11-25][16:07:37][Equipment_Manager]  Found available Packing Station PST02 for Robot R1.
+[info][14-11-25][16:07:38][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][16:07:39][Equipment_Manager]  Found available Packing Station PST02 for Robot R2.
+[info][14-11-25][16:07:39][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:39][Equipment_Manager]  Robot R1 finished task Order-14.
+[info][14-11-25][16:07:39][Robot2] [R2] Starting multi-step path from (15, 5). Steps: 8
+[info][14-11-25][16:07:39][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:39][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:39][Equipment_Manager]  Assign charging station CS02 to robot R1.
+[info][14-11-25][16:07:41][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:41][Equipment_Manager]  Robot R3 finished task Order-16.
+[info][14-11-25][16:07:41][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 33.46) = Total: 33.46
+[info][14-11-25][16:07:41][Equipment_Manager] [Equipment Manager] Robot R3 assigned pending task Order-17
+[info][14-11-25][16:07:42][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:42][Equipment_Manager]  Robot R2 finished task Order-15.
+[info][14-11-25][16:07:42][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 32.63) = Total: 32.63
+[info][14-11-25][16:07:42][Equipment_Manager]  Assign charging station CS01 to robot R2.
+[info][14-11-25][16:07:42][Equipment_Manager] Charging Station CS02 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:42][Equipment_Manager]  Robot R1 finished task Charge-R1.
+[info][14-11-25][16:07:42][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 30.97) = Total: 30.97
+[info][14-11-25][16:07:42][Equipment_Manager] [Equipment Manager] Robot R1 assigned pending task Order-18
+[info][14-11-25][16:07:44][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][16:07:44][Equipment_Manager] Charging Station CS01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:44][Equipment_Manager]  Robot R2 finished task Charge-R2.
+[info][14-11-25][16:07:44][Equipment_Manager]  Robot R2 finished charging. Sending to Start Point.
+[info][14-11-25][16:07:45][Equipment_Manager]  Found available Packing Station PST02 for Robot R1.
+[info][14-11-25][16:07:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:07:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:07:47][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 1)
+[info][14-11-25][16:07:47][Equipment_Manager]  Robot R3 finished task Order-17.
+[info][14-11-25][16:07:47][Equipment_Manager] No pending tasks. Sending R3 to Start Point.
+[info][14-11-25][16:07:47][Equipment_Manager] Packing Station PST02 released back to queue. (Queue size: 2)
+[info][14-11-25][16:07:47][Equipment_Manager]  Robot R1 finished task Order-18.
+[info][14-11-25][16:07:47][Equipment_Manager] No pending tasks. Sending R1 to Start Point.
+[info][14-11-25][16:07:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:07:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:07:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:07:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:07:48][Equipment_Manager]  Robot R3 finished task GoToStart(2,13).
+[info][14-11-25][16:07:48][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][16:07:48][Equipment_Manager]  Robot R2 finished task GoToStart(1,13).
+[info][14-11-25][16:07:48][Equipment_Manager]  Robot R2 is at Start Point. Now IDLE.
+[info][14-11-25][16:07:50][Equipment_Manager]  Robot R1 finished task GoToStart(0,13).
+[info][14-11-25][16:07:50][Equipment_Manager]  Robot R1 is at Start Point. Now IDLE.
+[info][14-11-25][16:08:04][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R3 (Dist: 27.73) = Total: 27.73
+[info][14-11-25][16:08:04][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R2 (Dist: 27.31) = Total: 27.31
+[info][14-11-25][16:08:04][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R1 (Dist: 26.90) = Total: 26.90
+[info][14-11-25][16:08:04][Equipment_Manager]  DISPATCH wms.wmsjfx.taskManager.StockTask@11a60bbe -> R3
+[info][14-11-25][16:08:07][Equipment_Manager]  Robot R3 finished task Stock-1.
+[info][14-11-25][16:08:07][Equipment_Manager]  Assign charging station CS02 to robot R3.
+[info][14-11-25][16:08:12][Equipment_Manager] Charging Station CS02 released back to queue. (Queue size: 2)
+[info][14-11-25][16:08:12][Equipment_Manager]  Robot R3 finished task Charge-R3.
+[info][14-11-25][16:08:12][Equipment_Manager]  Robot R3 finished charging. Sending to Start Point.
+[info][14-11-25][16:08:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:16][Equipment_Manager]  Robot R3 finished task GoToStart(2,13).
+[info][14-11-25][16:08:16][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][16:08:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:20][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:20][Equipment_Manager]  Found free station CS01. Assigning ChargeTask.
+[info][14-11-25][16:08:24][Equipment_Manager] Charging Station CS01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:08:24][Equipment_Manager]  Robot R1 finished task Charge-R1.
+[info][14-11-25][16:08:24][Equipment_Manager]  Robot R1 finished charging. Sending to Start Point.
+[info][14-11-25][16:08:26][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R3 (Dist: 27.73) = Total: 27.73
+[info][14-11-25][16:08:26][Equipment_Manager] [Equipment Manager] Energy calc (Stock) for R2 (Dist: 27.31) = Total: 27.31
+[info][14-11-25][16:08:26][Equipment_Manager]  DISPATCH wms.wmsjfx.taskManager.StockTask@7e86db04 -> R3
+[info][14-11-25][16:08:28][Equipment_Manager]  Robot R1 finished task GoToStart(0,13).
+[info][14-11-25][16:08:28][Equipment_Manager]  Robot R1 is at Start Point. Now IDLE.
+[info][14-11-25][16:08:30][Equipment_Manager]  Robot R3 finished task Stock-2.
+[info][14-11-25][16:08:30][Equipment_Manager] No pending tasks. Sending R3 to Start Point.
+[info][14-11-25][16:08:31][Equipment_Manager]  Robot R3 finished task GoToStart(2,13).
+[info][14-11-25][16:08:31][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][16:08:44][Equipment_Manager] [Equipment Manager] Energy calc for R2 (Dist: 20.14) = Total: 20.14
+[info][14-11-25][16:08:44][Equipment_Manager] [Equipment Manager] Energy calc for R1 (Dist: 21.14) = Total: 21.14
+[info][14-11-25][16:08:44][Equipment_Manager] [Equipment Manager] Energy calc for R3 (Dist: 19.73) = Total: 19.73
+[info][14-11-25][16:08:44][Equipment_Manager]  DISPATCH Task [taskType=PICK_ORDER, itemName=P-001] -> R3
+[info][14-11-25][16:08:45][Equipment_Manager]  Found available Packing Station PST01 for Robot R3.
+[info][14-11-25][16:08:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:46][Equipment_Manager] Packing Station PST01 released back to queue. (Queue size: 2)
+[info][14-11-25][16:08:46][Equipment_Manager]  Robot R3 finished task Order-19.
+[info][14-11-25][16:08:46][Equipment_Manager] No pending tasks. Sending R3 to Start Point.
+[info][14-11-25][16:08:47][Equipment_Manager]  Robot R3 finished task GoToStart(2,13).
+[info][14-11-25][16:08:47][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][16:08:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:08:58][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:08:58][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:15][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:15][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:17][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:17][Equipment_Manager]  Found free station CS02. Assigning ChargeTask.
+[info][14-11-25][16:09:18][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:18][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:18][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:18][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:22][Equipment_Manager] Charging Station CS02 released back to queue. (Queue size: 2)
+[info][14-11-25][16:09:22][Equipment_Manager]  Robot R3 finished task Charge-R3.
+[info][14-11-25][16:09:22][Equipment_Manager]  Robot R3 finished charging. Sending to Start Point.
+[info][14-11-25][16:09:26][Equipment_Manager]  Robot R3 finished task GoToStart(2,13).
+[info][14-11-25][16:09:26][Equipment_Manager]  Robot R3 is at Start Point. Now IDLE.
+[info][14-11-25][16:09:28][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:28][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:45][Equipment_Manager]  R3 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:45][Equipment_Manager]  R3 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:48][Equipment_Manager]  R1 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:48][Equipment_Manager]  R1 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.
+[info][14-11-25][16:09:48][Equipment_Manager]  R2 (IDLE) requested charge due to timeout.
+[info][14-11-25][16:09:48][Equipment_Manager]  R2 requested charge but is already full. Returning to IDLE.

@@ -34,7 +34,7 @@ public class RobotController {
     @FXML private TableColumn<Robot, String> robotstate;
     @FXML private TableView<Robot> tablerobot;
 
-    private Timeline refreshTimeline_1, refreshTimeline_2;
+    private Timeline refreshTimeline;
 
     public void initialize() {
         robotid.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getId()));
@@ -57,14 +57,12 @@ public class RobotController {
         tablerobot.minHeightProperty().bind(tablerobot.prefHeightProperty());
         tablerobot.maxHeightProperty().bind(tablerobot.prefHeightProperty());
 
-        refreshTimeline_1 = new Timeline(
+        refreshTimeline = new Timeline(
                 new KeyFrame(Duration.millis(200), e -> tablerobot.refresh())
         );
 
-        refreshTimeline_1.setCycleCount(Timeline.INDEFINITE);
-        refreshTimeline_2.setCycleCount(Timeline.INDEFINITE);
-
-        refreshTimeline_1.play();
+        refreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        refreshTimeline.play();
     }
 
     private <T> TableCell<Robot, T> centeredCell(TableColumn<Robot, T> col) {
